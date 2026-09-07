@@ -21,6 +21,13 @@ const chk = (n, c, x='') => out.push(`${c ? 'PASS' : '**FAIL**'}  ${n}${x ? '  â
     chk('no stat counters â€” that is the point', !$('#stat-listings'));
     chk('it is signed by a person', /Dave/.test($('.signoff').textContent), $('.signoff').textContent.trim());
 
+    chk('Tilly is on the page', !!$('.tilly img'), ($('.tilly img')||{}).getAttribute?.('src'));
+    chk('her photo has alt text', (($('.tilly img')||{}).getAttribute?.('alt') || '').length > 10);
+    chk('her photo file exists', (() => {
+      const fs = require('fs'), path = require('path');
+      return fs.existsSync(path.join(__dirname, '..', $('.tilly img').getAttribute('src')));
+    })());
+
     // the shared inventory view still works
     window.location.hash = '#/inventory';
     window.dispatchEvent(new window.Event('hashchange'));

@@ -57,7 +57,7 @@
 
 /* ---- less structure: hairlines instead of filled bands ---------------- */
 .band-tint{ background:transparent; border-block:0; border-top:1px solid var(--line) }
-.band{ padding:44px 0 }
+.band{ padding-block:44px }
 .strip{ background:transparent; border-bottom:1px solid var(--line) }
 .hdr{ border-bottom:1px solid var(--line) }
 .panel{ background:transparent; border:1px solid var(--line) }
@@ -105,3 +105,12 @@
   border:1px solid var(--line); border-radius:var(--r); padding:5px 10px; text-decoration:none;
 }
 .vswitch:hover{ border-color:var(--ink-3); color:var(--ink) }
+
+/* Tilly. A small company has a cat; a dealer group has a mission statement. */
+.tilly figure{ display:grid; grid-template-columns:minmax(0,220px) minmax(0,1fr); gap:26px; align-items:center; margin:0 }
+.tilly img{ width:100%; aspect-ratio:1; object-fit:cover; border-radius:var(--r-lg); display:block }
+.tilly figcaption p{ font-family:var(--font-display); font-size:16px; line-height:1.7; color:var(--ink-2); margin:9px 0 0; max-width:46ch }
+@media (max-width:640px){
+  .tilly figure{ grid-template-columns:1fr; gap:16px }
+  .tilly img{ max-width:180px; aspect-ratio:1 }
+}

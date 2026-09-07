@@ -114,7 +114,7 @@ a{ color:inherit; text-decoration:none }
    Trust strip
    ========================================================================== */
 .strip{ border-bottom:1px solid var(--line); background:var(--paper-2) }
-.strip-in{ display:flex; gap:28px; padding:9px 0; font-size:12.5px; color:var(--ink-2); overflow-x:auto; scrollbar-width:none }
+.strip-in{ display:flex; gap:28px; padding-block:9px; font-size:12.5px; color:var(--ink-2); overflow-x:auto; scrollbar-width:none }
 .strip-in::-webkit-scrollbar{ display:none }
 .strip-in span{ display:inline-flex; align-items:center; gap:7px; white-space:nowrap }
 .strip-in svg{ width:14px; height:14px; color:var(--sea); flex:0 0 auto }
@@ -353,7 +353,7 @@ ycm-video[data-state="nosrc"] .v-play{ display:none }
 /* ==========================================================================
    Detail view
    ========================================================================== */
-.detail{ padding:24px 0 90px }
+.detail{ padding-block:24px 90px }
 .crumb{ display:flex; align-items:center; gap:7px; font-size:13px; color:var(--ink-3); margin-bottom:22px }
 .crumb a:hover{ color:var(--ink) }
 .detail-grid{ display:grid; grid-template-columns:minmax(0,1.62fr) minmax(300px,.95fr); gap:44px; align-items:start }
@@ -578,7 +578,7 @@ textarea.inp{ min-height:120px; resize:vertical; line-height:1.6; font-family:va
 .hero-media:has(.ph) .hero-cap strong{ text-shadow:none }
 
 /* home page bands */
-.band{ padding:52px 0 }
+.band{ padding-block:52px }
 .band-tint{ background:var(--paper-2); border-block:1px solid var(--line) }
 .band-h{ display:flex; align-items:flex-end; justify-content:space-between; gap:20px; margin-bottom:26px; flex-wrap:wrap }
 .how{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:30px; margin-top:20px }
