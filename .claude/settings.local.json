@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(plutil -convert xml1 -o - \"/Users/joel/Documents/coding/ycm/Home | York County Marine llc.webarchive\")"
+    ]
+  }
+}

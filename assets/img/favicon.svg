@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="14" fill="#0F1C2B"/>
+  <!-- filled, not stroked: at 16px the strokes close up, the silhouette holds -->
+  <g transform="translate(2,16) scale(1.25)">
+    <path d="M4 9 H44 L39.1 18.1 Q32.8 12.9 24 21.4 Q15.2 12.9 8.9 18.1 Z" fill="#FBFAF7"/>
+    <path d="M20.5 9.4 V6.8 Q20.5 3.4 24 3.4 Q27.5 3.4 27.5 6.8 V9.4 Z" fill="#FBFAF7"/>
+  </g>
+</svg>

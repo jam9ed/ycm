@@ -1,0 +1,31 @@
+# Dependencies and scratch
+node_modules/
+.DS_Store
+
+# Source archives of the old Wix site — big, and only ever inputs
+*.webarchive
+existing site/
+
+# Local admin state and its rolling backups
+assets/data/backups/
+assets/data/ads-config.json.tmp
+
+# Media: only what the site actually references is tracked. The full library
+# (900+ files, ~130 MB) lives locally so the admin gallery has everything to
+# choose from; the repo carries the ~170 files that are linked to an ad, used
+# by a blog post, or referenced in code. Re-fetch the rest with the scripts in
+# the README if you need the whole pool on another machine.
+
+assets/img/lib/*
+!assets/img/lib/40c803ad1c.jpg
+!assets/img/lib/e2254316fa.jpg
+!assets/img/lib/fcfc0234f1.jpg
+!assets/img/lib/fe864993aa.jpg
+
+assets/img/boats/*
+!assets/img/boats/src_0f12e59d2f.jpg
+!assets/img/boats/src_e7268cdd12.jpg
+
+assets/img/posters/*
+!assets/img/posters/2436ec242d.jpg
+!assets/img/posters/5552730210.jpg

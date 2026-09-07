@@ -1,0 +1,14 @@
+{
+  "name": "ycm-portal",
+  "version": "0.1.0",
+  "private": true,
+  "description": "York County Marine \u2014 inventory portal prototype",
+  "scripts": {
+    "start": "node server.js",
+    "static": "python3 -m http.server 8899",
+    "test": "./tests/run.sh"
+  },
+  "devDependencies": {
+    "jsdom": "^29.0.0"
+  }
+}

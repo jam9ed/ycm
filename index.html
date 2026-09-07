@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Inventory — York County Marine</title>
+<meta name="description" content="Pre-owned Boston Whalers, sea trialled and professionally delivered anywhere in the United States. Yorktown, Virginia.">
+<link rel="icon" href="assets/img/favicon.svg">
+<link rel="stylesheet" href="assets/css/ycm.css">
+</head>
+<body>
+
+<header class="hdr">
+  <div class="wrap hdr-in">
+    <a class="brand" href="#/">
+      <svg class="mark" viewBox="0 0 48 26" fill="none" aria-hidden="true">
+        <g stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="miter">
+          <path d="M20.5 9 V6.8 Q20.5 4.8 24 4.8 Q27.5 4.8 27.5 6.8 V9" stroke-linejoin="round"/>
+          <path d="M4 9 H44"/>
+          <path d="M4.8 9.4 L8.9 18.1 Q15.2 12.9 24 21.4 Q32.8 12.9 39.1 18.1 L43.2 9.4"/>
+        </g>
+      </svg>
+      <span class="brand-txt">
+        <span class="brand-name">York County Marine</span>
+        <span class="brand-sub">Pre-owned Boston Whalers</span>
+      </span>
+    </a>
+
+    <nav class="nav">
+      <a href="#/">Home</a>
+      <a href="#/inventory">Inventory</a>
+      <a href="#/blog">Blog</a>
+    </nav>
+
+    <div class="hdr-r">
+      <button class="icon-btn rail-toggle" id="rail-open" aria-label="Filters">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M2 4h12M4 8h8M6.5 12h3"/></svg>
+      </button>
+      <a class="icon-btn" id="staff-link" href="admin.html" title="Staff portal" aria-label="Staff portal">
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"
+             stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2.2" y="6.6" width="11.6" height="7.2" rx="1.6"/>
+          <path d="M5.2 6.6V4.6a2.8 2.8 0 0 1 5.6 0v2"/>
+        </svg>
+      </a>
+      <a class="tel" href="tel:+17573299979">(757) 329-9979 <small>10–7 EST, daily</small></a>
+    </div>
+  </div>
+</header>
+
+<div class="strip">
+  <div class="wrap strip-in">
+    <span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9.5 5.5 13 14 4"/></svg> Sea trialled before delivery</span>
+    <span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9.5 5.5 13 14 4"/></svg> Checked by a marine mechanic</span>
+    <span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9.5 5.5 13 14 4"/></svg> Professionally delivered, anywhere in the US</span>
+    <span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9.5 5.5 13 14 4"/></svg> Live FaceTime walkarounds</span>
+  </div>
+</div>
+
+<!-- ====================== BROWSE ====================== -->
+<!-- ====================== HOME ====================== -->
+<main id="view-home">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow"><span class="dot"></span><span class="label">Yorktown, Virginia · online since 2020</span></div>
+        <h1 class="display">A different kind<br>of boat dealer.</h1>
+        <p class="lede">We buy, broker and sell pre-owned Whalers — sea trialled, mechanically checked,
+        and professionally delivered to your driveway. No lot to walk. Just a phone call, a walkaround
+        video, and a boat that arrives the way we described it.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#/inventory">Browse the inventory</a>
+          <a class="btn btn-ghost" href="tel:+17573299979">Talk to Dave</a>
+        </div>
+        <div class="hero-stats">
+          <div><strong class="num" id="stat-listings">—</strong><span class="label">Boats</span></div>
+          <div><strong class="num">14k</strong><span class="label">Following</span></div>
+          <div><strong class="num">7</strong><span class="label">Days a week</span></div>
+        </div>
+      </div>
+      <!-- filled from the featured ad at runtime; see renderFeatured() in app.js -->
+      <a class="hero-media" id="featured" href="#/"></a>
+    </div>
+  </section>
+
+  <!-- a couple of boats, then straight over to the inventory -->
+  <section class="wrap band">
+    <div class="band-h">
+      <div><span class="label">On the lot now</span><h2 class="h1" style="margin-top:8px">A few of ours</h2></div>
+      <a class="btn btn-ghost" href="#/inventory" id="see-all">See the whole inventory</a>
+    </div>
+    <div class="grid grid-4" id="home-featured"></div>
+  </section>
+
+  <section class="band band-tint">
+    <div class="wrap">
+      <span class="label">How this works</span>
+      <div class="how">
+        <div><strong>We are 100% online.</strong><p>The yard closed to the public in 2020 and never reopened. Boats sell
+          through photographs, walkaround video and a phone call — which weeds out the tyre-kickers and leaves us
+          time for people who are actually buying.</p></div>
+        <div><strong>Every boat is checked and sea trialled.</strong><p>A marine mechanic goes over it, then it goes
+          on the water, before it goes anywhere near a truck.</p></div>
+        <div><strong>Professionally delivered.</strong><p>Anywhere in the United States, on a proper boat transporter,
+          with international shipping possible. We do not ship freight.</p></div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <section class="wrap band">
+    <div class="band-h">
+      <div><span class="label">From the blog</span><h2 class="h1" style="margin-top:8px">Dave's write-ups</h2></div>
+      <a class="btn btn-ghost" href="#/blog">Read them all</a>
+    </div>
+    <div class="grid grid-4" id="home-posts"></div>
+  </section>
+
+  <section class="band band-network" id="network">
+    <div class="wrap">
+      <div class="band-h" style="margin-bottom:10px">
+        <div><span class="label">Partner network</span>
+          <h2 class="h1" style="margin-top:8px">Who we work with</h2></div>
+      </div>
+      <p class="muted" style="margin:0 0 24px;max-width:64ch">We buy canvas, tops and trailers for our own boats,
+      so dealer pricing passes through to yours — ask when you call. Rossiter is the one line of new boats we sell.</p>
+
+      <div class="partners">
+        <a class="partner feature" href="http://www.rossiterboats.com" target="_blank" rel="noopener">
+          <span class="plogo"><img src="assets/img/partners/rossiter.svg" alt="Rossiter Boats" loading="lazy" decoding="async"></span>
+          <strong>Rossiter Boats</strong>
+          <span class="label">New boats</span>
+        </a>
+        <a class="partner" href="https://millscanvas.com/" target="_blank" rel="noopener">
+          <span class="plogo"><img src="assets/img/partners/mills.png" alt="Wm. J. Mills &amp; Co." loading="lazy" decoding="async"></span>
+          <strong>Wm. J. Mills &amp; Co.</strong><span class="label">Canvas &amp; covers</span>
+        </a>
+        <a class="partner" href="https://greatlakesboattop.com" target="_blank" rel="noopener">
+          <span class="plogo"><img src="assets/img/partners/greatlakes.png" alt="Great Lakes Boat Top" loading="lazy" decoding="async"></span>
+          <strong>Great Lakes Boat Top</strong><span class="label">Bimini tops</span>
+        </a>
+        <a class="partner" href="https://magictilt.com/" target="_blank" rel="noopener">
+          <span class="plogo"><img src="assets/img/partners/magictilt.png" alt="Magic Tilt" loading="lazy" decoding="async"></span>
+          <strong>Magic Tilt</strong><span class="label">Trailers</span>
+        </a>
+        <a class="partner" href="http://www.ezloader.com" target="_blank" rel="noopener">
+          <span class="plogo"><img src="assets/img/partners/ezloader.png" alt="EZ Loader" loading="lazy" decoding="async"></span>
+          <strong>EZ Loader</strong><span class="label">Trailers</span>
+        </a>
+      </div>
+
+      <p class="muted net-note">Boats are moved by transporters we have used for years — Glide Transport,
+      Stern-Barr, Coastal Transport and Pathfinders Express. We do not ship freight.</p>
+    </div>
+  </section>
+</main>
+
+<!-- ====================== INVENTORY ====================== -->
+<main id="view-browse" hidden>
+  <div class="wrap" style="padding-top:26px">
+    <span class="label">Inventory</span>
+    <h1 class="h1" style="margin:8px 0 0">Every boat we have listed</h1>
+    <p class="muted" style="margin:8px 0 0;max-width:60ch">Inventory changes fast and many boats sell before they
+    are posted — if you do not see it, call and ask.</p>
+  </div>
+  <div class="wrap" id="browse">
+    <div class="browse">
+      <aside class="rail" id="rail"></aside>
+
+      <section>
+        <div class="toolbar">
+          <div class="search">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="8.5" cy="8.5" r="5.5"/><path d="m12.8 12.8 4 4"/></svg>
+            <input id="q" type="search" placeholder="Montauk, Outrage, Super Sport, project…" autocomplete="off">
+          </div>
+          <select class="sel" id="sort" aria-label="Sort">
+            <option value="page">Page order</option>
+            <option value="priceUp">Price: low to high</option>
+            <option value="priceDn">Price: high to low</option>
+            <option value="yearDn">Year: newest first</option>
+            <option value="yearUp">Year: oldest first</option>
+            <option value="lenUp">Length: shortest first</option>
+            <option value="lenDn">Length: longest first</option>
+            <option value="hours">Fewest engine hours</option>
+          </select>
+          <div class="seg" id="viewseg">
+            <button data-view="grid" aria-label="Grid view" aria-pressed="true"><svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="1" width="6" height="6" rx="1.2"/><rect x="9" y="1" width="6" height="6" rx="1.2"/><rect x="1" y="9" width="6" height="6" rx="1.2"/><rect x="9" y="9" width="6" height="6" rx="1.2"/></svg></button>
+            <button data-view="compact" aria-label="Compact thumbnails" title="Compact thumbnails" aria-pressed="false"><svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="1" width="3.6" height="3.6" rx=".8"/><rect x="6.2" y="1" width="3.6" height="3.6" rx=".8"/><rect x="11.4" y="1" width="3.6" height="3.6" rx=".8"/><rect x="1" y="6.2" width="3.6" height="3.6" rx=".8"/><rect x="6.2" y="6.2" width="3.6" height="3.6" rx=".8"/><rect x="11.4" y="6.2" width="3.6" height="3.6" rx=".8"/><rect x="1" y="11.4" width="3.6" height="3.6" rx=".8"/><rect x="6.2" y="11.4" width="3.6" height="3.6" rx=".8"/><rect x="11.4" y="11.4" width="3.6" height="3.6" rx=".8"/></svg></button>
+            <button data-view="list" aria-label="List view" aria-pressed="false"><svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="2" width="14" height="3" rx="1.2"/><rect x="1" y="6.5" width="14" height="3" rx="1.2"/><rect x="1" y="11" width="14" height="3" rx="1.2"/></svg></button>
+          </div>
+        </div>
+
+        <div class="presets" id="presets"></div>
+        <div class="active-row" id="active"></div>
+        <p class="count" id="count"></p>
+        <div class="grid" id="grid"></div>
+      </section>
+    </div>
+  </div>
+</main>
+
+</main>
+
+<!-- ====================== BLOG ====================== -->
+<main id="view-blog" hidden></main>
+
+<main id="view-detail" hidden></main>
+<div class="scrim" id="scrim"></div>
+
+<footer class="ftr">
+  <div class="wrap">
+
+    <!-- the other half of the business, and the reason to keep this space -->
+    <div class="sellstrip">
+      <div>
+        <span class="label">We buy Whalers</span>
+        <h2 class="h2" style="margin:8px 0 6px">Got one you would like to sell?</h2>
+        <p class="muted" style="margin:0;font-size:14px;max-width:52ch">Most years, most models. We buy and broker
+        outright, so you never deal with the public — one call and we send the truck.</p>
+      </div>
+      <div class="sellstrip-cta">
+        <a class="btn btn-primary" href="tel:+17573299979">Call (757) 329-9979</a>
+        <a class="btn btn-ghost" href="mailto:yorkcountymarine@gmail.com?subject=Boat%20I%20would%20like%20to%20sell">Email details</a>
+      </div>
+    </div>
+
+    <div class="ftr-grid">
+      <div>
+        <div class="brand" style="margin-bottom:14px">
+          <svg class="mark" viewBox="0 0 48 26" fill="none" aria-hidden="true">
+            <g stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="miter">
+          <path d="M20.5 9 V6.8 Q20.5 4.8 24 4.8 Q27.5 4.8 27.5 6.8 V9" stroke-linejoin="round"/>
+          <path d="M4 9 H44"/>
+          <path d="M4.8 9.4 L8.9 18.1 Q15.2 12.9 24 21.4 Q32.8 12.9 39.1 18.1 L43.2 9.4"/>
+        </g>
+          </svg>
+          <span class="brand-txt"><span class="brand-name">York County Marine</span></span>
+        </div>
+        <p class="muted" style="font-size:13.5px;max-width:34ch;margin:0">A 100% online boat dealer in Yorktown,
+        Virginia, specialising in pre-owned Boston Whalers. Every boat professionally delivered.</p>
+      </div>
+
+      <div><h4>Inventory</h4><ul>
+        <li><a href="?status=available#/inventory">Available now</a></li>
+        <li><a href="?status=arriving#/inventory">Just arriving</a></li>
+        <li><a href="?status=project#/inventory">Project boats</a></li>
+        <li><a href="?priceMax=15000#/inventory">Under $15,000</a></li>
+        <li><a href="?drops=1#/inventory">Price reduced</a></li></ul></div>
+
+      <div><h4>Company</h4><ul>
+        <li><a href="#/blog">Dave's blog</a></li>
+        <li><a href="#/inventory">All boats</a></li>
+        <li><a href="identity.html">Identity notes</a></li>
+        <li><a href="admin.html">Staff portal</a></li></ul></div>
+
+      <div><h4>Contact</h4><ul>
+        <li><a href="tel:+17573299979">(757) 329-9979</a></li>
+        <li><a href="mailto:yorkcountymarine@gmail.com">yorkcountymarine@gmail.com</a></li>
+        <li class="muted">10am &ndash; 7pm EST, every day but Christmas</li>
+        <li class="muted">Yorktown, Virginia</li></ul></div>
+    </div>
+
+    <div class="ftr-btm">
+      <span>&copy; 2026 York County Marine LLC</span>
+      <span>Boats sold as-is. Specifications believed accurate but not warranted.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/lazy-video.js"></script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/posts.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

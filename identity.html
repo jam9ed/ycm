@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Identity — York County Marine</title>
+<link rel="icon" href="assets/img/favicon.svg">
+<link rel="stylesheet" href="assets/css/ycm.css">
+<style>
+  .sheet{ max-width:1080px; margin-inline:auto; padding:56px var(--gut) 90px }
+  .lede2{ font-size:17px; line-height:1.65; color:var(--ink-2); max-width:62ch }
+  .rule{ height:1px; background:var(--line); margin:52px 0 }
+  .swatches{ display:grid; grid-template-columns:repeat(auto-fill,minmax(132px,1fr)); gap:12px }
+  .sw{ border:1px solid var(--line); border-radius:var(--r); overflow:hidden }
+  .sw i{ display:block; height:76px }
+  .sw div{ padding:9px 11px; font-size:11.5px; line-height:1.5 }
+  .sw b{ display:block; font-size:12.5px; letter-spacing:-.01em }
+  .sw code{ font:400 11px var(--font-num); color:var(--ink-3) }
+
+  .dirs{ display:grid; grid-template-columns:1fr 1fr; gap:22px }
+  .dir{ border:1px solid var(--line); border-radius:var(--r-lg); overflow:hidden; background:var(--paper) }
+  .dir .stage{ padding:38px 26px; display:grid; place-items:center; min-height:150px; background:var(--paper-2); border-bottom:1px solid var(--line) }
+  .dir .stage.navy{ background:var(--ink) }
+  .dir .note{ padding:18px 20px }
+  .dir h3{ display:flex; align-items:center; gap:9px; margin:0 0 8px }
+  .verdict{ font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:3px 8px; border-radius:var(--r-pill) }
+  .v-yes{ background:var(--grass-soft); color:var(--grass) }
+  .v-mid{ background:var(--brass-soft); color:var(--brass) }
+  .v-no{ background:var(--signal-soft); color:var(--signal) }
+  .dir p{ margin:0; font-size:13.5px; line-height:1.6; color:var(--ink-2) }
+
+  /* --- the recommended lockup, built in CSS so it uses the real type --- */
+  .lockup{ display:inline-flex; flex-direction:column; align-items:center; color:var(--ink) }
+  .lockup .l1{ font-size:var(--ls,25px); font-weight:600; letter-spacing:.19em; text-indent:.19em; line-height:1 }
+  .lockup .hullrule{ width:100%; margin:.42em 0 .34em; color:inherit }
+  .lockup .l2{ font-size:calc(var(--ls,25px) * .52); font-weight:500; letter-spacing:.42em; text-indent:.42em; line-height:1; color:var(--ink-2) }
+  .stage.navy .lockup, .stage.navy .lockup .l2{ color:var(--paper) }
+  .stage.navy .lockup .l2{ opacity:.72 }
+
+  .sizes{ display:flex; align-items:flex-end; gap:34px; flex-wrap:wrap; padding:30px; border:1px solid var(--line); border-radius:var(--r-lg); background:var(--paper-2) }
+  .sizes figure{ margin:0; text-align:center }
+  .sizes figcaption{ margin-top:11px; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3) }
+  .chip{ background:var(--ink); border-radius:22%; display:grid; place-items:center; color:var(--paper) }
+
+  .type-row{ display:flex; align-items:baseline; gap:18px; padding:13px 0; border-bottom:1px solid var(--line) }
+  .type-row span{ flex:0 0 128px; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3) }
+  .flag{ border-left:2px solid var(--brass); background:var(--brass-soft); padding:14px 18px; border-radius:0 var(--r) var(--r) 0; font-size:14px; line-height:1.6 }
+  @media (max-width:760px){ .dirs{ grid-template-columns:1fr } }
+</style>
+</head>
+<body>
+
+<header class="hdr"><div class="wrap hdr-in">
+  <a class="brand" href="index.html">
+    <svg class="mark" viewBox="0 0 48 26" fill="none" aria-hidden="true"><g stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="miter">
+          <path d="M20.5 9 V6.8 Q20.5 4.8 24 4.8 Q27.5 4.8 27.5 6.8 V9" stroke-linejoin="round"/>
+          <path d="M4 9 H44"/>
+          <path d="M4.8 9.4 L8.9 18.1 Q15.2 12.9 24 21.4 Q32.8 12.9 39.1 18.1 L43.2 9.4"/>
+        </g></svg>
+    <span class="brand-txt"><span class="brand-name">York County Marine</span><span class="brand-sub">Identity notes</span></span>
+  </a>
+  <div class="hdr-r"><a class="btn btn-ghost btn-sm" href="index.html">Back to the portal</a></div>
+</div></header>
+
+<main class="sheet">
+  <span class="label">Theme &amp; identity</span>
+  <h1 class="display" style="margin:14px 0 18px">Desert Tan<br>&amp; Hull Navy</h1>
+  <p class="lede2">The colours come off the boats, not out of a nautical clip-art set. A warm paper
+  ground rather than clinical white, deep hull navy for ink, hairline rules instead of drop shadows,
+  and one accent held back for money. No ropes, no portholes, no anchors — the current site has
+  roughly two hundred ⚓️ emoji doing the job of a horizontal rule.</p>
+
+  <div class="rule"></div>
+
+  <span class="label">Palette</span>
+  <div class="swatches" style="margin-top:16px">
+    <div class="sw"><i style="background:#FBFAF7;border-bottom:1px solid #E0DACC"></i><div><b>Paper</b><code>#FBFAF7</code></div></div>
+    <div class="sw"><i style="background:#F4F1EA"></i><div><b>Desert tan</b><code>#F4F1EA</code></div></div>
+    <div class="sw"><i style="background:#0F1C2B"></i><div><b>Hull navy</b><code>#0F1C2B</code></div></div>
+    <div class="sw"><i style="background:#33465A"></i><div><b>Ink 2</b><code>#33465A</code></div></div>
+    <div class="sw"><i style="background:#1E6B7B"></i><div><b>Sea</b><code>#1E6B7B</code></div></div>
+    <div class="sw"><i style="background:#A97C3F"></i><div><b>Brass</b><code>#A97C3F</code></div></div>
+    <div class="sw"><i style="background:#B3411C"></i><div><b>Signal</b><code>#B3411C</code></div></div>
+    <div class="sw"><i style="background:#2F6B45"></i><div><b>Available</b><code>#2F6B45</code></div></div>
+  </div>
+  <p class="muted" style="font-size:13.5px;margin-top:14px;max-width:62ch">Signal is for price drops and
+  nothing else. Brass marks featured stock. Green means a boat you can buy today. If everything is
+  accented, nothing is — that is the failure mode of the current site's red-and-blue everywhere.</p>
+
+  <div class="rule"></div>
+
+  <span class="label">Four directions</span>
+  <p class="lede2" style="margin:12px 0 24px">Two of the generated options have a real idea in them.
+  The two badges do not survive contact with a favicon, a phone header, or a boat's transom.</p>
+
+  <div class="dirs">
+    <div class="dir">
+      <div class="stage"><div class="lockup" style="--ls:23px">
+        <span class="l1">YORK COUNTY</span>
+        <svg class="hullrule" viewBox="0 0 260 12" fill="none" aria-hidden="true">
+          <path d="M6 4.4 H254 L246 9.6 C244.6 10.6 242.8 11.2 241 11.2 H19 C17.2 11.2 15.4 10.6 14 9.6 Z"
+                fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M0 4.4 H260" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".35"/>
+        </svg>
+        <span class="l2">MARINE</span></div></div>
+      <div class="note"><h3 class="h3">Wordmark &amp; hull rule <span class="verdict v-yes">Recommended</span></h3>
+      <p>The hull silhouette does double duty as the rule between the two lines. It is one idea, executed
+      once, and it is the only option here that stays clean when it shrinks. Sets in the site's own type,
+      so there is no font to license or outline.</p></div>
+    </div>
+
+    <div class="dir">
+      <div class="stage navy"><svg width="164" viewBox="0 0 48 26" fill="none" aria-hidden="true"><g stroke="#FBFAF7" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="miter">
+          <path d="M20.5 9 V6.8 Q20.5 4.8 24 4.8 Q27.5 4.8 27.5 6.8 V9" stroke-linejoin="round"/>
+          <path d="M4 9 H44"/>
+          <path d="M4.8 9.4 L8.9 18.1 Q15.2 12.9 24 21.4 Q32.8 12.9 39.1 18.1 L43.2 9.4"/>
+        </g></svg></div>
+      <div class="note"><h3 class="h3">Whaler bow-on <span class="verdict v-yes">Use as the icon</span></h3>
+      <p>From Dave's own sketch: a straight deck line, topsides flaring out to meet it, and the cathedral bottom below — two tunnels humping up either side of a sharp centre keel — with the console on deck. Earlier attempts of mine arched the sheer and rounded everything off; this is tighter, more specific to the boat, and holds down to 15px once filled rather than stroked.</p></div>
+    </div>
+
+    <div class="dir">
+      <div class="stage"><div style="font-size:46px;font-weight:650;letter-spacing:.02em;color:var(--ink);position:relative;line-height:1">YCM<svg viewBox="0 0 200 10" style="position:absolute;left:-4%;right:0;bottom:-9px;width:108%" fill="none"><path d="M2 2 H190 L182 8 H12 Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" opacity=".85"/></svg></div></div>
+      <div class="note"><h3 class="h3">YCM monogram <span class="verdict v-mid">Keep in reserve</span></h3>
+      <p>Your top-right option, cleaned up. The hull-as-underline is a good move and this is the closest
+      of the generated four to a modern mark. But "YCM" means nothing to a first-time visitor arriving
+      from a Facebook post — it is a good <em>secondary</em> mark for hats and hull stickers, not the
+      thing at the top of the page.</p></div>
+    </div>
+
+    <div class="dir">
+      <div class="stage"><svg width="112" height="112" viewBox="0 0 120 120" aria-hidden="true">
+        <circle cx="60" cy="60" r="55" fill="none" stroke="var(--ink)" stroke-width="2.5"/>
+        <circle cx="60" cy="60" r="46" fill="var(--ink)"/>
+        <path d="M34 62 h52 l-5 9 h-42 z" fill="var(--paper)"/>
+        <path d="M40 58 h34 l3 4 H37 z" fill="var(--paper)" opacity=".8"/>
+        <path d="M28 78 h64" stroke="var(--paper)" stroke-width="1.6" opacity=".5"/>
+        <text x="60" y="97" text-anchor="middle" font-size="9" letter-spacing="2" fill="var(--paper)" font-family="system-ui">EST 1978</text>
+      </svg></div>
+      <div class="note"><h3 class="h3">Heritage badge <span class="verdict v-no">Not this</span></h3>
+      <p>Your roundel and shield options, reduced to their best case — and they still lose. A badge needs
+      detail to look like a badge, detail is the first thing that dies at small sizes, and every marine
+      dealer in America already has one. It also fights the word "minimalist" directly.</p>
+      <p style="margin-top:9px"><strong style="color:var(--signal)">Also:</strong> both generated badges say
+      <strong>1978</strong>. Nothing in the archived site supports that date — the footer reads ©2020 and the
+      copy describes restructuring at the start of Covid. Do not set a founding year in metal until you are
+      sure of it.</p></div>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+
+  <span class="label">The recommended lockup, at the sizes that decide it</span>
+  <div class="sizes" style="margin-top:18px">
+    <figure><div class="lockup" style="--ls:30px"><span class="l1">YORK COUNTY</span>
+      <svg class="hullrule" viewBox="0 0 260 12" fill="none"><path d="M6 4.4 H254 L246 9.6 C244.6 10.6 242.8 11.2 241 11.2 H19 C17.2 11.2 15.4 10.6 14 9.6 Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M0 4.4 H260" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".35"/></svg>
+      <span class="l2">MARINE</span></div><figcaption>Signature</figcaption></figure>
+
+    <figure><div class="lockup" style="--ls:13px"><span class="l1">YORK COUNTY</span>
+      <svg class="hullrule" viewBox="0 0 260 12" fill="none"><path d="M6 4.4 H254 L246 9.6 C244.6 10.6 242.8 11.2 241 11.2 H19 C17.2 11.2 15.4 10.6 14 9.6 Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M0 4.4 H260" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".35"/></svg>
+      <span class="l2">MARINE</span></div><figcaption>Site header</figcaption></figure>
+
+    <figure><div class="chip" style="width:56px;height:56px"><svg width="38" viewBox="0 0 48 26"><path d="M4 9 H44 L39.1 18.1 Q32.8 12.9 24 21.4 Q15.2 12.9 8.9 18.1 Z" fill="currentColor"/><path d="M20.5 9.4 V6.8 Q20.5 3.4 24 3.4 Q27.5 3.4 27.5 6.8 V9.4 Z" fill="currentColor"/></svg></div><figcaption>App icon</figcaption></figure>
+
+    <figure><div class="chip" style="width:32px;height:32px"><svg width="22" viewBox="0 0 48 26"><path d="M4 9 H44 L39.1 18.1 Q32.8 12.9 24 21.4 Q15.2 12.9 8.9 18.1 Z" fill="currentColor"/><path d="M20.5 9.4 V6.8 Q20.5 3.4 24 3.4 Q27.5 3.4 27.5 6.8 V9.4 Z" fill="currentColor"/></svg></div><figcaption>32px</figcaption></figure>
+
+    <figure><div class="chip" style="width:16px;height:16px"><svg width="12" viewBox="0 0 48 26"><path d="M4 9 H44 L39.1 18.1 Q32.8 12.9 24 21.4 Q15.2 12.9 8.9 18.1 Z" fill="currentColor"/><path d="M20.5 9.4 V6.8 Q20.5 3.4 24 3.4 Q27.5 3.4 27.5 6.8 V9.4 Z" fill="currentColor"/></svg></div><figcaption>Favicon</figcaption></figure>
+  </div>
+  <p class="muted" style="font-size:13.5px;margin-top:14px;max-width:62ch">The rubrail and the wake drop
+  out below about 24px, leaving the tri-hull section and the waterline. That is deliberate: a mark needing
+  all of its parts at every size is a mark that renders as mush in a browser tab.</p>
+
+  <div class="rule"></div>
+
+  <span class="label">Type</span>
+  <div style="margin-top:16px;max-width:760px">
+    <div class="type-row"><span>Display</span><b style="font-size:32px;font-weight:600;letter-spacing:-.028em">1998 Boston Whaler Montauk 17</b></div>
+    <div class="type-row"><span>Heading</span><b style="font-size:19px;font-weight:600;letter-spacing:-.014em">About this boat</b></div>
+    <div class="type-row"><span>Body</span><span style="flex:1;font-size:15px;line-height:1.55;color:var(--ink-2)">Twenty-seven years, one owner, garage kept and exceptional throughout.</span></div>
+    <div class="type-row"><span>Price</span><b class="num" style="font-size:26px;font-weight:600;letter-spacing:-.03em">$30,000</b></div>
+    <div class="type-row" style="border:0"><span>Label</span><span class="label">Just arriving</span></div>
+  </div>
+  <p class="muted" style="font-size:13.5px;margin-top:16px;max-width:62ch">One grotesque throughout, set
+  tight, with tabular numerals so prices and hours line up in a column. No display face to license, no
+  web font to wait for, nothing to go wrong on a slow connection — which is the whole argument, given
+  the current site loads twenty-six font files.</p>
+
+  <div class="rule"></div>
+
+  <div class="flag"><strong>One thing to decide before any of this gets made:</strong> the tagline.
+  “A different kind of boat dealer” is doing real work on the current site and appears in almost every
+  post — but it describes the operation, not the boats. If it stays, it belongs under the wordmark in
+  the small caps you see above, not inside the mark.</div>
+</main>
+
+<footer class="ftr"><div class="wrap"><div class="ftr-btm">
+  <span>© 2026 York County Marine LLC</span><span><a href="index.html">Back to the portal</a></span>
+</div></div></footer>
+</body>
+</html>

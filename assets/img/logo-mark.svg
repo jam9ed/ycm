@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 26" fill="none" role="img" aria-label="York County Marine">
+  <!-- Bow-on, from Dave's sketch: a straight deck line, topsides flaring out to
+       it, and the cathedral bottom below — two tunnels humping up either side of
+       a sharp centre keel. Console on the deck. -->
+  <g stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="miter">
+    <path d="M20.5 9 V6.8 Q20.5 4.8 24 4.8 Q27.5 4.8 27.5 6.8 V9" stroke-linejoin="round"/>
+    <path d="M4 9 H44"/>
+    <path d="M4.8 9.4 L8.9 18.1 Q15.2 12.9 24 21.4 Q32.8 12.9 39.1 18.1 L43.2 9.4"/>
+  </g>
+</svg>
