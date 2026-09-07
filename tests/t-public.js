@@ -31,6 +31,25 @@ chk('both home rows are pinned to four across',
     ['#home-featured','#home-posts'].every(id => $(id).classList.contains('grid-4')));
 chk('home does not render the whole grid', $$('#grid .card').length === 0);
 
+// --- preview gate ---------------------------------------------------------
+chk('the gate renders and hides the page', !!$('#gate') && !!$('#gate-form'));
+chk('it builds only once, whatever fires DOMContentLoaded', $$('#gate').length === 1);
+{
+  const f = $('#gate-form'), pw = $('#gate-pw');
+  pw.value = 'wrong';
+  f.dispatchEvent(new window.Event('submit', { bubbles: true, cancelable: true }));
+  chk('a wrong password keeps the gate up', !!$('#gate') && !$('#gate-msg').hidden);
+  pw.value = 'ycm4life';
+  f.dispatchEvent(new window.Event('submit', { bubbles: true, cancelable: true }));
+  chk('the right password removes it', !$('#gate'));
+  chk('and it stays unlocked for the session', window.sessionStorage.getItem('ycm.preview.v1') === '1');
+  /* The unlock above ran in an environment with no crypto.subtle — the same
+     situation as previewing over plain http on a LAN address, where a
+     SHA-256 gate would throw and never open. */
+  chk('it unlocked without crypto.subtle being available',
+      !(window.crypto && window.crypto.subtle), 'crypto.subtle was present, so this proved nothing');
+}
+
 // --- staff portal ---------------------------------------------------------
 const staff = $('#staff-link');
 chk('a staff link sits in the header', !!staff && staff.getAttribute('href') === 'admin.html');

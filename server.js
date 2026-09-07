@@ -88,7 +88,31 @@ function serveStatic(req, res) {
   });
 }
 
+/* Real HTTP Basic Auth, checked here on the server, unlike the client-side
+   gate in the browser. Off unless YCM_PASSWORD is set:
+     YCM_PASSWORD=ycm4life npm start
+   Pair it with a tunnel (cloudflared / ngrok) to show the site to someone
+   without publishing it. */
+const PASSWORD = process.env.YCM_PASSWORD || '';
+const USER     = process.env.YCM_USER || 'ycm';
+function authed(req) {
+  if (!PASSWORD) return true;
+  const h = req.headers.authorization || '';
+  if (!h.startsWith('Basic ')) return false;
+  const [u, p] = Buffer.from(h.slice(6), 'base64').toString('utf8').split(':');
+  // constant-time-ish: compare full strings, never short-circuit on length
+  const want = `${USER}:${PASSWORD}`, got = `${u}:${p}`;
+  if (want.length !== got.length) return false;
+  let diff = 0;
+  for (let i = 0; i < want.length; i++) diff |= want.charCodeAt(i) ^ got.charCodeAt(i);
+  return diff === 0;
+}
+
 http.createServer((req, res) => {
+  if (!authed(req)) {
+    res.writeHead(401, { 'WWW-Authenticate': 'Basic realm="York County Marine", charset="UTF-8"' });
+    return res.end('Authentication required');
+  }
   const url = req.url.split('?')[0];
   if (url === '/api/health')      return json(res, 200, { writable:true, config:fs.existsSync(CONFIG) });
   if (url === '/api/ads-config') {
@@ -104,4 +128,6 @@ http.createServer((req, res) => {
 }).listen(PORT, () => {
   console.log(`York County Marine portal  →  http://localhost:${PORT}`);
   console.log(`saving to                  →  ${path.relative(ROOT, CONFIG)}`);
+  console.log(PASSWORD ? `auth                       →  Basic, user "${USER}"`
+                       : `auth                       →  off (set YCM_PASSWORD to enable)`);
 });

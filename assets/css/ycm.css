@@ -683,3 +683,22 @@ textarea.inp{ min-height:120px; resize:vertical; line-height:1.6; font-family:va
 .grid.compact .card-badges{ top:6px; left:6px; gap:4px }
 .grid.compact .card-top-r{ top:6px; right:6px }
 @media (max-width:520px){ .grid.compact{ grid-template-columns:repeat(3,minmax(0,1fr)) } }
+
+/* preview gate (see assets/js/gate.js — a curtain, not a lock) */
+#gate{ position:fixed; inset:0; z-index:999; background:#0F1C2B; display:grid; place-items:center; padding:24px }
+#gate form{ display:flex; flex-direction:column; align-items:center; gap:10px; width:min(300px,100%); color:#FBFAF7 }
+#gate svg{ width:64px; color:#FBFAF7; margin-bottom:6px }
+#gate strong{ font-size:14px; font-weight:650; letter-spacing:.09em; text-transform:uppercase }
+#gate span{ font-size:12px; opacity:.55; letter-spacing:.13em; text-transform:uppercase; margin-bottom:14px }
+#gate input{
+  width:100%; padding:11px 14px; border-radius:999px; border:1px solid rgba(251,250,247,.25);
+  background:rgba(251,250,247,.06); color:#FBFAF7; font-size:15px; text-align:center;
+}
+#gate input:focus{ outline:none; border-color:rgba(251,250,247,.6) }
+#gate button{
+  width:100%; padding:11px; border-radius:999px; border:0; cursor:pointer;
+  background:#FBFAF7; color:#0F1C2B; font-size:14px; font-weight:650;
+}
+#gate em{ font-style:normal; font-size:12.5px; color:#E8794F; margin-top:2px }
+#gate form.shake{ animation:gshake .3s }
+@keyframes gshake{ 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
