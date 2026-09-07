@@ -350,16 +350,6 @@ ycm-video .v-err{
 ycm-video[data-state="error"] .v-err, ycm-video[data-state="nosrc"] .v-err{ display:grid }
 ycm-video[data-state="nosrc"] .v-play{ display:none }
 
-/* perf HUD */
-.hud{
-  position:fixed; right:16px; bottom:16px; z-index:80; background:var(--ink); color:var(--paper);
-  border-radius:var(--r); padding:11px 14px; font:500 11.5px/1.5 var(--font-num);
-  letter-spacing:.01em; opacity:.93; pointer-events:auto; max-width:250px;
-}
-.hud b{ font-weight:700 }
-.hud .hud-ttl{ font-size:9.5px; letter-spacing:.13em; text-transform:uppercase; opacity:.55; margin-bottom:5px; font-family:var(--font-ui) }
-.hud button{ background:none; border:0; color:inherit; opacity:.5; cursor:pointer; position:absolute; top:6px; right:7px; padding:2px }
-
 /* ==========================================================================
    Detail view
    ========================================================================== */

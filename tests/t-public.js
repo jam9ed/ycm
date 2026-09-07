@@ -31,6 +31,19 @@ chk('both home rows are pinned to four across',
     ['#home-featured','#home-posts'].every(id => $(id).classList.contains('grid-4')));
 chk('home does not render the whole grid', $$('#grid .card').length === 0);
 
+// --- page title follows the route ----------------------------------------
+{
+  const at = h => { window.location.hash = h; window.dispatchEvent(new window.Event('hashchange')); return window.document.title; };
+  chk('home is titled YCM Home', at('#/') === 'YCM Home', window.document.title);
+  chk('inventory is titled Inventory', at('#/inventory') === 'Inventory', window.document.title);
+  chk('blog is titled Blog', at('#/blog') === 'Blog', window.document.title);
+  const b0 = window.YCM.boats[0];
+  chk('a listing uses its own headline', at('#/boat/' + b0.id) === b0.title, window.document.title);
+  const p0 = window.YCM_POSTS[0];
+  chk('a post uses its own headline', at('#/blog/' + p0.id) === p0.title, window.document.title);
+  at('#/');
+}
+
 // --- preview gate ---------------------------------------------------------
 chk('the gate renders and hides the page', !!$('#gate') && !!$('#gate-form'));
 chk('it builds only once, whatever fires DOMContentLoaded', $$('#gate').length === 1);
@@ -201,7 +214,9 @@ chk('switching back restores the default grid',
 // --- video component ----------------------------------------------------
 chk('no <video> mounted on browse', $$('video').length === 0, $$('video').length + ' video elements');
 const stats = window.ycmVideoStats.get();
-chk('HUD present', !!$('.hud'));
+chk('no build-time stats panel on the page', !$('.hud'));
+chk('but the video accounting is still available to code',
+    typeof window.ycmVideoStats.get === 'function' && window.ycmVideoStats.get().total >= 0);
 
 // --- detail route -------------------------------------------------------
 window.location.hash = '#/boat/featured-montauk-17';

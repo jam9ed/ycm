@@ -495,18 +495,21 @@ function route() {
     on ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current');
   });
 
+  /* One page serves four views, so the tab title has to follow the route. */
+  const title = t => { document.title = t; };
+
   let m;
   if ((m = h.match(/^#\/boat\/(.+)$/))) {
     const b = boats.find(x => x.id === m[1]);
-    if (b) { show('view-detail'); renderDetail(b); scrollTo(0, 0); return; }
+    if (b) { show('view-detail'); renderDetail(b); title(b.title); scrollTo(0, 0); return; }
   }
   if ((m = h.match(/^#\/blog\/(.+)$/))) {
     const p = POSTS.find(x => x.id === m[1]);
-    if (p) { show('view-blog'); renderPost(p); scrollTo(0, 0); return; }
+    if (p) { show('view-blog'); renderPost(p); title(p.title); scrollTo(0, 0); return; }
   }
-  if (/^#\/blog/.test(h)) { show('view-blog'); renderBlog(); scrollTo(0, 0); return; }
-  if (/^#\/inventory/.test(h)) { show('view-browse'); ensureBrowse(); return; }
-  show('view-home'); renderHome();
+  if (/^#\/blog/.test(h)) { show('view-blog'); renderBlog(); title('Blog'); scrollTo(0, 0); return; }
+  if (/^#\/inventory/.test(h)) { show('view-browse'); ensureBrowse(); title('Inventory'); return; }
+  show('view-home'); renderHome(); title('YCM Home');
 }
 
 /* ---------- the featured box -------------------------------------------
@@ -608,27 +611,6 @@ function init() {
   if (/^#\/(inventory|boat)/.test(location.hash) || location.search) ensureBrowse();
   paintViewSeg();
   route();
-  mountHud();
-}
-
-/* ---------- the receipt ------------------------------------------------- */
-function mountHud() {
-  const el = document.createElement('div');
-  el.className = 'hud';
-  el.innerHTML = `<button title="Hide">${I.x}</button><div class="hud-ttl">Video budget</div><div id="hud-b"></div>`;
-  document.body.appendChild(el);
-  el.querySelector('button').onclick = () => el.remove();
-  const paint = s => {
-    const naive = (s.total * 320 / 1024).toFixed(1);
-    const real = (s.mounted * 320 / 1024).toFixed(1);
-    $('#hud-b').innerHTML =
-      `players on page <b>${s.total}</b><br>` +
-      `posters loaded <b>${s.observed}</b><br>` +
-      `decoders live <b>${s.mounted}</b><br>` +
-      `<span style="opacity:.6">wix-style would fetch ~${naive} MB<br>this page has fetched ~${real} MB</span>`;
-  };
-  paint(window.ycmVideoStats.get());
-  window.ycmVideoStats.subscribe(paint);
 }
 
 /* Guard: DOMContentLoaded can reach us more than once (a second dispatch, a
