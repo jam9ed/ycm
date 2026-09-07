@@ -1,0 +1,107 @@
+/* ==========================================================================
+   "Downhome" — a second skin for the same portal.
+
+   Loaded after ycm.css, so it inherits every component (cards, rail, grid,
+   player) and changes the things that carry the feeling: colour, type,
+   weight, and how much structure is showing.
+
+   The brief: a small company. One person who likes boats, not a dealer group.
+   So — warm paper instead of cool, a serif for anything you read rather than
+   scan, hairlines instead of filled bands, and no metrics. Big tinted panels
+   and stat counters are how a company signals scale, which is the opposite of
+   what is wanted here.
+   ========================================================================== */
+
+:root{
+  /* warmer ground, softer ink — closer to paper and pencil than screen */
+  --paper:      #FCFAF4;
+  --paper-2:    #F6F1E6;
+  --paper-3:    #EDE6D6;
+  --ink:        #2E3A40;   /* soft charcoal, not near-black navy */
+  --ink-2:      #55636B;
+  --ink-3:      #8A9299;
+  --line:       #E4DCCA;
+  --line-2:     #CEC3AB;
+
+  --sea:        #4A7C6F;   /* muted, weathered */
+  --sea-soft:   #E4EDE9;
+  --brass:      #96703F;
+  --brass-soft: #F2E9D9;
+  --signal:     #A8502C;
+  --signal-soft:#F6E5DC;
+  --grass:      #5A7A4E;
+  --grass-soft: #E8EFE2;
+
+  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, "Hoefler Text", Georgia, serif;
+
+  --r-sm: 3px; --r: 5px; --r-lg: 7px;   /* nearly square: less app, more print */
+}
+
+:root[data-theme="dark"], html:not([data-theme="light"]) body.theme-dark{
+  --paper:#20211D; --paper-2:#292A25; --paper-3:#33342D;
+  --ink:#F2EEE3; --ink-2:#BDB6A6; --ink-3:#8A8577;
+  --line:#3A3B33; --line-2:#4C4D43;
+}
+
+/* ---- type: serif for reading, sans for controls ----------------------- */
+.display, .h1, .h2, .card-ttl, .adcard h3{
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -.005em;
+}
+.display{ font-size:clamp(27px,3.4vw,40px); line-height:1.14 }
+.h1{ font-size:clamp(21px,2.1vw,27px); line-height:1.2 }
+.prose{ font-family:var(--font-display); font-size:16px; line-height:1.72 }
+.lede, .lede2{ font-family:var(--font-display); font-size:17px; line-height:1.68 }
+.label{ letter-spacing:.1em; font-weight:600 }
+
+/* ---- less structure: hairlines instead of filled bands ---------------- */
+.band-tint{ background:transparent; border-block:0; border-top:1px solid var(--line) }
+.band{ padding:44px 0 }
+.strip{ background:transparent; border-bottom:1px solid var(--line) }
+.hdr{ border-bottom:1px solid var(--line) }
+.panel{ background:transparent; border:1px solid var(--line) }
+.btn{ border-radius:var(--r) }
+.tel{ border-radius:var(--r); background:transparent; color:var(--ink); border:1px solid var(--line-2) }
+.tel small{ opacity:.55 }
+.btn-primary{ background:var(--ink) }
+.preset, .search input, .sel, .seg{ border-radius:var(--r) }
+
+/* ---- the hero: a photograph and a sentence, not a billboard ----------- */
+.hero{ padding:44px 0 34px }
+.hero-grid{ gap:44px; align-items:start }
+.hero-media{ border-radius:var(--r-lg) }
+.hero-media::after{ height:44%; background:linear-gradient(180deg,transparent,rgba(46,58,64,.6)) }
+
+/* a signature, because a person is selling these */
+.signoff{
+  font-family:var(--font-display); font-size:17px; color:var(--ink-2);
+  margin:20px 0 0; display:flex; align-items:baseline; gap:9px;
+}
+.signoff b{ font-weight:600; color:var(--ink) }
+.signoff span{ font-size:13px; color:var(--ink-3) }
+
+/* ---- cards: quieter, no hover lift ------------------------------------ */
+.card-media{ border-radius:var(--r) }
+.card:hover .card-media img{ transform:none }
+.card-ttl{ font-size:15.5px; line-height:1.35 }
+.badge{ border-radius:var(--r-sm); font-weight:600; letter-spacing:.04em }
+
+/* ---- partners: a quiet line of names, not a showcase ------------------ */
+.partners{ gap:30px 26px }
+.partner{ opacity:.72 }
+.partner:hover{ opacity:1; transform:none }
+.plogo{ height:38px }
+.plogo img{ max-height:38px; max-width:130px }
+.partner strong{ font-family:var(--font-display); font-size:12.5px }
+
+/* ---- footer ----------------------------------------------------------- */
+.ftr{ background:transparent; border-top:1px solid var(--line) }
+.sellstrip{ border:1px solid var(--line); border-radius:var(--r-lg); background:transparent }
+
+/* ---- the version switch ------------------------------------------------ */
+.vswitch{
+  display:inline-flex; align-items:center; gap:7px; font-size:12px; color:var(--ink-3);
+  border:1px solid var(--line); border-radius:var(--r); padding:5px 10px; text-decoration:none;
+}
+.vswitch:hover{ border-color:var(--ink-3); color:var(--ink) }
