@@ -63,6 +63,20 @@ chk('it builds only once, whatever fires DOMContentLoaded', $$('#gate').length =
       !(window.crypto && window.crypto.subtle), 'crypto.subtle was present, so this proved nothing');
 }
 
+// --- the filter drawer belongs to the inventory ---------------------------
+{
+  const at = h => { window.location.hash = h; window.dispatchEvent(new window.Event('hashchange'));
+                    return window.document.body.dataset.view; };
+  chk('home marks itself on the body', at('#/') === 'home');
+  chk('inventory marks itself on the body', at('#/inventory') === 'browse');
+  chk('blog marks itself on the body', at('#/blog') === 'blog');
+  at('#/inventory');
+  $('#rail-open').click();
+  chk('the drawer opens on the inventory', window.document.body.classList.contains('rail-open'));
+  at('#/');
+  chk('and closes when you navigate away', !window.document.body.classList.contains('rail-open'));
+}
+
 // --- staff portal ---------------------------------------------------------
 const staff = $('#staff-link');
 chk('a staff link sits in the header', !!staff && staff.getAttribute('href') === 'admin.html');

@@ -464,7 +464,7 @@ textarea.inp{ min-height:120px; resize:vertical; line-height:1.6; font-family:va
 @media (max-width:880px){
   :root{ --gut:18px }
   .browse{ grid-template-columns:1fr; gap:0 }
-  .rail-toggle{ display:inline-flex }
+  body[data-view="browse"] .rail-toggle{ display:inline-flex }
   .rail{
     position:fixed; inset:0 auto 0 0; width:min(320px,86vw); background:var(--paper); z-index:75;
     max-height:none; padding:20px; transform:translateX(-101%); transition:transform .28s var(--ease);

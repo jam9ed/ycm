@@ -484,7 +484,14 @@ let browseBuilt = false;
 function ensureBrowse() { if (!browseBuilt) { browseBuilt = true; commit(false); } }
 
 const VIEWS = ['view-home', 'view-browse', 'view-blog', 'view-detail'];
-function show(id) { VIEWS.forEach(v => { const el = $('#' + v); if (el) el.hidden = (v !== id); }); }
+function show(id) {
+  VIEWS.forEach(v => { const el = $('#' + v); if (el) el.hidden = (v !== id); });
+  /* The filter drawer belongs to the inventory. Naming the current view here
+     lets CSS hide its toggle everywhere else — it used to sit in the header on
+     every page, offering to filter a grid you were not looking at. */
+  document.body.dataset.view = id.replace('view-', '');
+  document.body.classList.remove('rail-open');      // never leave it open across a route change
+}
 
 function route() {
   const h = location.hash || '#/';
