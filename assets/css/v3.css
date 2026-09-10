@@ -1,0 +1,86 @@
+/* ==========================================================================
+   v3 — "the guy who likes boats"
+
+   Brief: Dave wants to talk about boats. He enjoys them, works on them, likes
+   being around them. Selling is secondary; sharing what he knows comes first;
+   and the site should feel something like being on the water.
+
+   So the hierarchy is inverted against a normal dealer site. A photograph of
+   him driving comes before any stock. Sea trial video comes before the grid.
+   The writing comes before the listings. The boats are still all there —
+   they are just not the first thing you are asked to do.
+
+   Loaded after ycm.css, so every component still works; this changes weight,
+   scale and order.
+   ========================================================================== */
+
+:root{
+  --paper:#FBF9F4; --paper-2:#F4F0E7; --paper-3:#E9E3D6;
+  --ink:#28333A; --ink-2:#4F5C65; --ink-3:#8B959C;
+  --line:#E2DACA; --line-2:#CBC0AB;
+  --sea:#3F6F66; --sea-soft:#E2ECE9;
+  --brass:#8E6A3C; --brass-soft:#F1E8D8;
+  --font-display:"Iowan Old Style","Palatino Linotype",Palatino,"Hoefler Text",Georgia,serif;
+  --r-sm:3px; --r:5px; --r-lg:8px;
+}
+
+.display,.h1,.h2,.card-ttl{ font-family:var(--font-display); font-weight:600; letter-spacing:-.005em }
+.prose,.lede{ font-family:var(--font-display) }
+.band{ padding-block:56px }
+.band-tint{ background:transparent; border-block:0; border-top:1px solid var(--line) }
+.hdr{ border-bottom:1px solid var(--line) }
+.tel{ background:transparent; border:1px solid var(--line-2); color:var(--ink); border-radius:var(--r) }
+.btn{ border-radius:var(--r) }
+
+/* ---- the hero: you are on the water before you are sold anything -------- */
+.v3-hero{ position:relative; margin:0; background:var(--ink) }
+.v3-hero img{ width:100%; height:min(66vh,560px); object-fit:cover; display:block; opacity:.92 }
+.v3-hero::after{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(180deg,rgba(40,51,58,.18) 0%,transparent 34%,rgba(40,51,58,.72) 100%);
+}
+.v3-hero figcaption{
+  position:absolute; left:0; right:0; bottom:0; z-index:1; color:#FBF9F4;
+  padding:0 0 clamp(24px,4vw,46px);
+}
+.v3-hero .wrap{ max-width:760px; margin-inline:0 }
+.v3-hero h1{
+  font-family:var(--font-display); font-size:clamp(26px,3.6vw,44px); line-height:1.14;
+  font-weight:600; margin:0 0 12px; text-shadow:0 2px 20px rgba(0,0,0,.4);
+}
+.v3-hero p{ font-family:var(--font-display); font-size:clamp(15px,1.5vw,18px); line-height:1.6;
+  margin:0 0 20px; max-width:52ch; color:rgba(251,249,244,.9) }
+.v3-hero .btn-ghost{ border-color:rgba(251,249,244,.5); color:#FBF9F4 }
+.v3-hero .btn-ghost:hover{ background:rgba(251,249,244,.12) }
+.v3-hero .btn-primary{ background:#FBF9F4; color:var(--ink) }
+
+/* ---- video, given room, because it is the closest thing to being aboard - */
+.reels{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:18px }
+.reel ycm-video{ border-radius:var(--r-lg) }
+.reel h3{ font-family:var(--font-display); font-size:15px; font-weight:600; margin:10px 0 2px }
+.reel p{ margin:0; font-size:13px; color:var(--ink-3) }
+
+/* ---- things worth asking about ---------------------------------------- */
+.asks{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px; margin-top:22px }
+.ask{ border:1px solid var(--line); border-radius:var(--r-lg); padding:20px 22px; background:var(--paper) }
+.ask strong{ display:block; font-family:var(--font-display); font-size:16.5px; margin-bottom:7px }
+.ask p{ margin:0; font-size:14px; line-height:1.6; color:var(--ink-2) }
+
+/* ---- the whole company ------------------------------------------------- */
+.crew{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:26px; align-items:start }
+.crew figure{ margin:0 }
+.crew img{ width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:var(--r-lg); display:block }
+.crew figcaption{ margin-top:11px }
+.crew strong{ font-family:var(--font-display); font-size:16px; display:block; margin-bottom:5px }
+.crew p{ margin:0; font-size:14px; line-height:1.65; color:var(--ink-2) }
+
+/* boats sit lower and quieter here than on the other two versions */
+.v3-stock .card-ttl{ font-size:14.5px }
+.v3-stock .band-h{ margin-bottom:20px }
+
+/* where this started — an old home video, so let it look its age */
+.origin{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:38px; align-items:center }
+.origin figure{ margin:0 }
+.origin img{ width:100%; border-radius:var(--r-lg); display:block; filter:saturate(.92) }
+.origin figcaption{ margin-top:10px; font-size:12.5px; color:var(--ink-3); font-style:italic }
+@media (max-width:760px){ .origin{ grid-template-columns:1fr; gap:20px } }

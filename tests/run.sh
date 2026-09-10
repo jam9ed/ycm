@@ -3,7 +3,7 @@
 set -e
 cd "$(dirname "$0")"
 fail=0
-for t in t-video.js t-config.js t-reconcile.js t-public.js t-downhome.js t-links.js t-layout.js t-admin.js t-integration.js; do
+for t in t-video.js t-config.js t-reconcile.js t-public.js t-downhome.js t-v3.js t-links.js t-layout.js t-admin.js t-integration.js; do
   echo "── $t ─────────────────────────────────────────"
   node "$t" || fail=1
   echo
