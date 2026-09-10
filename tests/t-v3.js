@@ -32,6 +32,9 @@ const out = []; const chk = (n,c,x='') => out.push(`${c?'PASS':'**FAIL**'}  ${n}
       /^assets\/img\/posters\//.test(v.getAttribute('poster')) && /^https:\/\//.test(v.getAttribute('src'))));
     chk('no video element mounts before intent', $$('.reels video').length === 0);
 
+    chk('the crew card uses a different photo from the hero',
+        $('.crew img[src*="dave-driving"]') && $('.v3-hero img').getAttribute('src') !==
+        $('.crew img[src*="dave-driving"]').getAttribute('src'));
     chk('the 1974 photo is used', !!$('.origin img[src*="dave-1974"]'));
     chk('and its file exists', fs.existsSync(path.join(__dirname,'..','assets/img/dave-1974.jpg')));
     chk('the mechanic gets his own section', /Ron goes over every boat/.test($('#view-home').textContent));
