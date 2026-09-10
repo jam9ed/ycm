@@ -20,7 +20,11 @@ const out = []; const chk = (n,c,x='') => out.push(`${c?'PASS':'**FAIL**'}  ${n}
 
     chk('the hero leads with Dave, not a boat', !!$('.v3-hero img[src*="dave-helm"]'));
     chk('the primary call to action is a phone call',
-        /talk boats/i.test($('.v3-hero .btn-primary').textContent), $('.v3-hero .btn-primary').textContent);
+        /^tel:/.test($('.v3-hero .btn-primary').getAttribute('href')),
+        $('.v3-hero .btn-primary').textContent);
+    chk('the hero carries the real tagline',
+        /a different kind of boat dealer/i.test($('.v3-hero h1').textContent),
+        $('.v3-hero h1').textContent.replace(/\s+/g,' ').trim());
 
     // video is the closest thing to being aboard, and must still be lazy
     chk('sea trial video is on the home page', $$('.reels ycm-video').length === 3);
@@ -31,8 +35,9 @@ const out = []; const chk = (n,c,x='') => out.push(`${c?'PASS':'**FAIL**'}  ${n}
     chk('the 1974 photo is used', !!$('.origin img[src*="dave-1974"]'));
     chk('and its file exists', fs.existsSync(path.join(__dirname,'..','assets/img/dave-1974.jpg')));
     chk('the mechanic gets his own section', /Ron goes over every boat/.test($('#view-home').textContent));
-    chk('and his missing photo is marked as missing, not faked',
-        /Photo of Ron needed/.test($('#view-home').textContent));
+    chk('and he is actually pictured', !!$('img[src*="ron.jpg"]'));
+    chk('his photo has descriptive alt text',
+        /mechanic/i.test($('img[src*="ron.jpg"]').getAttribute('alt') || ''));
 
     // shared machinery still works
     window.location.hash = '#/inventory';
