@@ -1,12 +1,11 @@
 /* ==========================================================================
    Dave's posts, lifted from the live home page.
 
-   The home page is one enormous scroll of write-ups — boats arriving, sea
-   trials, deliveries, the occasional digression about a tractor. Good writing,
-   and the reason people follow YCM; it just has nowhere to live but a single
-   4 MB page. Parsed into discrete posts here so it can have a Blog.
-
-   Titles and copy are verbatim. Images are the ones that sat in each post.
+   Titles and copy are verbatim. Images are the ones that sat in each post on
+   the page — an inference from document order, so treat the pairing as good
+   but not proven. Two things have already been removed: the SOLD and
+   AVAILABLE badge graphics, which are page furniture rather than photographs,
+   and a post that turned out to be an advert for Dave's house.
    ========================================================================== */
 window.YCM_POSTS = [
   {
@@ -33,7 +32,7 @@ window.YCM_POSTS = [
   {
     id:'we-re-starting-to-go-over-our-2018-edgewater', order:1,
     title:'We’re starting to go over our 2018 Edgewater 158 CS -this is such a cool little boat!',
-    images:['assets/img/posts/post_184.jpg', 'assets/img/posts/post_036.jpg', 'assets/img/posts/post_185.jpg'],
+    images:['assets/img/posts/post_184.jpg', 'assets/img/posts/post_185.jpg'],
     body:[
       'That hinged, clamshell center console is beyond clever.',
       'It shifts the otherwise painstaking tasks of changing out batteries, cables, electronics, etc. to an absolute breeze!',
@@ -75,7 +74,7 @@ window.YCM_POSTS = [
   {
     id:'in-the-ycm-pipeline-1977-boston-whaler-11-st', order:3,
     title:'In The YCM Pipeline - 1977 Boston Whaler 11’ Standard!',
-    images:['assets/img/posts/post_030.jpg', 'assets/img/posts/post_022.jpg', 'assets/img/posts/post_031.jpg'],
+    images:['assets/img/posts/post_030.jpg', 'assets/img/posts/post_031.jpg'],
     body:[
       'One owner since 1978.',
       'Freshwater boat since new.',
@@ -115,30 +114,9 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'in-the-ycm-pipeline', order:5,
-    title:'In The YCM Pipeline!',
-    images:['assets/img/posts/post_005.jpg', 'assets/img/posts/post_006.jpg', 'assets/img/posts/post_007.jpg'],
-    body:[
-      'I bet you could talk him into leaving a pretty sweet Whaler on that boat lift...',
-      'Link to Dave\'s Property....',
-      'https://www.zillow.com/homedetails/512-Spivey-Ln-Seaford-VA-23696/333713775_zpid/?view=public',
-      'The Best Sunsets Anywhere!',
-      'LOW TAX RATES!',
-      'Deepwater!',
-      'Beachy Sandy Bottom!',
-      'Super Private!',
-      'Minutes to Dining, Shopping & Airport!',
-      'There goes another…',
-      'Mike & Kim (two of the most pleasant people you could ever hope to meet) bought this 2005 Boston Whaler 160 Dauntless from us several weeks ago.',
-      'They wanted a few things added -',
-      '-A new Mercury 115 Four Stroke',
-      '-A new OEM bimini top (made by Great Lake Tops)',
-    ],
-  },
-  {
-    id:'another-teaser-shot-of-our-incoming-1986-bos', order:6,
+    id:'another-teaser-shot-of-our-incoming-1986-bos', order:5,
     title:'Another teaser shot of our incoming 1986 Boston Whaler Newport...',
-    images:['assets/img/posts/post_036.jpg', 'assets/img/posts/post_084.jpg', 'assets/img/posts/post_085.jpg'],
+    images:['assets/img/posts/post_084.jpg', 'assets/img/posts/post_085.jpg'],
     body:[
       'Arriving next week at York County Marine!',
       'YCM a different kind of boat dealer',
@@ -157,7 +135,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'a-wyoming-whaler', order:7,
+    id:'a-wyoming-whaler', order:6,
     title:'A Wyoming Whaler?',
     images:['assets/img/posts/post_108.jpg', 'assets/img/posts/post_109.jpg', 'assets/img/posts/post_110.jpg'],
     body:[
@@ -178,7 +156,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'here-s-a-few-bullet-point-details-about-our-', order:8,
+    id:'here-s-a-few-bullet-point-details-about-our-', order:7,
     title:'Here’s a few bullet point details about our incoming ABW Acadia 21-',
     images:['assets/img/posts/post_059.jpg', 'assets/img/posts/post_060.jpg', 'assets/img/posts/post_061.jpg'],
     body:[
@@ -199,9 +177,9 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'boston-whaler-160-super-sport', order:9,
+    id:'boston-whaler-160-super-sport', order:8,
     title:'BOSTON WHALER 160 SUPER SPORT!',
-    images:['assets/img/posts/post_050.jpg', 'assets/img/posts/post_022.jpg', 'assets/img/posts/post_051.jpg'],
+    images:['assets/img/posts/post_050.jpg', 'assets/img/posts/post_051.jpg'],
     body:[
       'This beautiful 160 SS finally arrived @ YCM last night!',
       'She\'s $30k with BRAND NEW 2026 EZ LOADER TRAILER!',
@@ -220,7 +198,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'some-boston-whalers-require-a-bilge-pump-som', order:10,
+    id:'some-boston-whalers-require-a-bilge-pump-som', order:9,
     title:'Some Boston Whalers require a bilge pump, some don\'t.',
     images:['assets/img/posts/post_145.jpg', 'assets/img/posts/post_146.jpg', 'assets/img/posts/post_147.jpg'],
     body:[
@@ -241,7 +219,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'delivery-day', order:11,
+    id:'delivery-day', order:10,
     title:'Delivery Day!',
     images:['assets/img/posts/post_009.jpg', 'assets/img/posts/post_010.jpg', 'assets/img/posts/post_011.jpg'],
     body:[
@@ -262,7 +240,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'in-the-ycm-pipeline', order:12,
+    id:'in-the-ycm-pipeline', order:11,
     title:'In the YCM Pipeline!',
     images:['assets/img/posts/post_149.jpg', 'assets/img/posts/post_150.jpg', 'assets/img/posts/post_151.jpg'],
     body:[
@@ -283,7 +261,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'carolina-blue-boston-whaler-impact-12', order:13,
+    id:'carolina-blue-boston-whaler-impact-12', order:12,
     title:'Carolina Blue Boston Whaler Impact 12!',
     images:['assets/img/posts/post_154.jpg', 'assets/img/posts/post_155.jpg', 'assets/img/posts/post_156.jpg'],
     body:[
@@ -304,7 +282,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'sea-trials-boston-whaler-17-standard-yamaha-', order:14,
+    id:'sea-trials-boston-whaler-17-standard-yamaha-', order:13,
     title:'Sea Trials - Boston Whaler 17 Standard, Yamaha F70...',
     images:['assets/img/posts/post_089.jpg'],
     body:[
@@ -325,9 +303,9 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'one-fast-montauk', order:15,
+    id:'one-fast-montauk', order:14,
     title:'One Fast Montauk!',
-    images:['assets/img/posts/post_106.jpg', 'assets/img/posts/post_036.jpg'],
+    images:['assets/img/posts/post_106.jpg'],
     body:[
       '1998 Boston Whaler 40th Anniversary Edition 13 Sport!',
       'She’s always been a freshwater boat, and she’s always been garage kept!',
@@ -346,9 +324,9 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'boston-whaler-montauk-17-a-long-winded-video', order:16,
+    id:'boston-whaler-montauk-17-a-long-winded-video', order:15,
     title:'Boston Whaler Montauk 17   -a long winded video...',
-    images:['assets/img/posts/post_134.jpg', 'assets/img/posts/post_036.jpg', 'assets/img/posts/post_135.jpg'],
+    images:['assets/img/posts/post_134.jpg', 'assets/img/posts/post_135.jpg'],
     body:[
       'When York County Marine purchased this one owner, garage kept 1961 Boston Whaler from Denise in Nashville last April, we made her a promise  - “We’ll find her a good home.”',
       'That promise was fulfilled today, as Denise’s childhood 13 footer was loaded onto a flatbed trailer destined for The Mystic Seaport Museum, in Mystic, Connecticut.',
@@ -367,9 +345,9 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'this-package-will-be-approximately-35k-less-', order:17,
+    id:'this-package-will-be-approximately-35k-less-', order:16,
     title:'This package will be approximately $35k LESS THAN A NEW MONTAUK!',
-    images:['assets/img/posts/post_044.jpg', 'assets/img/posts/post_045.jpg', 'assets/img/posts/post_036.jpg'],
+    images:['assets/img/posts/post_044.jpg', 'assets/img/posts/post_045.jpg'],
     body:[
       'With the cost of a new Montauk, buying used and re-powering w/new can make a lot of sense!',
       'BTW -there’s an ’05 Montauk in the YCM inventory that’s also ready for re-power! Take a look, give us call!',
@@ -388,7 +366,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'in-the-ycm-pipeline', order:18,
+    id:'in-the-ycm-pipeline', order:17,
     title:'In The YCM Pipeline!',
     images:['assets/img/posts/post_140.jpg', 'assets/img/posts/post_141.jpg', 'assets/img/posts/post_142.jpg'],
     body:[
@@ -409,7 +387,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'a-boston-whaler-that-can-sink', order:19,
+    id:'a-boston-whaler-that-can-sink', order:18,
     title:'A Boston Whaler that can sink?',
     images:['assets/img/posts/post_012.jpg', 'assets/img/posts/post_013.jpg'],
     body:[
@@ -430,9 +408,9 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'in-the-ycm-pipeline', order:20,
+    id:'in-the-ycm-pipeline', order:19,
     title:'In The YCM Pipeline!',
-    images:['assets/img/posts/post_126.jpg', 'assets/img/posts/post_127.jpg', 'assets/img/posts/post_022.jpg'],
+    images:['assets/img/posts/post_126.jpg', 'assets/img/posts/post_127.jpg'],
     body:[
       'She’s a 2011 Boston Whaler 170 Montauk  -WITH 2025 90 hp Suzuki Four Stroke!',
       'She is gorgeous -and ya’ll know there’s no saltwater out there to even talk about!',
@@ -451,9 +429,9 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'1983-boston-whaler-15-super-sport', order:21,
+    id:'1983-boston-whaler-15-super-sport', order:20,
     title:'1983 Boston Whaler 15 Super Sport!',
-    images:['assets/img/posts/post_036.jpg', 'assets/img/posts/post_143.jpg', 'assets/img/posts/post_144.jpg'],
+    images:['assets/img/posts/post_143.jpg', 'assets/img/posts/post_144.jpg'],
     body:[
       '-One Owner',
       '-Freshwater',
@@ -472,7 +450,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'one-owner-1999-grady-white-208-adventure', order:22,
+    id:'one-owner-1999-grady-white-208-adventure', order:21,
     title:'ONE OWNER  -1999 GRADY WHITE 208 ADVENTURE!',
     images:['assets/img/posts/post_073.jpg', 'assets/img/posts/post_074.jpg'],
     body:[
@@ -493,9 +471,9 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'in-the-ycm-pipeline', order:23,
+    id:'in-the-ycm-pipeline', order:22,
     title:'In The YCM Pipeline',
-    images:['assets/img/posts/post_161.jpg', 'assets/img/posts/post_162.jpg', 'assets/img/posts/post_036.jpg'],
+    images:['assets/img/posts/post_161.jpg', 'assets/img/posts/post_162.jpg'],
     body:[
       'There goes a Boston Whaler 180 Dauntless!',
       'We’re delivering this one about an hour up the road to our new friend Terrence\'s place in Mathew’s County, Va.',
@@ -514,7 +492,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'this-senior-owned-1999-boston-whaler-montauk', order:24,
+    id:'this-senior-owned-1999-boston-whaler-montauk', order:23,
     title:'This senior owned 1999 Boston Whaler Montauk 17 arrived last night @ YCM!',
     images:['assets/img/posts/post_029.jpg'],
     body:[
@@ -535,9 +513,9 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'in-the-ycm-pipeline-1988-boston-whaler-15-su', order:25,
+    id:'in-the-ycm-pipeline-1988-boston-whaler-15-su', order:24,
     title:'In the YCM Pipeline - 1988 Boston Whaler 15 Super Sport!',
-    images:['assets/img/posts/post_182.jpg', 'assets/img/posts/post_036.jpg', 'assets/img/posts/post_183.jpg'],
+    images:['assets/img/posts/post_182.jpg', 'assets/img/posts/post_183.jpg'],
     body:[
       'Pound for pound -Boston Whaler\'s all-time most fun hull!',
       'The Classic 15 first officially arrived in 1976, and ran through 2000 with various interior configurations.',
@@ -556,9 +534,9 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'in-the-ycm-pipeline', order:26,
+    id:'in-the-ycm-pipeline', order:25,
     title:'In the YCM Pipeline!',
-    images:['assets/img/posts/post_163.jpg', 'assets/img/posts/post_036.jpg', 'assets/img/posts/post_164.jpg'],
+    images:['assets/img/posts/post_163.jpg', 'assets/img/posts/post_164.jpg'],
     body:[
       'One very dirty and rather rare Boston Whaler - 1985 Revenge 25 Walk-Around Hardtop!',
       'The Revenge was offered as a 20, 22 or 25 footer, all resting on the equivalently sized Outrage hull -designed to be more of a family friendly, fishing, overnighter, vs the Outrage’s center console, open and more fishing centric platform.',
@@ -577,9 +555,9 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'here-s-another-one-coming-back-to-the-nest', order:27,
+    id:'here-s-another-one-coming-back-to-the-nest', order:26,
     title:'Here’s another one coming back to the nest…',
-    images:['assets/img/posts/post_055.jpg', 'assets/img/posts/post_036.jpg', 'assets/img/posts/post_056.jpg'],
+    images:['assets/img/posts/post_055.jpg', 'assets/img/posts/post_056.jpg'],
     body:[
       'This is Willie and family in Edgewater, Florida enjoying their YCM Boston Whaler 17 Standard.',
       'We re-powered this one with a new Yamaha F70 prior to delivery.',
@@ -598,9 +576,9 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'here-s-our-1998-40th-anniversary-edition-bos', order:28,
+    id:'here-s-our-1998-40th-anniversary-edition-bos', order:27,
     title:'Here\'s our 1998 40th Anniversary Edition Boston Whaler',
-    images:['assets/img/posts/post_076.jpg', 'assets/img/posts/post_036.jpg', 'assets/img/posts/post_077.jpg'],
+    images:['assets/img/posts/post_076.jpg', 'assets/img/posts/post_077.jpg'],
     body:[
       '-she\'s hull # 210 of 250, and she\'s in outstanding condition.',
       'Pre-Whaler days…',
@@ -619,9 +597,9 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'boston-whaler-15-sport-center-console-sea-tr', order:29,
+    id:'boston-whaler-15-sport-center-console-sea-tr', order:28,
     title:'Boston Whaler 15 Sport Center Console Sea-Trials!',
-    images:['assets/img/posts/post_087.jpg', 'assets/img/posts/post_022.jpg', 'assets/img/posts/post_088.jpg'],
+    images:['assets/img/posts/post_087.jpg', 'assets/img/posts/post_088.jpg'],
     body:[
       'There goes our freshly re-powered 1997 Boston Whaler 17 Standard!',
       'The snow and (most of) the ice have melted, and once again boats are moving! - back to low teens this weekend....',
@@ -640,9 +618,9 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'ycm-now-has-3-classic-montauks-1-this-one-ow', order:30,
+    id:'ycm-now-has-3-classic-montauks-1-this-one-ow', order:29,
     title:'YCM now has 3 Classic Montauks! 1- This one owner 1999 2- 2000 ready for re-power 3- 1999 w/2021 Yamha F70',
-    images:['assets/img/posts/post_034.jpg', 'assets/img/posts/post_035.jpg', 'assets/img/posts/post_036.jpg'],
+    images:['assets/img/posts/post_034.jpg', 'assets/img/posts/post_035.jpg'],
     body:[
       'We\'ve had lot\'s of requests over this super busy spring to do a walk-around of our 1999 Boston Whaler Montauk 17, so here\'s a quick one!',
       'Turn the volume up, and give us a call if interested!',
@@ -661,7 +639,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'now-that-s-nice-whaler', order:31,
+    id:'now-that-s-nice-whaler', order:30,
     title:'Now that\'s nice Whaler!',
     images:['assets/img/posts/post_120.jpg', 'assets/img/posts/post_065.jpg', 'assets/img/posts/post_121.jpg'],
     body:[
@@ -682,9 +660,9 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'just-arriving-ycm-2005-boston-whaler-160-dau', order:32,
+    id:'just-arriving-ycm-2005-boston-whaler-160-dau', order:31,
     title:'Just Arriving @ YCM 2005 Boston Whaler 160 Dauntless!',
-    images:['assets/img/posts/post_057.jpg', 'assets/img/posts/post_036.jpg', 'assets/img/posts/post_058.jpg'],
+    images:['assets/img/posts/post_057.jpg', 'assets/img/posts/post_058.jpg'],
     body:[
       'She\'s had only two owners since new, has been used primarily in brackish waters & has never been bottom painted!',
       'With that 115 hp Mercury Opti-Max she\'ll be a pretty fast boat, with plenty of power for water skiing.',
@@ -703,9 +681,9 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'all-ycm-whalers-go-through-a-series-of-sea-t', order:33,
+    id:'all-ycm-whalers-go-through-a-series-of-sea-t', order:32,
     title:'All YCM Whalers go through a series of sea trials prior to professional delivery.',
-    images:['assets/img/posts/post_157.jpg', 'assets/img/posts/post_036.jpg', 'assets/img/posts/post_158.jpg'],
+    images:['assets/img/posts/post_157.jpg', 'assets/img/posts/post_158.jpg'],
     body:[
       'The two 11 footers are heading to Cohasset, Massachusetts, the \'89 Montauk leaves today for Norfolk,Virginia, and the \'91 Montauk leaves tomorrow for Annapolis, Maryland.',
       'YCM a different kind of boat dealer',
@@ -724,9 +702,9 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'this-is-another-senior-owned-time-to-downsiz', order:34,
+    id:'this-is-another-senior-owned-time-to-downsiz', order:33,
     title:'This is another Senior Owned, Time to Downsize YCM Whaler!',
-    images:['assets/img/posts/post_032.jpg', 'assets/img/posts/post_022.jpg'],
+    images:['assets/img/posts/post_032.jpg'],
     body:[
       '1999 Boston Whaler Montauk 17',
       '2021 Yamaha F70 - with Only 118 Hours!',
@@ -745,7 +723,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'sea-trails-2001-boston-whaler-montauk-17', order:35,
+    id:'sea-trails-2001-boston-whaler-montauk-17', order:34,
     title:'Sea-Trails 2001 Boston Whaler Montauk 17!',
     images:['assets/img/posts/post_107.jpg'],
     body:[
@@ -766,7 +744,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'remember-that-gorgeous-1995-boston-whaler-ou', order:36,
+    id:'remember-that-gorgeous-1995-boston-whaler-ou', order:35,
     title:'Remember that gorgeous 1995 Boston Whaler Outrage 17 that everyone wanted?',
     images:['assets/img/posts/post_180.jpg', 'assets/img/posts/post_181.jpg'],
     body:[
@@ -787,7 +765,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'in-the-ycm-pipeline-boston-whaler-dauntless-', order:37,
+    id:'in-the-ycm-pipeline-boston-whaler-dauntless-', order:36,
     title:'In the YCM Pipeline! Boston Whaler Dauntless 16!',
     images:['assets/img/posts/post_122.jpg'],
     body:[
@@ -803,7 +781,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'just-like-with-whalers-we-like-to-buy-our-tr', order:38,
+    id:'just-like-with-whalers-we-like-to-buy-our-tr', order:37,
     title:'Just like with Whalers  -we like to buy our tractors pre-owned!',
     images:['assets/img/posts/post_173.jpg'],
     body:[
@@ -821,7 +799,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'1999-boston-whaler-dauntless-16-center-conso', order:39,
+    id:'1999-boston-whaler-dauntless-16-center-conso', order:38,
     title:'1999 Boston Whaler Dauntless 16 Center Console w/2014 Evinrude Etec 90, & 2013 EZ Loader Trailer!',
     images:['assets/img/posts/post_123.jpg', 'assets/img/posts/post_124.jpg', 'assets/img/posts/post_125.jpg'],
     body:[
@@ -839,7 +817,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'rare-boston-whaler-montauk-topiary-edition', order:40,
+    id:'rare-boston-whaler-montauk-topiary-edition', order:39,
     title:'Rare Boston Whaler Montauk Topiary Edition',
     images:['assets/img/posts/post_111.jpg', 'assets/img/posts/post_112.jpg', 'assets/img/posts/post_113.jpg'],
     body:[
@@ -857,7 +835,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'more-ycm-whaler-sea-trials', order:41,
+    id:'more-ycm-whaler-sea-trials', order:40,
     title:'More YCM Whaler Sea Trials!',
     images:['assets/img/posts/post_170.jpg'],
     body:[
@@ -874,7 +852,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'sea-trials-boston-whaler-15-super-sport', order:42,
+    id:'sea-trials-boston-whaler-15-super-sport', order:41,
     title:'Sea Trials - Boston Whaler 15 Super Sport!',
     images:['assets/img/posts/post_174.jpg', 'assets/img/posts/post_175.jpg'],
     body:[
@@ -890,7 +868,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'boston-whaler-170-dauntless', order:43,
+    id:'boston-whaler-170-dauntless', order:42,
     title:'Boston Whaler 170 Dauntless!',
     images:['assets/img/posts/post_097.jpg', 'assets/img/posts/post_098.jpg', 'assets/img/posts/post_099.jpg'],
     body:[

@@ -204,26 +204,21 @@ chk('no card renders a borrowed photo', $$('#grid .card-media img').length === 0
 const seg = () => $$('#viewseg button');
 const lit = () => seg().filter(b => b.getAttribute('aria-pressed') === 'true').map(b => b.dataset.view);
 chk('exactly one view is lit to begin with', lit().length === 1, lit().join());
-for (const v of ['list', 'compact', 'grid']) {
+for (const v of ['list', 'grid']) {
   seg().find(b => b.dataset.view === v).click();
   chk(`selecting ${v} moves the highlight`, lit().length === 1 && lit()[0] === v,
       `lit: ${lit().join() || 'none'}`);
 }
 
-// --- the three inventory views -------------------------------------------
-chk('three view options are offered', $$('#viewseg button').length === 3,
-    $$('#viewseg button').map(b => b.dataset.view).join(', '));
-const compactBtn = $$('#viewseg button').find(b => b.dataset.view === 'compact');
-compactBtn.click();
-chk('compact applies its own grid', $('#grid').classList.contains('compact'));
-chk('compact keeps every result', $$('#grid .card').length === liveCards, $$('#grid .card').length);
-chk('compact drops the spec line', $$('#grid .card-spec').length === 0);
-chk('compact still shows titles and prices',
-    $$('#grid .card-ttl').length === liveCards && $$('#grid .card-price').length === liveCards);
-chk('the view is shareable in the URL', /view=compact/.test(window.location.search), window.location.search);
-$$('#viewseg button').find(b => b.dataset.view === 'grid').click();
-chk('switching back restores the default grid',
-    !$('#grid').classList.contains('compact') && $$('#grid .card-spec').length > 0);
+// --- the two inventory views ----------------------------------------------
+chk('two view options are offered', seg().length === 2, seg().map(b => b.dataset.view).join(', '));
+chk('compact is gone', !seg().some(b => b.dataset.view === 'compact'));
+chk('exactly one view is lit to begin with', lit().length === 1, lit().join());
+for (const v of ['list', 'grid']) {
+  seg().find(b => b.dataset.view === v).click();
+  chk(`selecting ${v} moves the highlight`, lit().length === 1 && lit()[0] === v, `lit: ${lit().join() || 'none'}`);
+}
+chk('every card keeps its spec line', $$('#grid .card-spec').length === $$('#grid .card').length);
 
 // --- video component ----------------------------------------------------
 chk('no <video> mounted on browse', $$('video').length === 0, $$('video').length + ' video elements');

@@ -658,21 +658,6 @@ textarea.inp{ min-height:120px; resize:vertical; line-height:1.6; font-family:va
   overflow:hidden; text-overflow:ellipsis;
 }
 
-/* Compact: more boats per screen, for scanning rather than reading.
-   Title clamps to one line and the spec line is dropped — at this width they
-   wrap into a mess and the photograph is doing the work anyway. */
-.grid.compact{ grid-template-columns:repeat(auto-fill,minmax(158px,1fr)); gap:20px 12px }
-.grid.compact .card-media{ margin-bottom:8px; border-radius:var(--r-sm) }
-.grid.compact .card-ttl{
-  font-size:12.5px; line-height:1.35;
-  display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical; overflow:hidden;
-}
-.grid.compact .card-price b{ font-size:13.5px }
-.grid.compact .card-price s{ font-size:11px }
-.grid.compact .badge{ font-size:9px; padding:2.5px 6px }
-.grid.compact .card-badges{ top:6px; left:6px; gap:4px }
-.grid.compact .card-top-r{ top:6px; right:6px }
-@media (max-width:520px){ .grid.compact{ grid-template-columns:repeat(3,minmax(0,1fr)) } }
 
 /* preview gate (see assets/js/gate.js — a curtain, not a lock) */
 #gate{ position:fixed; inset:0; z-index:999; background:#0F1C2B; display:grid; place-items:center; padding:24px }

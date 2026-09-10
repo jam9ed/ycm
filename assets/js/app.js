@@ -250,7 +250,7 @@ function card(b) {
     </div>
     <div class="card-body">
       <h3 class="card-ttl">${esc(b.title)}</h3>
-      ${S.view === 'compact' ? '' : `<div class="card-spec">${specs}</div>`}
+      <div class="card-spec">${specs}</div>
       ${S.view === 'list' && b.body.length ? `<p class="card-blurb">${esc(b.body[0])}</p>` : ''}
       <div class="card-price">${price}</div>
     </div></article>`;
@@ -293,7 +293,7 @@ function renderPresets() {
 function renderResults() {
   const r = results();
   const grid = $('#grid');
-  grid.className = 'grid' + (S.view === 'list' ? ' list' : S.view === 'compact' ? ' compact' : '');
+  grid.className = 'grid' + (S.view === 'list' ? ' list' : '');
   grid.innerHTML = r.length ? r.map(card).join('')
     : `<div class="empty" style="grid-column:1/-1">${I.boat}
         <p class="h2" style="margin-bottom:6px">Nothing matches that yet</p>
@@ -308,7 +308,7 @@ function renderResults() {
   wireCards(grid);
 }
 
-/* Which of grid / compact / list is lit. This used to be set once at init, so
+/* Which of grid / list is lit. This used to be set once at init, so
    clicking a view changed the layout but never moved the highlight. */
 function paintViewSeg() {
   $$('#viewseg button').forEach(b =>
