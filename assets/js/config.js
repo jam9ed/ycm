@@ -12,8 +12,9 @@
      {
        "version": 1,
        "savedAt": "2026-09-05T15:12:00.000Z",
-       "links":    { "<listing-id>": ["assets/img/inv/live_004.jpg", ...] },
-       "setAside": ["assets/img/boats/src_012dfbd305.jpg", ...],
+       "links":     { "<listing-id>": ["assets/img/inv/live_004.jpg", ...] },
+       "postLinks": { "<post-id>":    ["assets/img/posts/post_004.jpg", ...] },
+       "setAside":  ["assets/img/boats/src_012dfbd305.jpg", ...],
        "listings": [ { id, year, make, model, price, ... } ]
      }
 
@@ -78,7 +79,7 @@ const Config = {
 
   /* ---- shape ---------------------------------------------------------- */
   /* seed + config -> the state the app runs on */
-  apply(seed, cfg) {
+  apply(seed, cfg, posts) {
     const rows = (cfg && Array.isArray(cfg.listings) && cfg.listings.length)
       ? clone(cfg.listings) : clone(seed);
     if (cfg && cfg.links) {
@@ -89,11 +90,15 @@ const Config = {
         r.media = [...videos, ...files];
       });
     }
-    return { rows, aside: new Set((cfg && cfg.setAside) || []) };
+    /* Blog posts carry no images of their own either; they are attached the
+       same way listings are. */
+    const postLinks = (cfg && cfg.postLinks) || {};
+    const postRows = (posts || []).map(p => ({ ...p, images: postLinks[p.id] || [] }));
+    return { rows, aside: new Set((cfg && cfg.setAside) || []), postLinks, posts: postRows };
   },
 
   /* the state the app runs on -> the file */
-  build(rows, aside) {
+  build(rows, aside, postLinks) {
     const links = {};
     rows.forEach(r => {
       const photos = (r.media || []).filter(isPhoto);
@@ -104,10 +109,15 @@ const Config = {
       const r = rows.find(x => x.id === id);
       if (r && r.title) titles[id] = r.title;
     });
+    const pl = {};
+    Object.entries(postLinks || {}).forEach(([id, files]) => {
+      if (Array.isArray(files) && files.length) pl[id] = files;
+    });
     return {
       version: 1,
       savedAt: new Date().toISOString(),
       links,
+      postLinks: pl,
       titles,                       // lets a later rename be reconciled by headline
       setAside: [...aside].sort(),
       // photographs live in `links` only, so they are recorded in one place
@@ -205,7 +215,8 @@ const Config = {
       }
       return v;
     };
-    const norm = c => JSON.stringify(stable({ links: c.links, setAside: c.setAside, listings: c.listings }));
+    const norm = c => JSON.stringify(stable({
+      links: c.links, postLinks: c.postLinks || {}, setAside: c.setAside, listings: c.listings }));
     return norm(a) === norm(b);
   },
 };

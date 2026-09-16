@@ -402,7 +402,7 @@ function renderDetail(b) {
 }
 
 /* ---------- home ---------------------------------------------------------- */
-const POSTS = window.YCM_POSTS || [];
+let POSTS = (window.YCM_POSTS || []).map(p => ({ ...p, images: [] }));
 
 function wireCards(root) {
   $$('.card', root).forEach(c => {
@@ -630,11 +630,21 @@ async function boot() {
   const CFG = window.YCM_CONFIG;
   try {
     const cfg = CFG && await CFG.load();
-    if (cfg) { boats = CFG.apply(window.YCM.boats, cfg).rows; source = 'config'; }
-    else {
+    if (cfg) {
+      const applied = CFG.apply(window.YCM.boats, cfg, window.YCM_POSTS || []);
+      boats = applied.rows; POSTS = applied.posts; source = 'config';
+    } else {
       loadError = CFG ? CFG.lastError : 'config.js did not load';
       const draft = JSON.parse(localStorage.getItem('ycm.inventory.v1'));
       if (Array.isArray(draft) && draft.length) { boats = draft; source = 'draft'; }
+      /* the staff portal's unsaved post links live beside the inventory draft */
+      try {
+        const pl = JSON.parse(localStorage.getItem('ycm.postlinks.v1')) || {};
+        if (Object.keys(pl).length) {
+          POSTS = POSTS.map(p => ({ ...p, images: pl[p.id] || [] }));
+          if (source !== 'draft') source = 'draft';
+        }
+      } catch (_) {}
     }
   } catch (e) {
     loadError = e.message;

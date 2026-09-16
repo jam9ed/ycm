@@ -12,6 +12,7 @@ const money = n => n == null ? '—' : '$' + n.toLocaleString('en-US');
 const KEY = 'ycm.inventory.v1';
 const DKEY = 'ycm.pool.dismissed.v1';
 const RKEY = 'ycm.pool.removed.v1';
+const PKEY = 'ycm.postlinks.v1';
 
 /* --- the only thing that talks to storage -------------------------------- */
 const store = {
@@ -24,13 +25,16 @@ const store = {
   // pulled out of the library altogether — junk, duplicates, someone's cat
   readRemoved()  { try { return new Set(JSON.parse(localStorage.getItem(RKEY)) || []); } catch { return new Set(); } },
   writeRemoved(v){ try { localStorage.setItem(RKEY, JSON.stringify([...v])); } catch (e) { toast('Could not save: ' + e.message); } },
+  // which photographs have been attached to which blog post
+  readPostLinks()  { try { return JSON.parse(localStorage.getItem(PKEY)) || {}; } catch { return {}; } },
+  writePostLinks(v){ try { localStorage.setItem(PKEY, JSON.stringify(v)); } catch (e) { toast('Could not save: ' + e.message); } },
 };
 const CFG = window.YCM_CONFIG;
 
 /* saved  = what is on disk (assets/data/ads-config.json), or the seed
    rows   = what you are working on; the localStorage draft if there is one
    dirty  = the two differ, so there is something worth saving              */
-let savedRows = structuredClone(SEED), savedAside = new Set();
+let savedRows = structuredClone(SEED), savedAside = new Set(), savedPostLinks = {};
 let rows = reconcileRows(store.read());
 let canWrite = false;
 
@@ -68,7 +72,8 @@ function reconcileRows(input) {
 }
 
 function isDirty() {
-  return !CFG.same(CFG.build(rows, store.readAside()), CFG.build(savedRows, savedAside));
+  return !CFG.same(CFG.build(rows, store.readAside(), store.readPostLinks()),
+                   CFG.build(savedRows, savedAside, savedPostLinks));
 }
 function paintDirty() {
   const b = document.getElementById('savebar');
@@ -91,11 +96,12 @@ const TABS = [
    before the writable server started would offer a download forever, even
    though saving would have worked. */
 async function saveToDisk() {
-  const payload = CFG.build(rows, store.readAside());
+  const payload = CFG.build(rows, store.readAside(), store.readPostLinks());
   try {
     const r = await CFG.save(payload);
     savedRows = structuredClone(rows);
     savedAside = store.readAside();
+    savedPostLinks = store.readPostLinks();
     canWrite = true;
     toast(`Saved to assets/data/ads-config.json — ${r.photos} photo${r.photos === 1 ? '' : 's'} across ${r.listings} ad${r.listings === 1 ? '' : 's'}`);
     paintDirty();
@@ -225,7 +231,7 @@ function renderList() {
     save(); toast(`${sel.size} listing${sel.size === 1 ? '' : 's'} updated`); sel = new Set(); renderList();
   };
   $('#export').onclick = () => {
-    CFG.download(CFG.build(rows, store.readAside()));   // listings + links + set-aside
+    CFG.download(CFG.build(rows, store.readAside(), store.readPostLinks()));
     toast('Exported ads-config.json');
   };
   $('#importfile').onchange = e => {
@@ -369,13 +375,17 @@ function livePool() {
   ].filter(p => !gone.has(p.file));
 }
 const picsOf  = r => (r.media || []).filter(isPic);
+const POSTS   = () => window.YCM_POSTS || [];
+const postPics = () => Object.values(store.readPostLinks()).flat();
 const mediaOf = r => (r.media || []).filter(m => isPic(m) || isVid(m));
 
 function renderMedia() {
   const POOL = livePool();
   const aside = store.readAside();
-  const used = new Set(rows.flatMap(r => mediaOf(r).map(keyOf)));
+  const used = new Set([...rows.flatMap(r => mediaOf(r).map(keyOf)), ...postPics()]);
   const todo = POOL.filter(p => !used.has(p.file) && !aside.has(p.file)).length;
+  const plinks = store.readPostLinks();
+  const postsWith = POSTS().filter(p => (plinks[p.id] || []).length).length;
   const withPhotos = rows.filter(r => mediaOf(r).length).length;
   const removed = store.readRemoved();
 
@@ -402,13 +412,26 @@ function renderMedia() {
       <div class="kpi"><span class="label">Ads with photos</span><b class="num">${withPhotos}</b><div class="delta">of ${rows.length}</div></div>
       <div class="kpi"><span class="label">Set aside</span><b class="num">${aside.size}</b><div class="delta">kept, not offered</div></div>
       <div class="kpi"><span class="label">Removed</span><b class="num">${removed.size}</b><div class="delta">out of the library</div></div>
+      <div class="kpi"><span class="label">Posts with photos</span><b class="num">${postsWith}</b><div class="delta">of ${POSTS().length}</div></div>
     </div>
 
     <div class="search" style="max-width:320px;margin-bottom:16px">
       <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="8.5" cy="8.5" r="5.5"/><path d="m12.8 12.8 4 4"/></svg>
       <input id="adq" type="search" placeholder="Find an ad…" autocomplete="off">
     </div>
-    <div id="adlist"></div>`;
+    <div id="adlist"></div>
+
+    <div class="band-h" style="margin:38px 0 10px">
+      <div><span class="label">Blog</span>
+        <h2 class="h1" style="margin-top:6px;font-size:20px">Posts</h2></div>
+    </div>
+    <p class="muted" style="margin:0 0 14px;max-width:70ch">Same as the ads: posts ship with no images.
+    Where a photograph sat inside a post on the live page, it is offered first as a suggestion.</p>
+    <div class="search" style="max-width:320px;margin-bottom:14px">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="8.5" cy="8.5" r="5.5"/><path d="m12.8 12.8 4 4"/></svg>
+      <input id="postq" type="search" placeholder="Find a post…" autocomplete="off">
+    </div>
+    <div id="postlist"></div>`;
 
   const drawAds = () => {
     const q = ($('#adq').value || '').toLowerCase().trim();
@@ -451,7 +474,46 @@ function renderMedia() {
       save(); toast('Now leads the listing'); renderMedia();
     });
   };
-  drawAds();
+  const drawPosts = () => {
+    const q = ($('#postq').value || '').toLowerCase().trim();
+    const links = store.readPostLinks();
+    const list = POSTS().filter(p => !q || p.title.toLowerCase().includes(q));
+    $('#postlist').innerHTML = list.map(p => {
+      const pics = links[p.id] || [];
+      return `<section class="adcard" data-pid="${p.id}">
+        <header>
+          <div><h3 class="h3">${esc(p.title)}</h3>
+            <div class="adcard-sub">${p.body.length} paragraph${p.body.length === 1 ? '' : 's'}</div></div>
+          <span class="adcard-count ${pics.length ? '' : 'zero'}">${pics.length || 'No'} photo${pics.length === 1 ? '' : 's'}</span>
+          <button class="btn btn-primary btn-sm" data-addpost="${p.id}">Add photos</button>
+        </header>
+        ${pics.length ? `<div class="adcard-strip">${pics.map((f, i) => `
+          <span class="ad-thumb ${i === 0 ? 'lead' : ''}" data-plead="${f}" data-pid="${p.id}"
+                title="${i === 0 ? 'Leads the post' : 'Click to make this lead'}">
+            <img src="${f}" alt="">
+            <button class="rm" data-prm="${f}" data-pid="${p.id}" title="Take off this post">${X}</button>
+          </span>`).join('')}</div>` : ''}
+      </section>`;
+    }).join('') || `<p class="muted" style="padding:30px;text-align:center">No post matches.</p>`;
+
+    $$('[data-addpost]').forEach(b => b.onclick = () => openPicker(b.dataset.addpost, 'add', 'post'));
+    $$('[data-prm]').forEach(b => b.onclick = e => {
+      e.stopPropagation();
+      const l = store.readPostLinks(); const id = b.dataset.pid;
+      l[id] = (l[id] || []).filter(f => f !== b.dataset.prm);
+      if (!l[id].length) delete l[id];
+      store.writePostLinks(l); paintDirty(); toast('Taken off the post'); renderMedia();
+    });
+    $$('[data-plead]').forEach(t => t.onclick = e => {
+      if (e.target.closest('.rm')) return;
+      const l = store.readPostLinks(); const id = t.dataset.pid, f = t.dataset.plead;
+      l[id] = [f, ...(l[id] || []).filter(x => x !== f)];
+      store.writePostLinks(l); paintDirty(); toast('Now leads the post'); renderMedia();
+    });
+  };
+
+  drawAds(); drawPosts();
+  $('#postq').oninput = drawPosts;
   $('#adq').oninput = drawAds;
   $('#browseall').onclick = () => openPicker(null, 'all');
   if ($('#fillempty')) $('#fillempty').onclick = () => {
@@ -477,11 +539,16 @@ const PLAY = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.14v13.7
 const X = '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2.5 2.5 9.5 9.5M9.5 2.5 2.5 9.5"/></svg>';
 const TICK = '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.2 4.6 8.8 10 3.4"/></svg>';
 
-function openPicker(lid, view = 'add') {
+function openPicker(lid, view = 'add', target = 'ad') {
   const aside   = store.readAside();
   const removed = store.readRemoved();
-  const ad      = lid ? rows.find(r => r.id === lid) : null;
-  const used    = new Set(rows.flatMap(r => mediaOf(r).map(keyOf)));
+  const plinks  = store.readPostLinks();
+  /* A photograph can belong to a listing or to a blog post. Both are targets;
+     only where the result gets written differs. */
+  const ad      = lid ? (target === 'post' ? POSTS().find(p => p.id === lid)
+                                           : rows.find(r => r.id === lid)) : null;
+  const used    = new Set([...rows.flatMap(r => mediaOf(r).map(keyOf)),
+                           ...Object.values(plinks).flat()]);
   const byFile  = new Map(livePool().map(p => [p.file, p]));
   const pick    = new Set();
   let filter = 'unused', kind = 'any';
@@ -506,7 +573,8 @@ function openPicker(lid, view = 'add') {
 
   const TITLE  = { add: ad ? esc(ad.title) : '', aside: 'Media you set aside',
                    removed: 'Removed from the library', all: 'The whole library' }[view];
-  const KICKER = { add: 'Add media to', aside: 'Set aside', removed: 'Removed', all: 'Library' }[view];
+  const KICKER = { add: target === 'post' ? 'Add photos to post' : 'Add media to',
+                   aside: 'Set aside', removed: 'Removed', all: 'Library' }[view];
 
   const el = document.createElement('div');
   el.className = 'sheet';
@@ -568,7 +636,7 @@ function openPicker(lid, view = 'add') {
       ? `<p class="muted" style="padding:48px;text-align:center">Nothing here.</p>`
       : (mine.length
         ? `<div class="pickgroup"><div class="pickgroup-h">
-             <span class="label">Sat under this ad on the live site &mdash; ${mine.length}</span>
+             <span class="label">${target === 'post' ? 'Sat inside this post' : 'Sat under this ad'} on the live site &mdash; ${mine.length}</span>
              <button class="link-btn" id="pickall">Select all ${mine.length}</button></div>
              <div class="pool">${mine.map(card).join('')}</div></div>
            <div class="pickgroup"><div class="pickgroup-h">
@@ -604,19 +672,33 @@ function openPicker(lid, view = 'add') {
                            toast(msg); pick.clear(); paint(); };
 
   if ($('#savepick', el)) $('#savepick', el).onclick = () => {
-    ad.media = ad.media || [];
     const n = pick.size;
-    pick.forEach(f => {
-      rows.forEach(o => { if (o.media) o.media = o.media.filter(m => keyOf(m) !== f); });
-      aside.delete(f); removed.delete(f);
-      const item = byFile.get(f);
-      /* A video carries its poster and playback URL. Hosting stays on Wix for
-         now, so only `src` changes if that ever moves. */
-      ad.media.push(item && item.kind === 'video'
-        ? { label: 'Walkaround video', ratio: '16:9', src: item.src, poster: item.file }
-        : f);
-    });
-    save(); store.writeAside(aside); store.writeRemoved(removed);
+    if (target === 'post') {
+      const l = store.readPostLinks();
+      pick.forEach(f => {
+        // a photograph lives in one place: take it off any listing or other post
+        rows.forEach(o => { if (o.media) o.media = o.media.filter(m => keyOf(m) !== f); });
+        Object.keys(l).forEach(k => { l[k] = l[k].filter(x => x !== f); if (!l[k].length) delete l[k]; });
+        aside.delete(f); removed.delete(f);
+        l[lid] = [...(l[lid] || []), f];
+      });
+      save(); store.writePostLinks(l); store.writeAside(aside); store.writeRemoved(removed);
+    } else {
+      ad.media = ad.media || [];
+      const l = store.readPostLinks();
+      pick.forEach(f => {
+        rows.forEach(o => { if (o.media) o.media = o.media.filter(m => keyOf(m) !== f); });
+        Object.keys(l).forEach(k => { l[k] = l[k].filter(x => x !== f); if (!l[k].length) delete l[k]; });
+        aside.delete(f); removed.delete(f);
+        const item = byFile.get(f);
+        /* A video carries its poster and playback URL. Hosting stays on Wix for
+           now, so only `src` changes if that ever moves. */
+        ad.media.push(item && item.kind === 'video'
+          ? { label: 'Walkaround video', ratio: '16:9', src: item.src, poster: item.file }
+          : f);
+      });
+      save(); store.writePostLinks(l); store.writeAside(aside); store.writeRemoved(removed);
+    }
     toast(`${n} added to ${ad.title.slice(0, 34)}`);
     close(); renderMedia();
   };
@@ -637,10 +719,13 @@ function openPicker(lid, view = 'add') {
     if (!confirm(`Remove ${n} item${n === 1 ? '' : 's'} from the library?\n\n`
       + `They come off any ad they are on and stop being offered. Files stay on disk `
       + `and you can put them back from the Removed view.`)) return;
+    const l = store.readPostLinks();
     pick.forEach(f => {
       removed.add(f); aside.delete(f);
       rows.forEach(o => { if (o.media) o.media = o.media.filter(m => keyOf(m) !== f); });
+      Object.keys(l).forEach(k => { l[k] = l[k].filter(x => x !== f); if (!l[k].length) delete l[k]; });
     });
+    store.writePostLinks(l);
     persist(`${n} removed from the library`);
   };
 }
@@ -671,8 +756,9 @@ function render() {
   canWrite = await CFG.writable();
   const cfg = await CFG.load();
   if (cfg) {
-    const applied = CFG.apply(SEED, cfg);
-    savedRows = applied.rows; savedAside = applied.aside;
+    const applied = CFG.apply(SEED, cfg, POSTS());
+    savedRows = applied.rows; savedAside = applied.aside; savedPostLinks = applied.postLinks || {};
+    if (!localStorage.getItem(PKEY)) store.writePostLinks(savedPostLinks);
     // no local draft yet -> run on exactly what is saved
     if (!localStorage.getItem(KEY)) { rows = structuredClone(savedRows); store.writeAside(savedAside); }
   }

@@ -67,15 +67,22 @@ chk('edit did not duplicate', after2.filter(r => r.id === made.id).length === 1)
 $$('#anav a')[2].click();
 chk('photos tab renders', /Add photos/.test($('#amain').textContent));
 const liveRows = () => JSON.parse(window.localStorage.getItem('ycm.inventory.v1')) || window.YCM.boats;
-chk('every ad is listed', $$('.adcard').length === liveRows().length, $$('.adcard').length);
-chk('ads with no photo say so', $$('.adcard-count.zero').length > 0);
+chk('every ad is listed', $$('#adlist .adcard').length === liveRows().length, $$('#adlist .adcard').length);
+chk('ads with no photo say so', $$('#adlist .adcard-count.zero').length > 0);
 
 const seededPhotos = window.YCM.boats.reduce((n, b) => n + (b.media||[]).filter(m => typeof m === 'string').length, 0);
 chk('no photo ships attached to any ad', seededPhotos === 0, seededPhotos + ' attached in data.js');
 
 // the live page's own layout, offered as a suggestion
-chk('suggestions exist for the live-page photos',
-    window.YCM_POOL.filter(p => p.suggest).length === 72, window.YCM_POOL.filter(p => p.suggest).length);
+const byOrigin = o => window.YCM_POOL.filter(p => p.origin === o);
+chk('inventory-page photos carry a suggested ad',
+    byOrigin('live').filter(p => p.suggest).length === 72, byOrigin('live').filter(p => p.suggest).length);
+chk('blog photos carry a suggested post',
+    byOrigin('blog').filter(p => p.suggest).length === 89, byOrigin('blog').filter(p => p.suggest).length);
+chk('every blog suggestion names a real post', (() => {
+  const ids = new Set(window.YCM_POSTS.map(p => p.id));
+  return byOrigin('blog').filter(p => p.suggest).every(p => ids.has(p.suggest));
+})());
 const camper = window.YCM_POOL.filter(p => /camper_\d/.test(p.file));
 chk('the camper photos recovered from the re-archive are in the pool', camper.length === 5, camper.length);
 chk('and every one is suggested to the camper ad',
@@ -84,12 +91,12 @@ chk('camper files exist on disk', (() => {
   const fs = require('fs'), path = require('path');
   return camper.every(p => fs.existsSync(path.join(__dirname, '..', p.file)));
 })());
-chk('archive photos carry no suggestion',
-    window.YCM_POOL.filter(p => p.origin !== 'live').every(p => !p.suggest));
+chk('archive photos carry no suggestion — nothing locates them',
+    window.YCM_POOL.filter(p => !['live','blog'].includes(p.origin)).every(p => !p.suggest));
 chk('bulk fill is offered', !!$('#fillempty'), ($('#fillempty')||{}).textContent);
 
 // open the picker from a specific ad
-const adEl = $$('.adcard')[0];
+const adEl = $$('#adlist .adcard')[0];
 const lid = adEl.dataset.lid;
 $(`[data-add="${lid}"]`).click();
 chk('picker opens as a sheet', !!$('.sheet-box'));
@@ -171,6 +178,34 @@ chk('remove takes it off the ad', !st.some(r => (r.media||[]).includes(secondFil
 // video slots are never touched by any of this
 chk('video slots survive', st.filter(r => (r.media||[]).some(m => m && m.label)).length ===
     window.YCM.boats.filter(b => (b.media||[]).some(m => m && m.label)).length, 'video slots intact');
+
+// --- blog posts get their photos the same way listings do -----------------
+chk('no post ships with an image', window.YCM_POSTS.every(p => !(p.images || []).length));
+chk('posts are listed for attaching', $$('#postlist .adcard').length === window.YCM_POSTS.length,
+    $$('#postlist .adcard').length + ' of ' + window.YCM_POSTS.length);
+
+{
+  const pid = $$('#postlist .adcard')[0].dataset.pid;
+  $(`[data-addpost="${pid}"]`).click();
+  chk('the picker names the post it is filling', /Add photos to post/.test($('.sheet-head').textContent));
+  chk('and groups what sat inside it', /Sat inside this post/.test($('.sheet').textContent));
+  const picked = $$('.sheet .pcard').slice(0, 2).map(c => (c.click(), c.dataset.f));
+  $('#savepick').click();
+  const links = JSON.parse(window.localStorage.getItem('ycm.postlinks.v1'));
+  chk('photos save against the post', picked.every(f => (links[pid] || []).includes(f)),
+      JSON.stringify(links[pid] || []));
+  chk('the post card shows them', $$(`#postlist .adcard[data-pid="${pid}"] .ad-thumb`).length === 2);
+
+  // a photograph belongs to one thing only
+  const f = picked[0];
+  const onAnAd = JSON.parse(window.localStorage.getItem('ycm.inventory.v1'))
+    .some(r => (r.media || []).includes(f));
+  chk('and come off any listing they were on', !onAnAd);
+
+  $(`[data-prm="${f}"]`).click();
+  const after = JSON.parse(window.localStorage.getItem('ycm.postlinks.v1'));
+  chk('removing one takes it off the post', !(after[pid] || []).includes(f));
+}
 
 $$('#anav a')[0].click();
 chk('back to inventory', !!$('#tbody'));

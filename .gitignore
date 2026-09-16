@@ -26,6 +26,11 @@ assets/img/boats/*
 !assets/img/boats/src_0f12e59d2f.jpg
 !assets/img/boats/src_e7268cdd12.jpg
 
-assets/img/posters/*
-!assets/img/posters/2436ec242d.jpg
-!assets/img/posters/5552730210.jpg
+# Poster frames are all tracked now: videos.html is a contact sheet of the whole
+# reel, so every one of the 94 is referenced by code. 7.6 MB, worth it.
+!assets/img/posters/*.jpg
+
+# Full-length source videos stay on Wix — they are 231 MB and we only ever
+# wanted ten seconds of them. The trimmed hero loop is tracked.
+assets/video/*
+!assets/video/hero/

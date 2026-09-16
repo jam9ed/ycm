@@ -34,7 +34,15 @@
 
 /* ---- the hero: you are on the water before you are sold anything -------- */
 .v3-hero{ position:relative; margin:0; background:var(--ink) }
-.v3-hero img{ width:100%; height:min(66vh,560px); object-fit:cover; display:block; opacity:.92 }
+.v3-hero .hero-media{ position:relative; width:100%; height:min(66vh,560px); overflow:hidden }
+.v3-hero .hero-media>img,
+.v3-hero .hero-media>video{ position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; display:block }
+.v3-hero .hero-still{ opacity:.92 }
+/* Each clip fades up over the one before it, so the loop reads as one river. */
+.v3-hero .hero-media>video{ opacity:0; transition:opacity .7s ease; pointer-events:none }
+.v3-hero .hero-media>video.on{ opacity:.92 }
+@media (prefers-reduced-motion:reduce){ .v3-hero .hero-media>video{ display:none } }
 .v3-hero::after{
   content:""; position:absolute; inset:0; pointer-events:none;
   background:linear-gradient(180deg,rgba(40,51,58,.18) 0%,transparent 34%,rgba(40,51,58,.72) 100%);

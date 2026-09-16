@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Video Reel</title>
+<meta name="description" content="Every video York County Marine has, in one contact sheet.">
+<link rel="icon" href="assets/img/favicon.svg">
+<link rel="stylesheet" href="assets/css/ycm.css">
+<script src="assets/js/gate.js"></script>
+<style>
+  .reel-head { padding-block: 34px 18px; }
+  .reel-head h1 { margin: 0 0 6px; font-size: 26px; letter-spacing: -.01em; }
+  .reel-head p  { margin: 0; color: var(--muted, #6b7280); font-size: 14px; }
+  .reel-bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+              padding-block: 12px 22px; }
+  .reel-bar button { font: inherit; font-size: 13px; padding: 6px 12px; cursor: pointer;
+                     border: 1px solid var(--line, #dfe3e8); border-radius: 999px;
+                     background: #fff; color: inherit; }
+  .reel-bar button[aria-pressed="true"] { background: #111; color: #fff; border-color: #111; }
+  .reel-bar .spacer { flex: 1 1 auto; }
+  .reel-bar .count { font-size: 13px; color: var(--muted, #6b7280); }
+
+  .reel { display: grid; gap: 18px; padding-block: 0 60px;
+          grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+  .clip { border: 1px solid var(--line, #dfe3e8); border-radius: 10px; overflow: hidden;
+          background: #fff; display: flex; flex-direction: column; }
+  .clip .stage { position: relative; aspect-ratio: 16 / 9; background: #0d1117; }
+  .clip img, .clip video { position: absolute; inset: 0; width: 100%; height: 100%;
+                           object-fit: cover; display: block; }
+  .clip video { object-fit: contain; background: #000; }
+  .clip .play { position: absolute; inset: 0; width: 100%; height: 100%; cursor: pointer;
+                border: 0; background: transparent; display: grid; place-items: center; }
+  .clip .play::after { content: ""; width: 54px; height: 54px; border-radius: 50%;
+                       background: rgba(17,17,17,.62);
+                       box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.85);
+                       clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+                       transition: background .15s ease; }
+  .clip .play::before { content: ""; position: absolute; z-index: 1;
+                        border-style: solid; border-width: 9px 0 9px 15px;
+                        border-color: transparent transparent transparent #fff;
+                        margin-left: 4px; }
+  .clip .play:hover::after { background: rgba(17,17,17,.82); }
+  .clip .meta { display: flex; gap: 10px; align-items: baseline;
+                padding: 10px 12px; font-size: 12px; }
+  .clip .id { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .clip .q { margin-left: auto; color: var(--muted, #6b7280); }
+  .clip a.src { color: var(--muted, #6b7280); text-decoration: none; }
+  .clip a.src:hover { text-decoration: underline; }
+  .clip.playing { border-color: #111; }
+  .empty { padding-block: 40px; color: var(--muted, #6b7280); }
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="wrap hdr-in">
+    <a class="brand" href="index.html">
+      <svg class="mark" viewBox="0 0 48 26" fill="none" aria-hidden="true">
+        <g stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="miter">
+          <path d="M20.5 9 V6.8 Q20.5 4.8 24 4.8 Q27.5 4.8 27.5 6.8 V9" stroke-linejoin="round"/>
+          <path d="M4 9 H44"/>
+          <path d="M4.8 9.4 L8.9 18.1 Q15.2 12.9 24 21.4 Q32.8 12.9 39.1 18.1 L43.2 9.4"/>
+        </g>
+      </svg>
+      <span class="brand-txt"><span class="brand-name">York County Marine</span></span>
+    </a>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="reel-head">
+    <h1>Video reel</h1>
+    <p>Everything on the Wix account, in one place. Click a frame to play it.</p>
+  </div>
+
+  <div class="reel-bar" id="bar">
+    <button type="button" data-q="all" aria-pressed="true">All</button>
+    <span class="spacer"></span>
+    <button type="button" id="stopall">Stop</button>
+    <span class="count" id="count"></span>
+  </div>
+
+  <div class="reel" id="reel"></div>
+  <p class="empty" id="empty" hidden>No videos in the library.</p>
+</main>
+
+<script src="assets/js/media-library.js"></script>
+<script>
+(function () {
+  const VIDEOS = window.YCM_VIDEOS || [];
+  const reel  = document.getElementById('reel');
+  const bar   = document.getElementById('bar');
+  const count = document.getElementById('count');
+  let filter = 'all';
+  let live = null;            // the one <video> currently mounted
+
+  // The poster filename is the video's id, which is the only handle we have on
+  // these until someone attaches them to a boat in the admin.
+  const idOf = v => (v.file || '').split('/').pop().replace(/\.jpg$/, '');
+
+  function stop() {
+    if (!live) return;
+    const clip = live.closest('.clip');
+    live.pause();
+    live.removeAttribute('src');
+    live.load();                       // drop the decoder, not just the playback
+    live.remove();
+    if (clip) {
+      clip.classList.remove('playing');
+      const btn = clip.querySelector('.play');
+      if (btn) btn.hidden = false;
+    }
+    live = null;
+  }
+
+  function play(clip, v) {
+    stop();
+    const el = document.createElement('video');
+    el.controls = true;
+    el.autoplay = true;
+    el.playsInline = true;
+    el.preload = 'auto';
+    el.poster = v.file;
+    el.src = v.src;
+    el.addEventListener('ended', stop);
+    clip.querySelector('.stage').append(el);
+    clip.querySelector('.play').hidden = true;
+    clip.classList.add('playing');
+    live = el;
+  }
+
+  function card(v) {
+    const id = idOf(v);
+    const clip = document.createElement('article');
+    clip.className = 'clip';
+    clip.innerHTML =
+      '<div class="stage">' +
+        '<img loading="lazy" decoding="async" alt="">' +
+        '<button type="button" class="play" aria-label="Play ' + id + '"></button>' +
+      '</div>' +
+      '<div class="meta">' +
+        '<a class="src id" target="_blank" rel="noopener">' + id + '</a>' +
+        '<span class="q">' + (v.quality || '') + '</span>' +
+      '</div>';
+    clip.querySelector('img').src = v.file;
+    clip.querySelector('a.src').href = v.src;
+    clip.querySelector('.play').addEventListener('click', () => play(clip, v));
+    return clip;
+  }
+
+  function paint() {
+    stop();
+    const list = VIDEOS.filter(v => filter === 'all' || v.quality === filter);
+    reel.replaceChildren(...list.map(card));
+    count.textContent = list.length + ' of ' + VIDEOS.length;
+    document.getElementById('empty').hidden = VIDEOS.length > 0;
+  }
+
+  // One button per quality actually present, so the bar matches the library.
+  const seen = [];
+  VIDEOS.forEach(v => { if (v.quality && !seen.includes(v.quality)) seen.push(v.quality); });
+  seen.sort().forEach(q => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.dataset.q = q;
+    b.setAttribute('aria-pressed', 'false');
+    b.textContent = q + ' (' + VIDEOS.filter(v => v.quality === q).length + ')';
+    bar.querySelector('.spacer').before(b);
+  });
+
+  bar.addEventListener('click', e => {
+    const b = e.target.closest('button[data-q]');
+    if (!b) return;
+    filter = b.dataset.q;
+    bar.querySelectorAll('button[data-q]').forEach(x =>
+      x.setAttribute('aria-pressed', String(x === b)));
+    paint();
+  });
+
+  document.getElementById('stopall').addEventListener('click', stop);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') stop(); });
+
+  paint();
+})();
+</script>
+
+</body>
+</html>
