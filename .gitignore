@@ -30,7 +30,17 @@ assets/img/boats/*
 # reel, so every one of the 94 is referenced by code. 7.6 MB, worth it.
 !assets/img/posters/*.jpg
 
+# The previous hero reel — the centre-weighted cut — is kept locally so it can
+# be dropped back in by swapping the paths in v3.html's data-hero-reel. It is
+# also preserved exactly in git history at commit a5f29de, so it is not carried
+# a second time here.
+assets/video/hero-centered/
+assets/img/hero-centered/
+
 # Full-length source videos stay on Wix — they are 231 MB and we only ever
 # wanted ten seconds of them. The trimmed hero loop is tracked.
 assets/video/*
 !assets/video/hero/
+
+# Build product of tools/framedump.swift — rebuild with the line in its header.
+tools/framedump

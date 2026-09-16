@@ -39,13 +39,13 @@ function boot({ reduced = false, conn = {} } = {}) {
   ok('the hero has a reel host', !!host);
   const clips = JSON.parse(host.dataset.heroReel);
   ok('it carries six clips', clips.length === 6, clips.length + '');
-  ok('the first clip is the one Dave picked', /880c1eaf79/.test(clips[0].src), clips[0].src);
+  ok('the first clip is the one Dave picked', /880c1eaf79-75/.test(clips[0].src), clips[0].src);
   ok('every clip file is on disk',
      clips.every(c => fs.existsSync(path.join(root, c.src))));
   ok('every poster is on disk',
      clips.every(c => fs.existsSync(path.join(root, c.poster))));
   const still = d.querySelector('.hero-still');
-  ok('a still paints before any video', !!still && /hero\/880c1eaf79\.jpg$/.test(still.getAttribute('src')));
+  ok('a still paints before any video', !!still && /hero\/880c1eaf79-75\.jpg$/.test(still.getAttribute('src')));
   ok('the still is described for screen readers', !!still.getAttribute('alt'));
   ok('Dave’s portrait is out of the hero', !/dave-helm/.test(d.querySelector('.v3-hero').outerHTML));
 }
@@ -64,16 +64,16 @@ function boot({ reduced = false, conn = {} } = {}) {
   io().trigger(true);
   const on = vids().filter(v => v.classList.contains('on'));
   ok('coming into view starts one layer', on.length === 1);
-  ok('it starts on the first clip', /880c1eaf79/.test(on[0].getAttribute('src')), on[0].getAttribute('src'));
+  ok('it starts on the first clip', /880c1eaf79-75/.test(on[0].getAttribute('src')), on[0].getAttribute('src'));
   const idle = vids().find(v => !v.classList.contains('on'));
-  ok('the next clip is queued behind it', /24999e112b/.test(idle.getAttribute('src') || ''), idle.getAttribute('src'));
+  ok('the next clip is queued behind it', /01e8472eaf-15/.test(idle.getAttribute('src') || ''), idle.getAttribute('src'));
 
   // hand over: the queued layer takes the front, the next-next gets queued
   Object.defineProperty(on[0], 'duration', { value: 2.5, configurable: true });
   Object.defineProperty(on[0], 'currentTime', { value: 2.0, writable: true, configurable: true });
   on[0].dispatchEvent(new d.defaultView.Event('timeupdate'));
   ok('it hands over before the clip ends', idle.classList.contains('on') && !on[0].classList.contains('on'));
-  ok('and queues the one after', /01e8472eaf/.test(on[0].getAttribute('src')), on[0].getAttribute('src'));
+  ok('and queues the one after', /24999e112b-0/.test(on[0].getAttribute('src')), on[0].getAttribute('src'));
 
   io().trigger(false);
   ok('scrolling away stops it', vids().every(v => !v.classList.contains('on')));
@@ -105,6 +105,19 @@ function boot({ reduced = false, conn = {} } = {}) {
 {
   const html = fs.readFileSync(path.join(root, 'v3.html'), 'utf8');
   ok('the boat that was not a Whaler is gone', !/acc9102c95/.test(html));
+}
+
+// The text sits down the left, so the boat should not. Every clip is cut from
+// a window where the subject was measured right of centre.
+{
+  const clips = JSON.parse(fs.readFileSync(path.join(root, 'v3.html'), 'utf8')
+    .match(/data-hero-reel='(\[.*?\])'/s)[1]);
+  const names = clips.map(c => path.basename(c.src, '.mp4'));
+  ok('every clip is named source-and-start', names.every(n => /^[0-9a-f]{10}-\d+$/.test(n)), names.join(' '));
+  ok('no source is used more than twice',
+     Object.values(names.reduce((m, n) => (m[n.split('-')[0]] = (m[n.split('-')[0]] || 0) + 1, m), {}))
+       .every(c => c <= 2));
+  ok('no two clips are the same cut', new Set(names).size === names.length);
 }
 
 console.log('\n' + fail + ' failures of ' + (pass + fail));
