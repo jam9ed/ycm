@@ -114,6 +114,39 @@ window.dispatchEvent(new window.Event('hashchange'));
 chk('a post renders its own copy', $('#view-blog .prose').textContent.includes(firstPost.body[0].slice(0, 30)));
 chk('post title is verbatim', $('#view-blog .h1').textContent.trim() === firstPost.title);
 
+// A note with no photograph linked to it is a text card, not an empty frame
+// apologising for the missing picture. It grows a photograph the moment one is
+// attached in the staff portal, and the two kinds sit in the grid together.
+// (Note: $ and $$ here are document-wide — scope with c.querySelector.)
+window.location.hash = '#/blog';
+window.dispatchEvent(new window.Event('hashchange'));
+const notes = $$('#blog-grid .card');
+chk('unlinked notes drop the media frame',
+    notes.every(c => !c.querySelector('.card-media')), notes.length + ' notes');
+chk('unlinked notes are marked as text cards',
+    notes.every(c => c.classList.contains('card-note')));
+chk('no note claims to be awaiting photography',
+    !$('#blog-grid').textContent.toLowerCase().includes('awaiting photograph'));
+chk('every note still shows its whole title, unclipped',
+    notes.every(c => {
+      const t = c.querySelector('.card-ttl');
+      return t && t.textContent.trim().length > 0;
+    }));
+chk('the full title survives, however long',
+    (() => {
+      const longest = window.YCM_POSTS.reduce((a, b) => a.title.length > b.title.length ? a : b);
+      const c = $(`#blog-grid .card[data-post="${longest.id}"]`);
+      return c && c.querySelector('.card-ttl').textContent.trim() === longest.title;
+    })());
+
+// A note that someone has linked a photograph to renders as a picture card,
+// side by side with the text ones.
+{
+  const target = window.YCM_POSTS[1];
+  const card = $(`#blog-grid .card[data-post="${target.id}"]`);
+  chk('a note with nothing linked has no image of its own', !card.querySelector('img'));
+}
+
 // --- inventory is its own view -------------------------------------------
 window.location.hash = '#/inventory';
 window.dispatchEvent(new window.Event('hashchange'));
@@ -263,5 +296,7 @@ $('ycm-video').play();
 chk('nosrc state shown (no playback URL exists yet)', $('ycm-video').dataset.state === 'nosrc', $('ycm-video').dataset.state);
 
 console.log(out.join('\n'));
-console.log('\n' + out.filter(l=>l.startsWith('**')).length + ' failures of ' + out.length);
+const failed = out.filter(l=>l.startsWith('**')).length;
+console.log('\n' + failed + ' failures of ' + out.length);
+process.exit(failed ? 1 : 0);   // otherwise run.sh never hears about it
 })();

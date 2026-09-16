@@ -211,5 +211,7 @@ $$('#anav a')[0].click();
 chk('back to inventory', !!$('#tbody'));
 
 console.log(out.join('\n'));
-console.log('\n' + out.filter(l => l.startsWith('**')).length + ' failures of ' + out.length);
+const failed = out.filter(l => l.startsWith('**')).length;
+console.log('\n' + failed + ' failures of ' + out.length);
+process.exit(failed ? 1 : 0);   // otherwise run.sh never hears about it
 })();

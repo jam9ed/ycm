@@ -11,10 +11,17 @@ const LINKS = {
   'featured-montauk-17': ['assets/img/inv/live_004.jpg', 'assets/img/inv/live_005.jpg'],
   'portland-pudgy':      ['assets/img/inv/live_048.jpg'],
 };
+
+// and an afternoon of the same in the Posts list
+const POST_LINKS = {
+  'delivery-day':      ['assets/img/posts/post_159.jpg'],
+  'a-wyoming-whaler':  ['assets/img/posts/post_160.jpg', 'assets/img/posts/post_161.jpg'],
+};
 fs.mkdirSync(path.dirname(CONFIG), { recursive: true });
 fs.writeFileSync(CONFIG, JSON.stringify({
   version: 1, savedAt: new Date().toISOString(),
-  links: LINKS, setAside: ['assets/img/boats/src_012dfbd305.jpg'], listings: [],
+  links: LINKS, postLinks: POST_LINKS,
+  setAside: ['assets/img/boats/src_012dfbd305.jpg'], listings: [],
 }, null, 2));
 
 process.env.PAGE = 'index.html';
@@ -60,6 +67,37 @@ const chk = (n, c, x='') => out.push(`${c ? 'PASS' : '**FAIL**'}  ${n}${x ? '  â
 
     // and the video is still lazy â€” no decoder until asked
     chk('linking photos did not make video eager', $$('video').length === 0);
+
+    // Notes read from the same saved file. One that has been given a photograph
+    // shows it; one that has not is a text card rather than an empty frame.
+    window.location.hash = '#/blog';
+    window.dispatchEvent(new window.Event('hashchange'));
+    const notes = $$('#blog-grid .card');
+    chk('the blog renders every note', notes.length === window.YCM_POSTS.length, notes.length + '');
+
+    for (const [id, pics] of Object.entries(POST_LINKS)) {
+      const c = $(`#blog-grid .card[data-post="${id}"]`);
+      const img = c && c.querySelector('.card-media img');
+      chk(`a linked note shows its photo (${id})`,
+          !!img && img.getAttribute('src') === pics[0], img && img.getAttribute('src'));
+      chk(`and is no longer a text card (${id})`, c && !c.classList.contains('card-note'));
+    }
+
+    const plain = notes.filter(c => !POST_LINKS[c.dataset.post]);
+    chk('notes with nothing linked stay text cards',
+        plain.every(c => c.classList.contains('card-note') && !c.querySelector('.card-media')),
+        plain.filter(c => c.querySelector('.card-media')).map(c => c.dataset.post).join(', '));
+    chk('the two kinds sit in the grid together',
+        plain.length === notes.length - Object.keys(POST_LINKS).length,
+        `${notes.length - plain.length} with photos, ${plain.length} without`);
+
+    // the post's own page shows the photograph too
+    window.location.hash = '#/blog/delivery-day';
+    window.dispatchEvent(new window.Event('hashchange'));
+    chk('the note page leads with its linked photo',
+        !!$('#view-blog img') &&
+        $('#view-blog img').getAttribute('src') === POST_LINKS['delivery-day'][0],
+        $('#view-blog img') && $('#view-blog img').getAttribute('src'));
   } catch (e) {
     chk('integration suite ran', false, e.message);
   } finally {

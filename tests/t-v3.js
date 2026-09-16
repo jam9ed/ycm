@@ -18,7 +18,13 @@ const out = []; const chk = (n,c,x='') => out.push(`${c?'PASS':'**FAIL**'}  ${n}
     chk('writing is placed above the inventory', iNotes > -1 && iStock > -1 && iNotes < iStock,
         order.join(' | '));
 
-    chk('the hero leads with Dave, not a boat', !!$('.v3-hero img[src*="dave-helm"]'));
+    // The hero used to be a still of Dave at the helm. It is now a loop of
+    // boats going past — Dave keeps his place further down the page.
+    chk('the hero leads with the reel', !!$('.v3-hero [data-hero-reel]'));
+    chk('the hero still paints something before any video',
+        !!$('.v3-hero .hero-still[src]'));
+    chk('Dave is still on the page, below the fold',
+        !!$('img[src*="dave-1974"]') && !!$('img[src*="dave-driving"]'));
     chk('the primary call to action is a phone call',
         /^tel:/.test($('.v3-hero .btn-primary').getAttribute('href')),
         $('.v3-hero .btn-primary').textContent);

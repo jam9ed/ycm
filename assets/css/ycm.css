@@ -658,6 +658,27 @@ textarea.inp{ min-height:120px; resize:vertical; line-height:1.6; font-family:va
   overflow:hidden; text-overflow:ellipsis;
 }
 
+/* A note with nothing linked to it yet. No frame, no apology for the missing
+   photograph — a rule, the title given room to breathe, and the opening line. */
+.card-note{
+  border-top:2px solid var(--ink); padding-top:13px; gap:7px;
+  min-height:150px; justify-content:flex-start;
+}
+.card[data-post].card-note .card-ttl{
+  font-size:16.5px; line-height:1.3; -webkit-line-clamp:3; text-overflow:clip;
+}
+.card[data-post].card-note .card-blurb{
+  font-size:13.5px; line-height:1.55; color:var(--ink-2); margin-top:2px;
+  display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden;
+}
+.card[data-post].card-note:hover .card-ttl{ text-decoration:underline; text-underline-offset:3px }
+
+/* Cards that do have a photograph keep their one-line title beside them. */
+.card[data-post]:not(.card-note) .card-blurb{
+  font-size:13.5px; line-height:1.5; color:var(--ink-2); margin-top:2px;
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+}
+
 
 /* preview gate (see assets/js/gate.js — a curtain, not a lock) */
 #gate{ position:fixed; inset:0; z-index:999; background:#0F1C2B; display:grid; place-items:center; padding:24px }

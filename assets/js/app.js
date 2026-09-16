@@ -412,11 +412,17 @@ function wireCards(root) {
   });
 }
 
+/* Most notes have no photograph attached yet — nobody has stood one against a
+   post in the admin. An empty media frame saying "awaiting photography" is
+   inventory language and makes a page of writing look broken, so a note
+   without a picture is simply a text card. It grows a photograph the moment
+   one is linked. */
 function postCard(p) {
-  return `<article class="card" data-post="${p.id}" tabindex="0" role="link" aria-label="${esc(p.title)}">
-    <div class="card-media">
-      ${p.images[0] ? `<img src="${p.images[0]}" alt="" loading="lazy" decoding="async">` : PH('')}
-    </div>
+  const img = p.images[0];
+  return `<article class="card${img ? '' : ' card-note'}" data-post="${p.id}" tabindex="0" role="link" aria-label="${esc(p.title)}">
+    ${img ? `<div class="card-media">
+      <img src="${img}" alt="" loading="lazy" decoding="async">
+    </div>` : ''}
     <div class="card-body">
       <h3 class="card-ttl">${esc(p.title)}</h3>
       ${p.body[0] ? `<p class="card-blurb">${esc(p.body[0])}</p>` : ''}
