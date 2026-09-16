@@ -34,6 +34,24 @@ chk('none of them resets the page gutter with a padding shorthand',
 
 chk('.wrap still supplies a gutter', /\.wrap\{[^}]*padding-inline:/.test(css));
 
+// The standalone preview pages (videos.html, images.html) load the site
+// stylesheet and then define their own classes in a <style> block. A name used
+// by both wins from whichever loads last, which is how the photo grid ended up
+// inside a fixed modal overlay: ycm.css already defines .sheet as exactly that,
+// and jsdom does no layout, so nothing in this suite could see it. Standalone
+// pages namespace their own classes; this makes that a rule rather than a hope.
+{
+  const siteClasses = new Set([...css.matchAll(/^\.([A-Za-z][\w-]*)/gm)].map(m => m[1]));
+  for (const page of ['videos.html', 'images.html']) {
+    const html = fs.readFileSync(path.join(ROOT, page), 'utf8');
+    const style = (html.match(/<style>([\s\S]*?)<\/style>/) || [, ''])[1];
+    const own = new Set([...style.matchAll(/(?:^|[\s,>])\.([A-Za-z][\w-]*)/g)].map(m => m[1]));
+    const clash = [...own].filter(c => siteClasses.has(c)).sort();
+    chk(`${page} does not reuse a class name ycm.css already defines`,
+        clash.length === 0, clash.join(', '));
+  }
+}
+
 console.log(out.join('\n'));
 const f = out.filter(l => l.startsWith('**')).length;
 console.log(`\n${f} failures of ${out.length}`);

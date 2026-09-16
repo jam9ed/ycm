@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Photo Library</title>
+<meta name="description" content="Every photograph lifted off the old York County Marine site, in one contact sheet.">
+<link rel="icon" href="assets/img/favicon.svg">
+<link rel="stylesheet" href="assets/css/ycm.css">
+<script src="assets/js/gate.js"></script>
+<style>
+  .lib-head{ padding-block:34px 14px }
+  .lib-head h1{ margin:0 0 6px; font-size:26px; letter-spacing:-.01em }
+  .lib-head p{ margin:0; color:var(--ink-3); font-size:14px; max-width:70ch }
+  .lib-head a{ color:inherit }
+
+  .bar{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; padding-block:14px 8px }
+  .bar button{ font:inherit; font-size:13px; padding:6px 12px; cursor:pointer; color:inherit;
+               border:1px solid var(--line); border-radius:var(--r-pill); background:#fff }
+  .bar button[aria-pressed="true"]{ background:var(--ink); color:#fff; border-color:var(--ink) }
+  .bar .sp{ flex:1 1 auto }
+  .bar input{ font:inherit; font-size:13px; padding:6px 12px; border:1px solid var(--line);
+              border-radius:var(--r-pill); background:#fff; color:inherit; min-width:190px }
+  .tally{ font-size:13px; color:var(--ink-3); padding-block:6px 16px }
+
+  .lib-sheet{ display:grid; gap:12px; padding-block:0 70px;
+          grid-template-columns:repeat(auto-fill,minmax(178px,1fr)) }
+  .shot{ border:1px solid var(--line); border-radius:var(--r); overflow:hidden; background:#fff;
+         cursor:zoom-in; padding:0; font:inherit; color:inherit; text-align:left; display:block; width:100% }
+  .shot:hover{ border-color:var(--ink-3) }
+  .shot .fr{ aspect-ratio:4/3; background:var(--paper-3); position:relative }
+  .shot img{ width:100%; height:100%; object-fit:cover; display:block }
+  .shot .cap{ padding:7px 9px; font-size:11px; color:var(--ink-3);
+              display:flex; gap:6px; align-items:baseline }
+  .shot .nm{ font-family:ui-monospace,SFMono-Regular,Menlo,monospace; overflow:hidden;
+             text-overflow:ellipsis; white-space:nowrap }
+  .shot .og{ margin-left:auto; text-transform:uppercase; letter-spacing:.06em; font-size:9.5px }
+  .tag{ position:absolute; top:6px; left:6px; padding:2.5px 7px; border-radius:var(--r-pill);
+        font-size:9.5px; font-weight:650; letter-spacing:.05em; text-transform:uppercase;
+        background:rgba(17,17,17,.72); color:#fff; backdrop-filter:blur(6px) }
+  .tag.sug{ background:rgba(120,95,20,.78) }
+
+  .lib-empty{ padding-block:44px; color:var(--ink-3) }
+
+  /* lightbox */
+  #box{ position:fixed; inset:0; z-index:90; background:rgba(12,18,24,.93);
+        display:grid; place-items:center; padding:26px }
+  #box[hidden]{ display:none }
+  #box img{ max-width:100%; max-height:78vh; object-fit:contain; border-radius:6px; display:block }
+  #box .meta{ color:#e9eef3; font-size:12.5px; margin-top:12px; text-align:center;
+              font-family:ui-monospace,SFMono-Regular,Menlo,monospace }
+  #box .meta em{ color:#9fb0bf; font-style:normal; display:block; margin-top:5px;
+                 font-family:var(--font-ui,system-ui) }
+  #box .lib-nav{ position:absolute; top:50%; transform:translateY(-50%); font-size:30px; line-height:1;
+             background:none; border:0; color:#fff; opacity:.55; cursor:pointer; padding:14px }
+  #box .lib-nav:hover{ opacity:1 }
+  #box .prev{ left:6px } #box .next{ right:6px }
+  #box .x{ position:absolute; top:10px; right:14px; font-size:26px; background:none; border:0;
+           color:#fff; opacity:.6; cursor:pointer }
+  #box .x:hover{ opacity:1 }
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="wrap hdr-in">
+    <a class="brand" href="v3.html">
+      <svg class="mark" viewBox="0 0 48 26" fill="none" aria-hidden="true">
+        <g stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="miter">
+          <path d="M20.5 9 V6.8 Q20.5 4.8 24 4.8 Q27.5 4.8 27.5 6.8 V9" stroke-linejoin="round"/>
+          <path d="M4 9 H44"/>
+          <path d="M4.8 9.4 L8.9 18.1 Q15.2 12.9 24 21.4 Q32.8 12.9 39.1 18.1 L43.2 9.4"/>
+        </g>
+      </svg>
+      <span class="brand-txt"><span class="brand-name">York County Marine</span></span>
+    </a>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="lib-head">
+    <h1>Photo library</h1>
+    <p>Every photograph lifted off the old site, in one place. Nothing here is attached to
+    anything &mdash; that happens deliberately in the staff portal. The videos have
+    <a href="videos.html">their own sheet</a>.</p>
+  </div>
+
+  <div class="bar" id="bar">
+    <button type="button" data-og="all" aria-pressed="true">All</button>
+    <span class="sp"></span>
+    <input id="q" type="search" placeholder="Filter by filename…" autocomplete="off">
+  </div>
+  <div class="bar" id="bar2" style="padding-block:0 4px">
+    <button type="button" data-use="all" aria-pressed="true">Any</button>
+    <button type="button" data-use="linked">In use</button>
+    <button type="button" data-use="suggested">Suggested only</button>
+    <button type="button" data-use="loose">Never used</button>
+  </div>
+  <p class="tally" id="tally"></p>
+
+  <div class="lib-sheet" id="sheet"></div>
+  <p class="lib-empty" id="empty" hidden>Nothing matches that.</p>
+</main>
+
+<div id="box" hidden>
+  <button class="x" type="button" aria-label="Close">&times;</button>
+  <button class="lib-nav prev" type="button" aria-label="Previous">&#8249;</button>
+  <button class="lib-nav next" type="button" aria-label="Next">&#8250;</button>
+  <div>
+    <img id="boximg" alt="">
+    <div class="meta" id="boxmeta"></div>
+  </div>
+</div>
+
+<script src="assets/js/media-library.js"></script>
+<script>
+(function () {
+  const POOL = (window.YCM_POOL || []).slice();
+  const sheet = document.getElementById('sheet');
+  const tally = document.getElementById('tally');
+  const bar = document.getElementById('bar'), bar2 = document.getElementById('bar2');
+  const q = document.getElementById('q');
+
+  // A thumbnail for every photo, mirroring the folder it came from. The
+  // originals run to 100MB and are not all published; these are.
+  const thumbOf = f => f.replace(/^assets\/img\//, 'assets/img/thumbs/').replace(/\.[a-z]+$/i, '.jpg');
+  const nameOf  = f => f.split('/').pop();
+
+  // What the staff portal has already done with each photo, if it has been saved.
+  let LINKED = new Set();
+  fetch('assets/data/ads-config.json', { cache: 'no-store' })
+    .then(r => r.ok ? r.json() : null)
+    .then(cfg => {
+      if (!cfg) return;
+      const all = []
+        .concat(...Object.values(cfg.links || {}))
+        .concat(...Object.values(cfg.postLinks || {}));
+      LINKED = new Set(all.filter(m => typeof m === 'string'));
+      paint();
+    })
+    .catch(() => {});
+
+  let og = 'all', use = 'all', term = '';
+
+  const state = p => LINKED.has(p.file) ? 'linked' : (p.suggest ? 'suggested' : 'loose');
+
+  function match(p) {
+    if (og !== 'all' && p.origin !== og) return false;
+    if (use !== 'all' && state(p) !== use) return false;
+    if (term && !nameOf(p.file).toLowerCase().includes(term)) return false;
+    return true;
+  }
+
+  let shown = [];
+
+  function card(p, i) {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'shot'; b.dataset.i = String(i);
+    const st = state(p);
+    b.innerHTML =
+      '<div class="fr">' +
+        '<img loading="lazy" decoding="async" alt="">' +
+        (st === 'linked'    ? '<span class="tag">In use</span>' : '') +
+        (st === 'suggested' ? '<span class="tag sug">Suggested</span>' : '') +
+      '</div>' +
+      '<div class="cap"><span class="nm"></span><span class="og"></span></div>';
+    b.querySelector('img').src = thumbOf(p.file);
+    b.querySelector('.nm').textContent = nameOf(p.file);
+    b.querySelector('.og').textContent = p.origin;
+    return b;
+  }
+
+  function paint() {
+    shown = POOL.filter(match);
+    sheet.replaceChildren(...shown.map(card));
+    document.getElementById('empty').hidden = shown.length > 0;
+    const linked = shown.filter(p => state(p) === 'linked').length;
+    tally.textContent = shown.length + ' of ' + POOL.length + ' photos' +
+      (linked ? ' · ' + linked + ' already in use' : '');
+  }
+
+  // one button per origin actually present, biggest group first
+  const counts = {};
+  POOL.forEach(p => counts[p.origin] = (counts[p.origin] || 0) + 1);
+  Object.keys(counts).sort((a, b) => counts[b] - counts[a]).forEach(o => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.dataset.og = o; b.setAttribute('aria-pressed', 'false');
+    b.textContent = o + ' (' + counts[o] + ')';
+    bar.querySelector('.sp').before(b);
+  });
+
+  function wire(root, attr, set) {
+    root.addEventListener('click', e => {
+      const b = e.target.closest('button[data-' + attr + ']');
+      if (!b) return;
+      set(b.dataset[attr]);
+      root.querySelectorAll('button[data-' + attr + ']')
+          .forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+      paint();
+    });
+  }
+  wire(bar,  'og',  v => og  = v);
+  wire(bar2, 'use', v => use = v);
+  q.addEventListener('input', () => { term = q.value.trim().toLowerCase(); paint(); });
+
+  // ---- lightbox ----------------------------------------------------------
+  const box = document.getElementById('box');
+  const boximg = document.getElementById('boximg');
+  const boxmeta = document.getElementById('boxmeta');
+  let at = -1;
+
+  function open(i) {
+    at = i;
+    const p = shown[at];
+    if (!p) return;
+    // Try the full-size original; not every one is published, so fall back.
+    boximg.onerror = () => {
+      boximg.onerror = null;
+      boximg.src = thumbOf(p.file);
+      boxmeta.querySelector('em').textContent =
+        'Full size is not published — showing the thumbnail.';
+    };
+    boximg.src = p.file;
+    boxmeta.innerHTML = '';
+    boxmeta.append(nameOf(p.file) + '  ·  ' + p.origin, Object.assign(document.createElement('em'), {
+      textContent: LINKED.has(p.file) ? 'In use on the site'
+                 : p.suggest ? 'Suggested for: ' + p.suggest
+                 : 'Not attached to anything',
+    }));
+    box.hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+  function close() { box.hidden = true; boximg.removeAttribute('src'); document.body.style.overflow = ''; }
+  function step(d) { if (shown.length) open((at + d + shown.length) % shown.length); }
+
+  sheet.addEventListener('click', e => {
+    const b = e.target.closest('.shot');
+    if (b) open(+b.dataset.i);
+  });
+  box.querySelector('.x').addEventListener('click', close);
+  box.querySelector('.prev').addEventListener('click', e => { e.stopPropagation(); step(-1); });
+  box.querySelector('.next').addEventListener('click', e => { e.stopPropagation(); step(1); });
+  box.addEventListener('click', e => { if (e.target === box) close(); });
+  document.addEventListener('keydown', e => {
+    if (box.hidden) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') step(-1);
+    if (e.key === 'ArrowRight') step(1);
+  });
+
+  paint();
+})();
+</script>
+
+</body>
+</html>

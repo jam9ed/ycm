@@ -19,7 +19,7 @@
                      background: #fff; color: inherit; }
   .reel-bar button[aria-pressed="true"] { background: #111; color: #fff; border-color: #111; }
   .reel-bar .spacer { flex: 1 1 auto; }
-  .reel-bar .count { font-size: 13px; color: var(--muted, #6b7280); }
+  .reel-bar .tally { font-size: 13px; color: var(--muted, #6b7280); }
 
   .reel { display: grid; gap: 18px; padding-block: 0 60px;
           grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
@@ -48,7 +48,7 @@
   .clip a.src { color: var(--muted, #6b7280); text-decoration: none; }
   .clip a.src:hover { text-decoration: underline; }
   .clip.playing { border-color: #111; }
-  .empty { padding-block: 40px; color: var(--muted, #6b7280); }
+  .reel-empty { padding-block: 40px; color: var(--muted, #6b7280); }
 </style>
 </head>
 <body>
@@ -78,11 +78,11 @@
     <button type="button" data-q="all" aria-pressed="true">All</button>
     <span class="spacer"></span>
     <button type="button" id="stopall">Stop</button>
-    <span class="count" id="count"></span>
+    <span class="tally" id="count"></span>
   </div>
 
   <div class="reel" id="reel"></div>
-  <p class="empty" id="empty" hidden>No videos in the library.</p>
+  <p class="reel-empty" id="empty" hidden>No videos in the library.</p>
 </main>
 
 <script src="assets/js/media-library.js"></script>
