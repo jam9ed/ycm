@@ -44,3 +44,4 @@ assets/video/*
 
 # Build product of tools/framedump.swift — rebuild with the line in its header.
 tools/framedump
+tools/framedump-url
