@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Redesign Versions</title>
+<meta name="description" content="Four directions for the York County Marine redesign, and the tools behind them.">
+<link rel="icon" href="assets/img/favicon.svg">
+<script src="assets/js/gate.js"></script>
+<style>
+  /* Standalone: this page loads no other stylesheet, so nothing it defines can
+     collide with ycm.css or v4.css. Classes are prefixed vx- regardless. */
+  :root{
+    --ice:#E0F8F7; --steel:#386B9C; --slate:#415874; --gold:#DCB908; --gold-lt:#F6CF0A;
+    --ink:#17232E; --ink-2:#44566B; --ink-3:#77899B; --line:#C6DDE8; --link:#0558B5;
+    --ui:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  *{ box-sizing:border-box }
+  body{ margin:0; background:#fff; color:var(--ink); font:16px/1.55 var(--ui);
+        letter-spacing:-.003em; -webkit-font-smoothing:antialiased }
+  img{ max-width:100%; display:block }
+  a{ color:var(--link) }
+  .vx-wrap{ max-width:1080px; margin-inline:auto; padding-inline:clamp(16px,4vw,34px) }
+
+  .vx-top{ background:var(--steel); color:#fff; border-bottom:3px solid var(--gold) }
+  .vx-top-in{ display:flex; align-items:center; gap:12px; padding-block:14px }
+  .vx-top svg{ width:38px; color:#fff }
+  .vx-top b{ font-size:15px; font-weight:680; display:block; line-height:1.25 }
+  .vx-top span{ font-size:11.5px; color:#CFE2F3; letter-spacing:.05em; text-transform:uppercase }
+
+  .vx-head{ background:var(--ice); border-bottom:1px solid var(--line); padding-block:clamp(26px,4vw,44px) }
+  .vx-head h1{ margin:0 0 10px; font-size:clamp(25px,3vw,34px); letter-spacing:-.022em; line-height:1.15 }
+  .vx-head p{ margin:0; color:var(--ink-2); font-size:17px; line-height:1.6; max-width:64ch }
+
+  .vx-sec{ padding-block:clamp(26px,4vw,40px) }
+  .vx-sec h2{ margin:0 0 4px; font-size:13px; font-weight:700; letter-spacing:.11em;
+              text-transform:uppercase; color:var(--steel) }
+  .vx-sec > p{ margin:0 0 20px; color:var(--ink-3); font-size:14px }
+
+  .vx-grid{ display:grid; gap:22px; grid-template-columns:repeat(auto-fit,minmax(330px,1fr)) }
+  .vx-card{ border:1px solid var(--line); border-radius:6px; overflow:hidden; background:#fff;
+            display:flex; flex-direction:column; text-decoration:none; color:inherit;
+            transition:border-color .15s ease, transform .15s ease }
+  .vx-card:hover{ border-color:var(--steel); transform:translateY(-2px) }
+  .vx-shot{ border-bottom:1px solid var(--line); background:var(--ice) }
+  .vx-shot img{ width:100%; height:auto; aspect-ratio:16/10; object-fit:cover; object-position:top center }
+  .vx-body{ padding:15px 17px 17px }
+  .vx-tag{ font-family:var(--mono); font-size:11px; font-weight:700; letter-spacing:.06em;
+           color:var(--slate); background:var(--gold-lt); border-radius:3px;
+           padding:2px 7px; display:inline-block; margin-bottom:8px }
+  .vx-card h3{ margin:0 0 7px; font-size:18px; letter-spacing:-.018em; line-height:1.22 }
+  .vx-card p{ margin:0 0 10px; font-size:14.5px; line-height:1.55; color:var(--ink-2) }
+  .vx-meta{ list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px }
+  .vx-meta li{ font-size:11.5px; color:var(--ink-3); border:1px solid var(--line);
+               border-radius:999px; padding:2px 9px }
+  .vx-go{ margin-top:12px; font-size:13.5px; font-weight:600; color:var(--link) }
+
+  .vx-tools{ background:var(--ice); border-top:1px solid var(--line) }
+  .vx-tool{ display:grid; grid-template-columns:132px 1fr; gap:15px; align-items:center;
+            border:1px solid var(--line); border-radius:6px; background:#fff; padding:12px;
+            text-decoration:none; color:inherit }
+  .vx-tool:hover{ border-color:var(--steel) }
+  .vx-tool img{ width:132px; height:83px; object-fit:cover; object-position:top center;
+                border-radius:4px; border:1px solid var(--line) }
+  .vx-tool h3{ margin:0 0 4px; font-size:15.5px; letter-spacing:-.014em }
+  .vx-tool p{ margin:0; font-size:13.5px; color:var(--ink-2); line-height:1.5 }
+
+  .vx-foot{ background:var(--slate); color:#CFE2F3; border-top:3px solid var(--gold);
+            font-size:13px; padding-block:18px; margin-top:8px }
+  .vx-foot a{ color:#fff }
+  .vx-note{ border:2px solid var(--gold); background:#FCF3CC; border-radius:6px;
+            padding:14px 16px; font-size:14px; color:var(--ink-2); margin-top:22px }
+  .vx-note b{ color:var(--ink) }
+  @media (max-width:560px){
+    .vx-tool{ grid-template-columns:1fr }
+    .vx-tool img{ width:100%; height:150px }
+  }
+</style>
+</head>
+<body>
+
+<header class="vx-top">
+  <div class="vx-wrap vx-top-in">
+    <svg viewBox="0 0 48 26" fill="none" aria-hidden="true">
+      <g stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="miter">
+        <path d="M20.5 9 V6.8 Q20.5 4.8 24 4.8 Q27.5 4.8 27.5 6.8 V9" stroke-linejoin="round"/>
+        <path d="M4 9 H44"/>
+        <path d="M4.8 9.4 L8.9 18.1 Q15.2 12.9 24 21.4 Q32.8 12.9 39.1 18.1 L43.2 9.4"/>
+      </g>
+    </svg>
+    <span><b>York County Marine</b><span>Redesign preview</span></span>
+  </div>
+</header>
+
+<section class="vx-head">
+  <div class="vx-wrap">
+    <h1>Four ways the site could go.</h1>
+    <p>Each one is complete and runs on the same inventory, the same writing and the same
+    photographs &mdash; so the differences you see are differences of intent, not of content.
+    They are in the order they were built, and each was a response to something Dave said.</p>
+  </div>
+</section>
+
+<section class="vx-wrap vx-sec">
+  <h2>The versions</h2>
+  <p>Newest last. All four are live; none of them is switched on for the public.</p>
+
+  <div class="vx-grid">
+
+    <a class="vx-card" href="index.html">
+      <div class="vx-shot"><img src="assets/img/versions/index.jpg" width="720" height="450"
+           loading="lazy" decoding="async" alt="Screenshot of version one"></div>
+      <div class="vx-body">
+        <span class="vx-tag">V1</span>
+        <h3>The portal</h3>
+        <p>The first redesign. Image-led, with a filterable inventory &mdash; length, price, age &mdash;
+        and video that loads nothing at all until you ask for it. The closest of the four to a
+        conventional dealer site.</p>
+        <ul class="vx-meta"><li>Filtering</li><li>Lazy video</li><li>Featured boats</li><li>Partner network</li></ul>
+        <div class="vx-go">Open v1 &rarr;</div>
+      </div>
+    </a>
+
+    <a class="vx-card" href="downhome.html">
+      <div class="vx-shot"><img src="assets/img/versions/downhome.jpg" width="720" height="450"
+           loading="lazy" decoding="async" alt="Screenshot of version two"></div>
+      <div class="vx-body">
+        <span class="vx-tag">V2</span>
+        <h3>Downhome</h3>
+        <p>The same content in a smaller voice, built after Dave said he wanted it to read like a
+        small company rather than a conglomerate. Quieter type, more white space, less apparatus.</p>
+        <ul class="vx-meta"><li>Minimal</li><li>Plain language</li><li>Same data</li></ul>
+        <div class="vx-go">Open v2 &rarr;</div>
+      </div>
+    </a>
+
+    <a class="vx-card" href="v3.html">
+      <div class="vx-shot"><img src="assets/img/versions/v3.jpg" width="720" height="450"
+           loading="lazy" decoding="async" alt="Screenshot of version three"></div>
+      <div class="vx-body">
+        <span class="vx-tag">V3</span>
+        <h3>Dave</h3>
+        <p>Built around Dave rather than the stock. The hero runs a silent loop of six clips of
+        boats going past on the York; Ron is in the shop, Tilly is on a bow rail, and there is a
+        photograph from 1974. Selling is secondary, sharing is first.</p>
+        <ul class="vx-meta"><li>Video hero</li><li>Ron</li><li>Tilly</li><li>1974</li></ul>
+        <div class="vx-go">Open v3 &rarr;</div>
+      </div>
+    </a>
+
+    <a class="vx-card" href="v4.html">
+      <div class="vx-shot"><img src="assets/img/versions/v4.jpg" width="720" height="450"
+           loading="lazy" decoding="async" alt="Screenshot of version four"></div>
+      <div class="vx-body">
+        <span class="vx-tag">V4 &middot; newest</span>
+        <h3>Notes first</h3>
+        <p>A rethink. It takes the one good idea in Craigslist &mdash; the listing is the page &mdash;
+        and then turns it round, so the writing leads and the boats follow. It says outright that not
+        everything is on the list. The old site's blue and yellow, no webfonts at all, and a set of
+        original spot drawings.</p>
+        <ul class="vx-meta"><li>Writing led</li><li>Blue &amp; yellow</li><li>No webfonts</li><li>Tilly, webmaster</li></ul>
+        <div class="vx-go">Open v4 &rarr;</div>
+      </div>
+    </a>
+
+  </div>
+
+  <p class="vx-note"><b>They all share one set of data.</b> Thirty-six listings and forty-three
+  posts, with titles and copy taken verbatim off the live site. No photograph is attached to
+  anything by guesswork &mdash; everything is linked by hand in the staff portal, after two rounds
+  of automatic matching put the wrong boats and Dave's own house on the wrong pages.</p>
+</section>
+
+<section class="vx-tools">
+  <div class="vx-wrap vx-sec">
+    <h2>The tools behind them</h2>
+    <p>Not designs &mdash; working pages used to build and check the others.</p>
+    <div class="vx-grid">
+
+      <a class="vx-tool" href="admin.html">
+        <img src="assets/img/versions/admin.jpg" loading="lazy" decoding="async" alt="Screenshot of the staff portal">
+        <div><h3>Staff portal</h3>
+          <p>Where photographs are attached to listings and posts, and where a suggested photo is
+          offered for review rather than applied. Saves to a config file the public pages read.</p></div>
+      </a>
+
+      <a class="vx-tool" href="videos.html">
+        <img src="assets/img/versions/videos.jpg" loading="lazy" decoding="async" alt="Screenshot of the video reel">
+        <div><h3>Video reel</h3>
+          <p>All 94 videos in one contact sheet. Click a frame to play it; only one runs at a time.</p></div>
+      </a>
+
+      <a class="vx-tool" href="images.html">
+        <img src="assets/img/versions/images.jpg" loading="lazy" decoding="async" alt="Screenshot of the photo library">
+        <div><h3>Photo library</h3>
+          <p>All 797 photographs, filterable by where they came from and whether they are in use
+          on the site yet.</p></div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<footer class="vx-foot">
+  <div class="vx-wrap">
+    York County Marine redesign &mdash; preview only, nothing here is public.
+    <a href="tel:+17573299979">(757) 329-9979</a>
+  </div>
+</footer>
+
+</body>
+</html>
