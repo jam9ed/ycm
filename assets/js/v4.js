@@ -128,14 +128,18 @@
     return h;
   };
 
+  /* Three things a row can show, in order of how much they can be trusted:
+     the photograph somebody attached in the portal; failing that, the one that
+     sat inside this post on the live site (right about three times in four —
+     wrong ones get replaced in the portal); failing that, a drawing. */
   const noteHTML = p => {
-    const img = (p.images || [])[0];
+    const shot = (p.images || [])[0] || (p.fromSite || [])[0];
     const h = hashOf(p.id);
-    const face = img
-      ? `<img src="${esc(thumb(img))}" alt="" loading="lazy" decoding="async">`
+    const face = shot
+      ? `<img src="${esc(thumb(shot))}" alt="" loading="lazy" decoding="async">`
       : `<svg class="nspot" aria-hidden="true"><use href="#${NOTE_SPOTS[h % NOTE_SPOTS.length]}"></use></svg>`;
     return `<li><a href="#/note/${encodeURIComponent(p.id)}">
-      <div class="nthumb${img ? '' : ' tint-' + (h % 4)}">${face}</div>
+      <div class="nthumb${shot ? '' : ' tint-' + (h % 4)}">${face}</div>
       <div>
         <div class="nt">${esc(p.title)}</div>
         ${p.body && p.body[0] ? `<div class="nb">${esc(p.body[0])}</div>` : ''}
@@ -145,11 +149,16 @@
   // The newest note leads the page; the rest sit under it as a plain index.
   function paintNotes() {
     const lead = POSTS[0];
-    $('#note-lead').innerHTML = lead ? `<a class="lead" href="#/note/${encodeURIComponent(lead.id)}">
-        <div class="lead-k">Latest</div>
-        <div class="lead-t">${esc(lead.title)}</div>
-        ${lead.body && lead.body[0] ? `<p class="lead-b">${esc(lead.body.slice(0, 2).join(' '))}</p>` : ''}
-        <div class="lead-m">Read it &rarr;</div></a>` : '';
+    const leadShot = lead && ((lead.images || [])[0] || (lead.fromSite || [])[0]);
+    $('#note-lead').innerHTML = lead ? `<a class="lead${leadShot ? ' lead-has' : ''}" href="#/note/${encodeURIComponent(lead.id)}">
+        ${leadShot ? `<div class="lead-shot"><img src="${esc(thumb(leadShot))}" alt=""
+             width="400" height="300" decoding="async"></div>` : ''}
+        <div>
+          <div class="lead-k">Latest</div>
+          <div class="lead-t">${esc(lead.title)}</div>
+          ${lead.body && lead.body[0] ? `<p class="lead-b">${esc(lead.body.slice(0, 2).join(' '))}</p>` : ''}
+          <div class="lead-m">Read it &rarr;</div>
+        </div></a>` : '';
     $('#notes-list').innerHTML = POSTS.slice(1, 11).map(noteHTML).join('');
     $('#notes-all').innerHTML  = POSTS.map(noteHTML).join('');
   }

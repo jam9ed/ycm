@@ -195,6 +195,13 @@ p{ margin:0 0 12px }
 .lead{ border-top:3px solid var(--steel); border-bottom:1px solid var(--line);
        padding:16px 0 18px; margin-bottom:2px; display:block; text-decoration:none; color:inherit }
 .lead:hover{ text-decoration:none }
+.lead-has{ display:grid; grid-template-columns:200px 1fr; gap:18px; align-items:start }
+.lead-shot img{ width:200px; height:auto; aspect-ratio:4/3; object-fit:cover;
+                border-radius:var(--r); border:1px solid var(--line-2) }
+@media (max-width:640px){
+  .lead-has{ grid-template-columns:1fr }
+  .lead-shot img{ width:100% }
+}
 .lead:hover .lead-t{ text-decoration:underline; text-underline-offset:3px }
 .lead-k{ font-size:11px; font-weight:700; letter-spacing:.09em; text-transform:uppercase;
          color:var(--slate); background:var(--gold-lt); display:inline-block;

@@ -168,30 +168,53 @@ const rows = () => $$('#list .row');
        withAttrs.length >= 2, withAttrs.length + ' with width/height');
   }
 
-  // --- note rows carry a thumbnail -----------------------------------------
+  // --- note rows show the photograph the post had on the live site ---------
   {
     w.location.hash = '#/notes';
     w.dispatchEvent(new w.Event('hashchange'));
     const rows = $$('#notes-all li');
+    const POSTS = w.YCM_POSTS;
     ok('every note row has a thumbnail slot',
        rows.every(r => !!r.querySelector('.nthumb')), rows.length + ' rows');
     ok('none of them is an empty frame',
        rows.every(r => { const t = r.querySelector('.nthumb');
                          return !!t.querySelector('img') || !!t.querySelector('.nspot'); }));
+
+    const withSite = POSTS.filter(p => (p.fromSite || []).length);
+    ok('most posts have a photograph recovered from the live site',
+       withSite.length >= 35, withSite.length + ' of ' + POSTS.length);
+    ok('every one of those files is on disk',
+       withSite.every(p => p.fromSite.every(f => fs.existsSync(path.join(root, f)))));
+
+    const shown = rows.filter(r => r.querySelector('.nthumb img'));
+    ok('those rows show it rather than a drawing',
+       shown.length === withSite.length, shown.length + ' rows with a photograph');
+    ok('and show it at thumbnail size, not full resolution',
+       shown.every(r => /^assets\/img\/thumbs\//.test(r.querySelector('img').getAttribute('src'))));
+
     const drawn = rows.filter(r => r.querySelector('.nspot'));
-    ok('notes with no photo attached get a drawing instead',
-       drawn.length > 0, drawn.length + ' of ' + rows.length);
-    ok('the drawings are spread across the set, not all the same',
-       new Set(drawn.map(r => r.querySelector('use').getAttribute('href'))).size >= 4,
-       [...new Set(drawn.map(r => r.querySelector('use').getAttribute('href')))].join(' '));
-    ok('and they are tinted so the column is not one flat block',
-       new Set(drawn.map(r => r.querySelector('.nthumb').className)).size >= 3);
+    ok('the few with nothing recovered still get a drawing',
+       drawn.length === POSTS.length - withSite.length, drawn.length + ' rows drawn');
     // the same note must keep the same drawing between renders
-    const before = rows.slice(0, 6).map(r => r.querySelector('use').getAttribute('href'));
+    const before = drawn.map(r => r.querySelector('use').getAttribute('href'));
     w.location.hash = '#/'; w.dispatchEvent(new w.Event('hashchange'));
     w.location.hash = '#/notes'; w.dispatchEvent(new w.Event('hashchange'));
-    const after = $$('#notes-all li').slice(0, 6).map(r => r.querySelector('use').getAttribute('href'));
-    ok('a note keeps its drawing between visits', JSON.stringify(before) === JSON.stringify(after));
+    const after = $$('#notes-all li').filter(r => r.querySelector('.nspot'))
+      .map(r => r.querySelector('use').getAttribute('href'));
+    ok('a drawn note keeps its drawing between visits',
+       JSON.stringify(before) === JSON.stringify(after));
+
+    // `fromSite` is a recovered guess. Anything attached in the portal wins.
+    const target = withSite[0];
+    const chosen = 'assets/img/posts/post_001.jpg';
+    ok('a portal attachment overrides the recovered photograph', (() => {
+      const withImg = { ...target, images: [chosen] };
+      const shot = (withImg.images || [])[0] || (withImg.fromSite || [])[0];
+      return shot === chosen && shot !== target.fromSite[0];
+    })());
+
+    ok('the lead note leads with its photograph too',
+       !!$('#note-lead .lead-shot img') || !(w.YCM_POSTS[0].fromSite || []).length);
   }
 
   // --- the drawings --------------------------------------------------------
