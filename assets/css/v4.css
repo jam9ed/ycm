@@ -102,17 +102,17 @@ p{ margin:0 0 12px }
 /* Tilly, set into the corner of the photograph so she is the second thing you
    see. She is the webmaster; it says so. */
 .intro-fig{ position:relative }
-.tilly-inset{ position:absolute; left:-14px; bottom:34px; display:flex; align-items:flex-end; gap:9px }
+.tilly-inset{ position:absolute; left:-14px; top:-14px; display:flex; align-items:flex-start; gap:9px }
 .intro .tilly-inset img{ width:104px; height:104px; aspect-ratio:auto; border-radius:50%;
                   object-fit:cover; border:4px solid var(--gold); background:#fff;
                   box-shadow:0 3px 14px rgba(23,35,46,.28) }
 .tilly-tag{ background:var(--gold-lt); color:var(--slate); border-radius:var(--r);
             padding:4px 9px; font-size:12px; font-weight:680; line-height:1.15;
-            margin-bottom:9px; box-shadow:0 2px 8px rgba(23,35,46,.18) }
+            margin-top:9px; box-shadow:0 2px 8px rgba(23,35,46,.18) }
 .tilly-tag small{ display:block; font-size:10px; font-weight:600; letter-spacing:.07em;
                   text-transform:uppercase; opacity:.78 }
 @media (max-width:820px){
-  .tilly-inset{ left:8px; bottom:40px }
+  .tilly-inset{ left:8px; top:8px }
   .intro .tilly-inset img{ width:84px; height:84px; border-width:3px }
 }
 .intro img{ width:100%; height:auto; aspect-ratio:16/10; object-fit:cover;
@@ -252,6 +252,11 @@ p{ margin:0 0 12px }
 .gal{ display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:10px; margin:22px 0 }
 .gal img{ width:100%; height:auto; aspect-ratio:4/3; object-fit:cover;
           border-radius:var(--r); border:1px solid var(--line) }
+/* On a post, the photographs are the point: whole, uncropped, one per row. */
+.gal-full{ margin:26px 0 0; display:grid; gap:20px; max-width:760px }
+.gal-full figure{ margin:0 }
+.gal-full img{ width:100%; height:auto; border-radius:var(--r); border:1px solid var(--line) }
+
 .callout{ border:1px solid var(--line-2); border-radius:var(--r); padding:16px 18px;
           background:var(--paper-2); margin-top:24px; max-width:62ch }
 .callout p{ margin:0 0 4px }

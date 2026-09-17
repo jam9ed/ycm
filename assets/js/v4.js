@@ -204,12 +204,17 @@
   function openNote(id) {
     const p = POSTS.find(x => x.id === id);
     if (!p) return route('#/notes');
+    /* Whatever the portal attached, or failing that what the post showed on the
+       live site. Full size and uncropped here — the note index crops to a
+       thumbnail, but on the post itself you want the whole photograph. */
+    const shots = (p.images || []).length ? p.images : (p.fromSite || []);
     $('#note').innerHTML = `
       <a class="back" href="#/notes">&larr; All notes</a>
       <h1>${esc(p.title)}</h1>
-      ${(p.images || []).length ? `<div class="gal">${p.images.map(f =>
-        `<img src="${esc(f)}" alt="" loading="lazy" decoding="async">`).join('')}</div>` : ''}
-      <div class="prose" style="margin-top:16px">${(p.body || []).map(t => `<p>${esc(t)}</p>`).join('')}</div>`;
+      <div class="prose" style="margin-top:16px">${(p.body || []).map(t => `<p>${esc(t)}</p>`).join('')}</div>
+      ${shots.length ? `<div class="gal-full">${shots.map((f, i) =>
+        `<figure><img src="${esc(f)}" alt="" ${i ? 'loading="lazy"' : ''} decoding="async"></figure>`
+        ).join('')}</div>` : ''}`;
     show('note');
   }
 

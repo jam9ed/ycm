@@ -217,6 +217,46 @@ const rows = () => $$('#list .row');
        !!$('#note-lead .lead-shot img') || !(w.YCM_POSTS[0].fromSite || []).length);
   }
 
+  // --- a note's own page shows the photographs whole ------------------------
+  {
+    const withShots = w.YCM_POSTS.find(p => (p.fromSite || []).length);
+    w.location.hash = '#/note/' + encodeURIComponent(withShots.id);
+    w.dispatchEvent(new w.Event('hashchange'));
+    const imgs = $$('#note .gal-full img');
+    ok('the note page shows every photograph it has',
+       imgs.length === withShots.fromSite.length, imgs.length + ' of ' + withShots.fromSite.length);
+    ok('at full size, not the thumbnail',
+       imgs.every(i => !/\/thumbs\//.test(i.getAttribute('src'))),
+       imgs.map(i => i.getAttribute('src')).join(' '));
+    ok('and they are the originals on disk',
+       imgs.every(i => fs.existsSync(path.join(root, i.getAttribute('src')))));
+    ok('the writing comes before the pictures on a post', (() => {
+      const html = $('#note').innerHTML;
+      return html.indexOf('class="prose"') < html.indexOf('gal-full');
+    })());
+    ok('only the first photograph loads eagerly',
+       imgs.slice(1).every(i => i.getAttribute('loading') === 'lazy'));
+    {
+      const css = read('assets/css/v4.css');
+      const rule = (css.match(/\.gal-full img\{([^}]*)\}/) || [, ''])[1];
+      ok('a note photograph is not cropped to a ratio',
+         /height:\s*auto/.test(rule) && !/aspect-ratio/.test(rule), rule.trim());
+    }
+    const bare = w.YCM_POSTS.find(p => !(p.fromSite || []).length);
+    w.location.hash = '#/note/' + encodeURIComponent(bare.id);
+    w.dispatchEvent(new w.Event('hashchange'));
+    ok('a note with no photograph shows no empty gallery', $$('#note .gal-full').length === 0);
+  }
+
+  // --- Tilly sits in the top corner ----------------------------------------
+  {
+    const css = read('assets/css/v4.css');
+    const rule = (css.match(/\.tilly-inset\{([^}]*)\}/) || [, ''])[1];
+    ok('Tilly is pinned to the top of the photograph',
+       /top:/.test(rule) && !/bottom:/.test(rule), rule.trim());
+    ok('and her tag hangs below her', /\.tilly-tag\{[^}]*margin-top:/.test(css));
+  }
+
   // --- the drawings --------------------------------------------------------
   {
     const html = read('v4.html');
