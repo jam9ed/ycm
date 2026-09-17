@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>York County Marine</title>
+<meta name="description" content="Pre-owned Boston Whalers in Yorktown, Virginia. Every listing with the year, the length and the price.">
+<link rel="icon" href="assets/img/favicon.svg">
+<link rel="stylesheet" href="assets/css/v4.css">
+<script src="assets/js/gate.js"></script>
+</head>
+<body>
+<a class="skip" href="#list">Skip to the listings</a>
+
+<header class="top">
+  <div class="wrap top-in">
+    <a class="id" href="#/">
+      <svg viewBox="0 0 48 26" fill="none" aria-hidden="true">
+        <g stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="miter">
+          <path d="M20.5 9 V6.8 Q20.5 4.8 24 4.8 Q27.5 4.8 27.5 6.8 V9" stroke-linejoin="round"/>
+          <path d="M4 9 H44"/>
+          <path d="M4.8 9.4 L8.9 18.1 Q15.2 12.9 24 21.4 Q32.8 12.9 39.1 18.1 L43.2 9.4"/>
+        </g>
+      </svg>
+      <span><b>York County Marine</b><span>YORKTOWN, VIRGINIA</span></span>
+    </a>
+    <nav>
+      <a href="#/" data-v="home">Listings</a>
+      <a href="#/notes" data-v="notes">Notes</a>
+    </nav>
+    <div class="callbox">
+      <a href="tel:+17573299979">(757)&nbsp;329-9979</a>
+      <span>10&ndash;7, every day but Christmas</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ============================ the list ============================= -->
+<div id="view-home">
+
+  <section class="intro">
+    <div class="wrap intro-in">
+      <div>
+        <h1>Boston Whalers, bought and sold in Yorktown, Virginia.</h1>
+        <p class="lede">I am Dave. I buy them, go over them, run them on the York River, and sell
+        them on. Everything I have is on this page, with the year, the length and the price.</p>
+        <p class="lede">Call between ten and seven and ask me whatever you like &mdash; whether a
+        hull is worth saving, which one suits your use case best, what power makes sense, longevity,
+        maintenance, or just what you like about them. Would love to hear from you.</p>
+        <p class="sig">&mdash; Dave, (757) 329-9979</p>
+      </div>
+      <figure>
+        <img src="assets/img/v4/bow.jpg" width="1280" height="720" fetchpriority="high" decoding="async"
+             alt="Looking forward over the bow of a Boston Whaler on the York River, late afternoon sun on the water">
+        <figcaption>Out on the York, which is where every one of these ends up before it is sold.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="wrap sec" id="list-sec">
+    <div class="sec-h">
+      <h2>What is here right now</h2>
+      <span class="count" id="count"></span>
+    </div>
+
+    <div class="controls">
+      <div class="set" id="f-show">
+        <button type="button" data-show="boats"  aria-pressed="true">Boats</button>
+        <button type="button" data-show="other"  aria-pressed="false">Motors &amp; other</button>
+        <button type="button" data-show="all"    aria-pressed="false">Everything</button>
+      </div>
+      <div class="set" id="f-status">
+        <button type="button" data-status="all"       aria-pressed="true">Any</button>
+        <button type="button" data-status="available" aria-pressed="false">Available</button>
+        <button type="button" data-status="arriving"  aria-pressed="false">Arriving</button>
+        <button type="button" data-status="project"   aria-pressed="false">Projects</button>
+      </div>
+      <span class="sp"></span>
+      <span class="sortbox">
+      <label for="sort">Sort</label>
+      <select id="sort">
+        <option value="order">As listed</option>
+        <option value="priceAsc">Price, low first</option>
+        <option value="priceDsc">Price, high first</option>
+        <option value="yearDsc">Newest first</option>
+        <option value="lenDsc">Longest first</option>
+      </select>
+      </span>
+    </div>
+
+    <ul class="list" id="list"></ul>
+    <p class="none" id="none" hidden>Nothing in that combination. Try Any, or ring me &mdash; things move.</p>
+  </section>
+
+  <section class="band">
+    <div class="wrap split">
+      <img src="assets/img/v4/ron.jpg" width="1280" height="720" loading="lazy" decoding="async"
+           alt="Ron, the marine mechanic, working on an outboard in the shop">
+      <div>
+        <p class="eyebrow">Before anything leaves</p>
+        <h2>Ron goes over every boat</h2>
+        <ol class="steps">
+          <li><b>01</b><span>Compression checked, fluids and plugs done, every system run and confirmed working.</span></li>
+          <li><b>02</b><span>Then it goes on the water for sea trials. Usually that is me driving.</span></li>
+          <li><b>03</b><span>Only then does it go on a truck. I deliver anywhere in the United States.</span></li>
+        </ol>
+        <p class="small mute" style="margin-top:14px">Ron also has a habit of buying the ones he
+        likes, which is usually a good sign about the boat.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap sec">
+    <div class="sec-h">
+      <h2>Notes from the yard</h2>
+      <a class="small" href="#/notes">All of them &rarr;</a>
+    </div>
+    <ul class="notes" id="notes"></ul>
+  </section>
+</div>
+
+<!-- ============================ one listing ========================== -->
+<div id="view-detail" hidden><div class="wrap detail" id="detail"></div></div>
+
+<!-- ============================ notes =============================== -->
+<div id="view-notes" hidden>
+  <div class="wrap sec">
+    <div class="sec-h"><h2>Notes from the yard</h2></div>
+    <p class="lede" style="margin-bottom:18px">Boats arriving, boats leaving, and the occasional
+    digression. Written as things happen, so the older ones are about boats long gone.</p>
+    <ul class="notes" id="notes-all"></ul>
+  </div>
+</div>
+
+<div id="view-note" hidden><div class="wrap detail" id="note"></div></div>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-in">
+      <div>
+        <h4>York County Marine</h4>
+        <p class="small mute" style="max-width:34ch">Boston Whalers, bought, fixed, run and sold
+        out of Yorktown, Virginia. Delivery anywhere in the United States.</p>
+      </div>
+      <div>
+        <h4>Get hold of me</h4>
+        <ul>
+          <li><a class="mono" href="tel:+17573299979">(757) 329-9979</a></li>
+          <li><a href="mailto:yorkcountymarine@gmail.com">yorkcountymarine@gmail.com</a></li>
+          <li class="mute">10am &ndash; 7pm, every day but Christmas</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Also here</h4>
+        <ul>
+          <li><a href="#/notes">Notes from the yard</a></li>
+          <li><a href="videos.html">Every video</a></li>
+          <li><a href="images.html">Every photograph</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-btm">
+      <span>&copy; 2026 York County Marine LLC</span>
+      <em>Tilly has been hard at work on a new website.</em>
+      <span><a href="index.html">v1</a> · <a href="downhome.html">v2</a> · <a href="v3.html">v3</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/posts.js"></script>
+<script src="assets/js/v4.js"></script>
+</body>
+</html>

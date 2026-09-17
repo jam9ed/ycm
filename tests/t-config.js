@@ -93,6 +93,40 @@ const req = (method, p, body) => new Promise((res, rej) => {
   }
   console.log(out.join('\n'));
   const f = out.filter(l => l.startsWith('**')).length;
+
+/* A saved file carries a snapshot of every listing, written at whatever time it
+   was saved. The one on disk predates `kind`, `year`, `hours` and `wasPrice`.
+   Replacing the seed with it deleted all four, so every outboard, collectible
+   and the camper silently counted as a boat again. The snapshot may now change
+   a field; it may not remove one. */
+{
+  const seed = [
+    { id:'a', title:'A boat', status:'available', order:0, price:1000, year:1999, length:17, kind:undefined },
+    { id:'b', title:'An outboard', status:'available', order:1, price:500, year:2001, kind:'motor', hours:120 },
+  ];
+  delete seed[0].kind;
+  const stale = {                       // as an older portal would have written it
+    version:1, links:{}, setAside:[],
+    listings:[
+      { id:'a', title:'A boat, renamed', status:'sold', order:0, price:1200, media:[] },
+      { id:'b', title:'An outboard',     status:'available', order:1, price:500, media:[] },
+    ],
+  };
+  const out = CFG.apply(seed, stale, []);
+  const a = out.rows.find(r => r.id === 'a'), b = out.rows.find(r => r.id === 'b');
+  chk('a saved edit still wins', a.title === 'A boat, renamed' && a.status === 'sold' && a.price === 1200,
+      `${a.title} / ${a.status} / ${a.price}`);
+  chk('but a stale snapshot cannot delete kind', b.kind === 'motor', String(b.kind));
+  chk('nor year', a.year === 1999 && b.year === 2001, `${a.year}, ${b.year}`);
+  chk('nor hours', b.hours === 120, String(b.hours));
+  chk('nor length', a.length === 17, String(a.length));
+  chk('a listing that exists only in the file still comes through',
+      CFG.apply(seed, { ...stale, listings:[...stale.listings, { id:'c', title:'Hand added', media:[] }] }, [])
+         .rows.some(r => r.id === 'c'));
+  chk('and with no saved listings at all the seed is untouched',
+      CFG.apply(seed, { version:1, links:{} }, []).rows.length === 2);
+}
+
   console.log(`\n${f} failures of ${out.length}`);
   process.exit(f ? 1 : 0);
 })();

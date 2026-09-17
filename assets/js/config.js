@@ -80,8 +80,22 @@ const Config = {
   /* ---- shape ---------------------------------------------------------- */
   /* seed + config -> the state the app runs on */
   apply(seed, cfg, posts) {
-    const rows = (cfg && Array.isArray(cfg.listings) && cfg.listings.length)
-      ? clone(cfg.listings) : clone(seed);
+    /* The saved file carries a snapshot of every listing, which goes stale the
+       moment data.js gains a field: the snapshot on disk predates `kind`,
+       `year`, `hours` and `wasPrice`, and replacing the seed with it wiped all
+       four — every non-boat silently became a boat again. So the seed stays the
+       source of truth for what an ad says, and the snapshot is laid over it
+       field by field. It can still change a title, a price or a status; it can
+       no longer delete something it never knew about. Listings that exist only
+       in the file (added by hand, or since removed from the seed) still come
+       through. */
+    const saved = (cfg && Array.isArray(cfg.listings)) ? cfg.listings : [];
+    const bySaved = new Map(saved.map(r => [r.id, r]));
+    const rows = clone(seed).map(r => {
+      const s = bySaved.get(r.id);
+      return s ? Object.assign({}, r, clone(s)) : r;
+    });
+    saved.forEach(s => { if (!rows.some(r => r.id === s.id)) rows.push(clone(s)); });
     if (cfg && cfg.links) {
       rows.forEach(r => {
         const files = cfg.links[r.id];
