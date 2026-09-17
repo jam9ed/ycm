@@ -246,6 +246,14 @@ p{ margin:0 0 12px }
 .foot-btm{ border-top:1px solid var(--slate-dk); display:flex; gap:14px; flex-wrap:wrap;
            justify-content:space-between; padding-block:14px; font-size:12.5px; color:#A9C0D4 }
 .foot-btm em{ font-style:italic }
+/* The webmaster. She supervises, sits on whichever boat is nearest the door,
+   and has never once answered the phone. */
+.tilly{ display:flex; align-items:center; gap:11px; text-align:left }
+.tilly img{ width:44px; height:44px; border-radius:50%; object-fit:cover;
+            border:2px solid var(--gold); flex:0 0 auto }
+.tilly-t{ line-height:1.35 }
+.tilly b{ color:#fff; font-weight:640 }
+.tilly em{ color:#A9C0D4 }
 .foot-btm a{ color:#CFE2F3 }
 
 @media (max-width:640px){

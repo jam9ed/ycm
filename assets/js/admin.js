@@ -431,6 +431,7 @@ function renderMedia() {
       <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="8.5" cy="8.5" r="5.5"/><path d="m12.8 12.8 4 4"/></svg>
       <input id="postq" type="search" placeholder="Find a post…" autocomplete="off">
     </div>
+    <div id="suggbar" class="suggbar"></div>
     <div id="postlist"></div>`;
 
   const drawAds = () => {
@@ -474,10 +475,35 @@ function renderMedia() {
       save(); toast('Now leads the listing'); renderMedia();
     });
   };
+  /* Which photograph sat inside which post on the live page. It is an
+     inference from document order and it is right about three times in four —
+     good enough to offer, nowhere near good enough to apply on its own. So it
+     is shown, with the picture visible, and somebody says yes or no. */
+  const SUGG = () => {
+    const m = {};
+    (window.YCM_POOL || []).forEach(x => {
+      if (x.origin === 'blog' && x.suggest) (m[x.suggest] = m[x.suggest] || []).push(x.file);
+    });
+    return m;
+  };
+  const SKEY = 'ycm.postsugg.dismissed.v1';
+  const readSkip = () => { try { return JSON.parse(localStorage.getItem(SKEY)) || []; } catch (_) { return []; } };
+  const writeSkip = a => localStorage.setItem(SKEY, JSON.stringify([...new Set(a)]));
+  const thumbOf = f => f.replace(/^assets\/img\//, 'assets/img/thumbs/').replace(/\.[a-z]+$/i, '.jpg');
+
   const drawPosts = () => {
     const q = ($('#postq').value || '').toLowerCase().trim();
     const links = store.readPostLinks();
+    const sugg = SUGG();
+    const skip = readSkip();
     const list = POSTS().filter(p => !q || p.title.toLowerCase().includes(q));
+    const offered = POSTS().filter(p => !(links[p.id] || []).length
+                                     && (sugg[p.id] || []).length && !skip.includes(p.id));
+    $('#suggbar').innerHTML = offered.length
+      ? `<span>${offered.length} post${offered.length === 1 ? '' : 's'} have a photograph suggested from the
+         live page. Roughly one in four is wrong, so look before you accept.</span>
+         <button class="btn btn-sm" id="sugg-all">Accept all ${offered.length}</button>`
+      : '<span class="muted">No suggestions left to review.</span>';
     $('#postlist').innerHTML = list.map(p => {
       const pics = links[p.id] || [];
       return `<section class="adcard" data-pid="${p.id}">
@@ -487,6 +513,16 @@ function renderMedia() {
           <span class="adcard-count ${pics.length ? '' : 'zero'}">${pics.length || 'No'} photo${pics.length === 1 ? '' : 's'}</span>
           <button class="btn btn-primary btn-sm" data-addpost="${p.id}">Add photos</button>
         </header>
+        ${(!pics.length && (sugg[p.id] || []).length && !skip.includes(p.id)) ? `
+          <div class="sugg">
+            <div class="sugg-h">Suggested from the live page &mdash; check it is the right boat</div>
+            <div class="sugg-strip">${sugg[p.id].slice(0, 6).map(f =>
+              `<img src="${thumbOf(f)}" alt="" loading="lazy" title="${f.split('/').pop()}">`).join('')}</div>
+            <div class="sugg-act">
+              <button class="btn btn-primary btn-sm" data-sacc="${p.id}">Use ${sugg[p.id].length === 1 ? 'it' : 'these'}</button>
+              <button class="btn btn-sm" data-sno="${p.id}">Not these</button>
+            </div>
+          </div>` : ''}
         ${pics.length ? `<div class="adcard-strip">${pics.map((f, i) => `
           <span class="ad-thumb ${i === 0 ? 'lead' : ''}" data-plead="${f}" data-pid="${p.id}"
                 title="${i === 0 ? 'Leads the post' : 'Click to make this lead'}">
@@ -495,6 +531,26 @@ function renderMedia() {
           </span>`).join('')}</div>` : ''}
       </section>`;
     }).join('') || `<p class="muted" style="padding:30px;text-align:center">No post matches.</p>`;
+
+    const accept = ids => {
+      const l = store.readPostLinks(), sg = SUGG();
+      ids.forEach(id => { if ((sg[id] || []).length) l[id] = sg[id].slice(); });
+      store.writePostLinks(l); paintDirty(); renderMedia(); drawPosts();
+    };
+    $$('[data-sacc]').forEach(b => b.onclick = () => {
+      accept([b.dataset.sacc]); toast('Attached to the post');
+    });
+    $$('[data-sno]').forEach(b => b.onclick = () => {
+      writeSkip([...readSkip(), b.dataset.sno]); drawPosts(); toast('Suggestion set aside');
+    });
+    const all = $('#sugg-all');
+    if (all) all.onclick = () => {
+      const ids = offered.map(p => p.id);
+      if (!confirm(`Attach the suggested photograph to all ${ids.length} posts?\n\n`
+        + 'These were inferred from the order things appeared on the live page, and about one in '
+        + 'four is wrong. You can take any of them off afterwards.')) return;
+      accept(ids); toast(`Attached to ${ids.length} posts`);
+    };
 
     $$('[data-addpost]').forEach(b => b.onclick = () => openPicker(b.dataset.addpost, 'add', 'post'));
     $$('[data-prm]').forEach(b => b.onclick = e => {

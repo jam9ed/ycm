@@ -202,8 +202,21 @@ const rows = () => $$('#list .row');
     ok('the spot drawings are inline, costing no request', defined.length >= 6, defined.join(' '));
     ok('every drawing used is one that exists',
        used.every(u => defined.includes(u)), used.filter(u => !defined.includes(u)).join(' '));
-    ok('Tilly gets a cat', used.includes('sp-cat'));
+    ok('the cat drawing is kept for when a photograph will not do',
+       defined.includes('sp-cat'));
     ok('and the anchor is back, as the old site had it', used.includes('sp-anchor'));
+  }
+
+  // --- the webmaster --------------------------------------------------------
+  {
+    const t = $('.foot-btm .tilly');
+    ok('Tilly is pictured in the footer', !!t && !!t.querySelector('img'));
+    ok('her photograph is on disk',
+       fs.existsSync(path.join(root, t.querySelector('img').getAttribute('src'))),
+       t.querySelector('img').getAttribute('src'));
+    ok('she is described for anyone who cannot see her',
+       /cat/i.test(t.querySelector('img').getAttribute('alt')));
+    ok('and credited', /Webmaster/.test(t.textContent));
   }
 
   // --- the old site's colours, sampled rather than read out of its CSS ------

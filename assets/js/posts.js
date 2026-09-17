@@ -7,6 +7,10 @@
    blog image now sits in the pool and reaches a post only when somebody
    attaches it in the admin, exactly as the listings work.
    ========================================================================== */
+/* Five posts were titled some variation of "In the YCM Pipeline" and all five
+   slugged to the same id. Four of them were unreachable at #/note/<id>, and a
+   photograph attached to one attached to all five, because the links are keyed
+   by id. The later four now carry their order number. */
 window.YCM_POSTS = [
   {
     id:'one-owner-2002-boston-whaler-130-sport', order:0,
@@ -349,7 +353,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'in-the-ycm-pipeline', order:17,
+    id:'in-the-ycm-pipeline-17', order:17,
     title:'In The YCM Pipeline!',
     body:[
       'Over the next few days, we’re hoping to have this 1993 Boston Whaler Outrage 19 II join the YCM inventory list!',
@@ -389,7 +393,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'in-the-ycm-pipeline', order:19,
+    id:'in-the-ycm-pipeline-19', order:19,
     title:'In The YCM Pipeline!',
     body:[
       'She’s a 2011 Boston Whaler 170 Montauk  -WITH 2025 90 hp Suzuki Four Stroke!',
@@ -449,7 +453,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'in-the-ycm-pipeline', order:22,
+    id:'in-the-ycm-pipeline-22', order:22,
     title:'In The YCM Pipeline',
     body:[
       'There goes a Boston Whaler 180 Dauntless!',
@@ -509,7 +513,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:'in-the-ycm-pipeline', order:25,
+    id:'in-the-ycm-pipeline-25', order:25,
     title:'In the YCM Pipeline!',
     body:[
       'One very dirty and rather rare Boston Whaler - 1985 Revenge 25 Walk-Around Hardtop!',

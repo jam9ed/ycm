@@ -107,6 +107,17 @@ chk('the five links match the ones on the live site', (() => {
 // --- blog ----------------------------------------------------------------
 window.location.hash = '#/blog';
 window.dispatchEvent(new window.Event('hashchange'));
+// Five posts were all titled some variation of "In the YCM Pipeline" and slugged
+// to the same id, so four were unreachable and a photograph attached to one
+// attached to all five — the links are keyed by id.
+{
+  const seen = {};
+  window.YCM_POSTS.forEach(p => seen[p.id] = (seen[p.id] || 0) + 1);
+  const dup = Object.entries(seen).filter(([, n]) => n > 1);
+  chk('every post has an id of its own', dup.length === 0, dup.map(([i, n]) => `${i} x${n}`).join(', '));
+  chk('and every post is reachable by it',
+      window.YCM_POSTS.every(p => window.YCM_POSTS.filter(q => q.id === p.id).length === 1));
+}
 chk('blog lists every post', $$('#blog-grid .card').length === window.YCM_POSTS.length, $$('#blog-grid .card').length);
 const firstPost = window.YCM_POSTS[0];
 window.location.hash = '#/blog/' + firstPost.id;
