@@ -19,7 +19,9 @@
 window.YCM_POSTS = [
   {
     id:'one-owner-2002-boston-whaler-130-sport', order:0,
-    fromSite:[ 'assets/img/posts/post_159.jpg', 'assets/img/posts/post_160.jpg' ],
+    /* No photograph. The two this post used to carry belong elsewhere: the
+       hauler is the 110 Sports arriving, and the family beside a 200 Dauntless
+       is neither of them. */
     title:'One owner 2002 Boston Whaler 130 Sport!',
     body:[
       '-That\'s right, 1 owner, 23 years!',
@@ -29,13 +31,25 @@ window.YCM_POSTS = [
       '-Galvanized trailer - all in excellent condition.',
       '-She\'ll be serviced and will be water ready in a few days!',
       '$12K - Call if interested!',
-      'YCM  different kind of boat dealer',
-      'York County Marine is a 100% online boat dealer.',
-      '100% of our boats are professionally delivered.',
-      'All of our boats our serviced, and sea trialed prior to professional delivery.',
-      'Here comes a couple of Boston Whaler 110 Sports all the way from Florida',
+        ],
+  },
+  {
+    /* Recovered from the archive: this was a post of its own (Wix component
+       md2getgi) and most of it had been lost. The old parse took a fixed
+       fourteen paragraphs from the previous post, which swept up the site
+       tagline and then only the first three paragraphs of this one. */
+    id:'a-couple-of-110-sports-from-florida', order:1,
+    fromSite:[ 'assets/img/posts/post_159.jpg' ],
+    title:'Here comes a couple of Boston Whaler 110 Sports all the way from Florida',
+    body:[
       '-One came from Melbourne Beach, the other from Diana Beach (near Ft Lauderdale), with an unscheduled stop between @ the EZ Loader plant in Port St. Lucie to pick up a much needed small boat trailer!',
-      'By the way, we’re now an EZ Loader dealer!',
+      'By the way, we\u2019re now an EZ Loader dealer!',
+      'Luke from Coastal Transport handled all the logistics like a seasoned pro. We\u2019ll see the Whalers here in Virginia late Monday or sometime Tuesday.',
+      'They\u2019d actually be here a bit sooner, but Luke had to take what\u2019s known in the business as a \u201c34 hour reset\u201d.',
+      'That\u2019s a mandatory 34 hour break from commercial truck driving after reaching 60 hours in 7 consecutive days, or 70 hours in 8 consecutive days. It\u2019s intended to improve highway safety by reducing fatigue and keeping drivers alert.',
+      'I\u2019m not sure what Luke did for that day and a half of rest and relaxation, but that trucks got AC, TV, internet, and fishing poles - and A1A is walking distance to the beach...',
+      'The two little Whalers will go through YCM service, then eventually find their way to Massachusetts.',
+      'By the way, if anyone has a nice 110 Sport for sale, we\u2019re buyin\u2019!',
     ],
   },
   {
