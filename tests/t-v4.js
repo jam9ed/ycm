@@ -168,6 +168,32 @@ const rows = () => $$('#list .row');
        withAttrs.length >= 2, withAttrs.length + ' with width/height');
   }
 
+  // --- note rows carry a thumbnail -----------------------------------------
+  {
+    w.location.hash = '#/notes';
+    w.dispatchEvent(new w.Event('hashchange'));
+    const rows = $$('#notes-all li');
+    ok('every note row has a thumbnail slot',
+       rows.every(r => !!r.querySelector('.nthumb')), rows.length + ' rows');
+    ok('none of them is an empty frame',
+       rows.every(r => { const t = r.querySelector('.nthumb');
+                         return !!t.querySelector('img') || !!t.querySelector('.nspot'); }));
+    const drawn = rows.filter(r => r.querySelector('.nspot'));
+    ok('notes with no photo attached get a drawing instead',
+       drawn.length > 0, drawn.length + ' of ' + rows.length);
+    ok('the drawings are spread across the set, not all the same',
+       new Set(drawn.map(r => r.querySelector('use').getAttribute('href'))).size >= 4,
+       [...new Set(drawn.map(r => r.querySelector('use').getAttribute('href')))].join(' '));
+    ok('and they are tinted so the column is not one flat block',
+       new Set(drawn.map(r => r.querySelector('.nthumb').className)).size >= 3);
+    // the same note must keep the same drawing between renders
+    const before = rows.slice(0, 6).map(r => r.querySelector('use').getAttribute('href'));
+    w.location.hash = '#/'; w.dispatchEvent(new w.Event('hashchange'));
+    w.location.hash = '#/notes'; w.dispatchEvent(new w.Event('hashchange'));
+    const after = $$('#notes-all li').slice(0, 6).map(r => r.querySelector('use').getAttribute('href'));
+    ok('a note keeps its drawing between visits', JSON.stringify(before) === JSON.stringify(after));
+  }
+
   // --- the drawings --------------------------------------------------------
   {
     const html = read('v4.html');
@@ -180,14 +206,20 @@ const rows = () => $$('#list .row');
     ok('and the anchor is back, as the old site had it', used.includes('sp-anchor'));
   }
 
-  // --- the old site's colours ----------------------------------------------
+  // --- the old site's colours, sampled rather than read out of its CSS ------
+  // Wix declares its theme as variables, so the stylesheet claims white while
+  // the page is emphatically blue. These are measured off the rendered archive:
+  // ice blue is a quarter of the home page, slate a sixth, steel an eighth.
   {
     const css = read('assets/css/v4.css');
-    ok('the red the old site actually used', /--red:\s*#FF4F4F/i.test(css));
-    ok('its deeper red too', /--red-deep:\s*#C52800/i.test(css));
-    ok('the sign blue', /--navy:\s*#2B328C/i.test(css));
-    ok('the theme sky blue', /--sky:\s*#54A0EA/i.test(css));
-    ok('on white, as it was', /--paper:\s*#FFFFFF/i.test(css));
+    ok('the ice blue the page is mostly made of', /--ice:\s*#E0F8F7/i.test(css));
+    ok('the steel blue banner', /--steel:\s*#386B9C/i.test(css));
+    ok('the slate of the deep bands', /--slate:\s*#415874/i.test(css));
+    ok('gold, the other half of blue-and-yellow', /--gold:\s*#DCB908/i.test(css));
+    ok('the red of the arrow', /--red:\s*#FF4F4F/i.test(css));
+    ok('the banner actually wears the steel blue', /\.top\{[^}]*background:var\(--steel\)/.test(css));
+    ok('and the footer the slate', /\.foot\{[^}]*background:var\(--slate\)/.test(css));
+    ok('it is not a grey page', !/--paper-2:\s*#F7F7F7/i.test(css));
   }
 
   console.log('\n' + fail + ' failures of ' + (pass + fail));

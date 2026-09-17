@@ -117,9 +117,30 @@
     $('#count-home').textContent = tally(boats);
   }
 
-  const noteHTML = p => `<li><a href="#/note/${encodeURIComponent(p.id)}">
-      <div class="nt">${esc(p.title)}</div>
-      ${p.body && p.body[0] ? `<div class="nb">${esc(p.body[0])}</div>` : ''}</a></li>`;
+  /* A note shows its photograph when somebody has attached one in the portal.
+     Most have not, and an empty frame on forty-three rows is the "awaiting
+     photography" problem again — so the ones without get a drawing instead,
+     picked from the id so it stays put between visits rather than reshuffling. */
+  const NOTE_SPOTS = ['sp-anchor', 'sp-wave', 'sp-ring', 'sp-prop', 'sp-cleat', 'sp-compass'];
+  const hashOf = str => {
+    let h = 0;
+    for (let i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) >>> 0;
+    return h;
+  };
+
+  const noteHTML = p => {
+    const img = (p.images || [])[0];
+    const h = hashOf(p.id);
+    const face = img
+      ? `<img src="${esc(thumb(img))}" alt="" loading="lazy" decoding="async">`
+      : `<svg class="nspot" aria-hidden="true"><use href="#${NOTE_SPOTS[h % NOTE_SPOTS.length]}"></use></svg>`;
+    return `<li><a href="#/note/${encodeURIComponent(p.id)}">
+      <div class="nthumb${img ? '' : ' tint-' + (h % 4)}">${face}</div>
+      <div>
+        <div class="nt">${esc(p.title)}</div>
+        ${p.body && p.body[0] ? `<div class="nb">${esc(p.body[0])}</div>` : ''}
+      </div></a></li>`;
+  };
 
   // The newest note leads the page; the rest sit under it as a plain index.
   function paintNotes() {

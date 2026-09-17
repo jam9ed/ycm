@@ -21,18 +21,23 @@
    ========================================================================== */
 
 :root{
-  /* Straight off the old Wix site. It ran white, with near-black text and
-     #ff4f4f doing almost all the accent work — 58 declarations of it on the
-     inventory page alone, more than any other colour. The greys are the Wix
-     theme's own ramp (25,25,25 / 71,71,71 / 117,117,117 / 209,209,209), the
-     sky blue is theme colour 18, and #2b328c is the blue in the YCM sign. */
-  --paper:#FFFFFF; --paper-2:#F7F7F7; --paper-3:#EFEFEF;
-  --ink:#191919; --ink-2:#474747; --ink-3:#757575;
-  --line:#D9D9D9; --line-2:#B9B9B9;
+  /* Sampled off the rendered old site, not read out of its CSS — Wix declares
+     its theme as variables, so the stylesheet says "white" while the page is
+     emphatically blue. What it actually is, by area: ice blue #E0F8F7 is a
+     quarter of the home page, slate #415874 a sixth, and the steel blue banner
+     #386B9C an eighth. Gold and the red arrow do the shouting. Blue and yellow,
+     in other words. */
+  --ice:#E0F8F7; --ice-2:#C8EFED; --powder:#CFE2F3;
+  --steel:#386B9C; --steel-dk:#2E587F; --slate:#415874; --slate-dk:#33475F;
+  --gold:#DCB908; --gold-lt:#F6CF0A; --gold-soft:#FCF3CC; --gold-dk:#8E6419;
+  --red:#FF4F4F; --red-deep:#C52800; --red-soft:#FFEDED;
+  --link:#0558B5; --navy:#2B328C;
 
-  --red:#FF4F4F; --red-deep:#C52800; --red-soft:#FFF0F0;
-  --navy:#2B328C; --sky:#54A0EA; --sky-soft:#EAF2FC;
-  --ok:#2E6A4F; --ok-soft:#ECF4EF;
+  --paper:#FFFFFF; --paper-2:var(--ice); --paper-3:var(--ice-2);
+  --ink:#17232E; --ink-2:#44566B; --ink-3:#77899B;
+  --line:#C6DDE8; --line-2:#A6C6D8;
+  --ok:#2E6A4F; --ok-soft:#E4F3EA;
+  --sky:#54A0EA; --sky-soft:#E4F0FC;
 
   --ui:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
@@ -48,7 +53,7 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 img{ max-width:100%; display:block }
-a{ color:var(--navy); text-underline-offset:2px }
+a{ color:var(--link); text-underline-offset:2px }
 a:hover{ text-decoration:underline }
 h1,h2,h3{ margin:0; font-weight:640; letter-spacing:-.022em; line-height:1.18 }
 h1{ font-size:clamp(25px,3vw,34px) }
@@ -57,37 +62,38 @@ h3{ font-size:16px; letter-spacing:-.014em }
 p{ margin:0 0 12px }
 .wrap{ max-width:1080px; margin-inline:auto; padding-inline:var(--gut) }
 .mute{ color:var(--ink-2) }
+.foot .mute{ color:#B7CCDE }
 .small{ font-size:13.5px }
 .lede{ font-size:17px; line-height:1.6; color:var(--ink-2); max-width:62ch }
 .num{ font-family:var(--mono); font-variant-numeric:tabular-nums; letter-spacing:-.02em }
 .eyebrow{
   font-size:11px; font-weight:700; letter-spacing:.11em; text-transform:uppercase;
-  color:var(--ink-3); margin:0 0 9px;
+  color:var(--steel); margin:0 0 9px;
 }
 .skip{ position:absolute; left:-9999px }
 .skip:focus{ left:8px; top:8px; background:#fff; padding:8px 12px; z-index:20; border:1px solid var(--ink) }
 
 /* ---- header: who, where, and the phone number. nothing else ------------- */
-.top{ border-bottom:1px solid var(--line); background:var(--paper) }
+.top{ background:var(--steel); color:#fff; border-bottom:3px solid var(--gold) }
 .top-in{ display:flex; align-items:center; gap:18px; padding-block:14px; flex-wrap:wrap }
 .id{ display:flex; align-items:center; gap:10px; text-decoration:none; color:inherit }
 .id:hover{ text-decoration:none }
-.id svg{ width:38px; color:var(--ink) }
+.id svg{ width:38px; color:#fff }
 .id b{ font-size:15px; font-weight:680; letter-spacing:-.01em; display:block; line-height:1.25 }
-.id span{ font-size:11.5px; color:var(--ink-3); letter-spacing:.04em }
+.id span{ font-size:11.5px; color:#CFE2F3; letter-spacing:.04em }
 .top nav{ display:flex; gap:3px; margin-left:auto }
 .top nav a{
-  font-size:14px; padding:6px 11px; border-radius:var(--r); text-decoration:none; color:var(--ink-2);
+  font-size:14px; padding:6px 11px; border-radius:var(--r); text-decoration:none; color:#DCEBF7;
 }
-.top nav a:hover{ background:var(--paper-2); color:var(--ink); text-decoration:none }
-.top nav a[aria-current]{ color:var(--ink); font-weight:620; background:var(--paper-2) }
+.top nav a:hover{ background:var(--steel-dk); color:#fff; text-decoration:none }
+.top nav a[aria-current]{ color:var(--slate); font-weight:660; background:var(--gold-lt) }
 .callbox{ text-align:right; line-height:1.25 }
-.callbox a{ font-family:var(--mono); font-size:15.5px; font-weight:600; color:var(--ink); text-decoration:none }
-.callbox a:hover{ color:var(--navy) }
-.callbox span{ display:block; font-size:11.5px; color:var(--ink-3) }
+.callbox a{ font-family:var(--mono); font-size:15.5px; font-weight:600; color:#fff; text-decoration:none }
+.callbox a:hover{ color:var(--gold-lt) }
+.callbox span{ display:block; font-size:11.5px; color:#BFD6E8 }
 
 /* ---- the one photograph at the top, kept modest -------------------------- */
-.intro{ border-bottom:1px solid var(--line); background:var(--paper-2) }
+.intro{ border-bottom:1px solid var(--line-2); background:var(--ice) }
 .intro-in{ display:grid; grid-template-columns:1.15fr .85fr; gap:clamp(20px,4vw,46px);
            align-items:center; padding-block:clamp(26px,4vw,44px) }
 .intro h1{ margin-bottom:12px }
@@ -155,34 +161,35 @@ p{ margin:0 0 12px }
    Small original line drawings, inline as a sprite so they cost no request and
    take their colour from the text. The anchor is a nod to the old site, which
    separated its listings with rows of anchor emoji. */
-.spot{ width:22px; height:22px; color:var(--red); flex:0 0 auto; align-self:center }
+.spot{ width:22px; height:22px; color:var(--steel); flex:0 0 auto; align-self:center }
 .spot-sm{ width:15px; height:15px; vertical-align:-2px; margin-right:3px }
-.spot-lg{ width:52px; height:52px; color:var(--red); opacity:.9 }
+.spot-lg{ width:52px; height:52px; color:var(--gold-dk) }
 .sec-h .spot{ margin-right:-4px }
 
 /* ---- there is more than the list shows ---------------------------------- */
 .split-note{ display:grid; grid-template-columns:52px 1fr; gap:22px; align-items:start;
-             border:1px solid var(--line); border-radius:var(--r); padding:clamp(18px,3vw,30px);
-             background:var(--paper-2) }
+             border:2px solid var(--gold); border-radius:var(--r); padding:clamp(18px,3vw,30px);
+             background:var(--gold-soft) }
 .split-note .spot{ align-self:start; margin-top:3px }   /* sit with the heading, not the middle */
 .split-note h2{ margin-bottom:10px }
 .split-note .lede{ font-size:16px }
 .split-note p:last-child{ margin-bottom:0 }
 
 /* ---- the note that leads ------------------------------------------------- */
-.lead{ border-top:2px solid var(--ink); border-bottom:1px solid var(--line);
+.lead{ border-top:3px solid var(--steel); border-bottom:1px solid var(--line);
        padding:16px 0 18px; margin-bottom:2px; display:block; text-decoration:none; color:inherit }
 .lead:hover{ text-decoration:none }
 .lead:hover .lead-t{ text-decoration:underline; text-underline-offset:3px }
-.lead-k{ font-size:11px; font-weight:700; letter-spacing:.11em; text-transform:uppercase;
-         color:var(--red); margin-bottom:7px }
+.lead-k{ font-size:11px; font-weight:700; letter-spacing:.09em; text-transform:uppercase;
+         color:var(--slate); background:var(--gold-lt); display:inline-block;
+         padding:3px 9px; border-radius:var(--r); margin-bottom:9px }
 .lead-t{ font-size:clamp(20px,2.4vw,26px); font-weight:640; letter-spacing:-.02em; line-height:1.2 }
 .lead-b{ font-size:15.5px; color:var(--ink-2); margin-top:8px; max-width:66ch;
          display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden }
-.lead-m{ font-size:13.5px; color:var(--navy); margin-top:10px }
+.lead-m{ font-size:13.5px; color:var(--link); font-weight:560; margin-top:10px }
 
 /* ---- plain bands --------------------------------------------------------- */
-.band{ border-top:1px solid var(--line); background:var(--paper-2) }
+.band{ border-top:1px solid var(--line-2); background:var(--ice) }
 .split{ display:grid; grid-template-columns:.9fr 1.1fr; gap:clamp(20px,4vw,42px); align-items:center;
         padding-block:clamp(26px,4vw,42px) }
 .split img{ width:100%; height:auto; aspect-ratio:4/3; object-fit:cover;
@@ -194,7 +201,19 @@ p{ margin:0 0 12px }
 /* ---- notes --------------------------------------------------------------- */
 .notes{ list-style:none; margin:0; padding:0 }
 .notes li{ border-bottom:1px solid var(--line) }
-.notes a{ display:block; padding:11px 0; text-decoration:none; color:inherit }
+.notes a{ display:grid; grid-template-columns:64px 1fr; gap:14px; align-items:center;
+          padding:11px 0; text-decoration:none; color:inherit }
+.nthumb{ width:64px; aspect-ratio:4/3; border-radius:var(--r); overflow:hidden;
+         border:1px solid var(--line-2); display:grid; place-items:center;
+         background:var(--ice); flex:0 0 auto }
+.nthumb img{ width:100%; height:100%; object-fit:cover }
+.nspot{ width:26px; height:26px; opacity:.85 }
+/* four tints so a long index of drawings does not read as one grey column */
+.tint-0{ background:var(--ice);       color:var(--steel) }
+.tint-1{ background:var(--gold-soft); color:var(--gold-dk) }
+.tint-2{ background:var(--powder);    color:var(--slate) }
+.tint-3{ background:var(--red-soft);  color:var(--red-deep) }
+.notes a:hover .nthumb{ border-color:var(--steel) }
 .notes a:hover .nt{ text-decoration:underline; text-underline-offset:2px }
 .nt{ font-weight:560; font-size:15px; letter-spacing:-.012em }
 .nb{ font-size:13.5px; color:var(--ink-3); margin-top:2px;
@@ -216,18 +235,18 @@ p{ margin:0 0 12px }
 .callout a{ font-family:var(--mono); font-weight:600 }
 
 /* ---- footer -------------------------------------------------------------- */
-.foot{ border-top:1px solid var(--line); background:var(--paper-2); margin-top:12px }
+.foot{ background:var(--slate); color:#DCEBF7; margin-top:12px; border-top:3px solid var(--gold) }
 .foot-in{ display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:26px; padding-block:30px }
 .foot h4{ font-size:11px; font-weight:700; letter-spacing:.11em; text-transform:uppercase;
-          color:var(--ink-3); margin:0 0 10px }
-.foot ul{ list-style:none; margin:0; padding:0; display:grid; gap:7px; font-size:14px; color:var(--ink-2) }
-.foot a{ color:var(--ink-2); text-decoration:none }
-.foot a:hover{ color:var(--navy); text-decoration:underline }
-.foot .mono{ font-family:var(--mono) }
-.foot-btm{ border-top:1px solid var(--line); display:flex; gap:14px; flex-wrap:wrap;
-           justify-content:space-between; padding-block:14px; font-size:12.5px; color:var(--ink-3) }
+          color:var(--gold-lt); margin:0 0 10px }
+.foot ul{ list-style:none; margin:0; padding:0; display:grid; gap:7px; font-size:14px; color:#CFE2F3 }
+.foot a{ color:#fff; text-decoration:none }
+.foot a:hover{ color:var(--gold-lt); text-decoration:underline }
+.foot .mono{ font-family:var(--mono); color:var(--gold-lt) }
+.foot-btm{ border-top:1px solid var(--slate-dk); display:flex; gap:14px; flex-wrap:wrap;
+           justify-content:space-between; padding-block:14px; font-size:12.5px; color:#A9C0D4 }
 .foot-btm em{ font-style:italic }
-.foot-btm a{ color:var(--ink-3) }
+.foot-btm a{ color:#CFE2F3 }
 
 @media (max-width:640px){
   .split-note{ grid-template-columns:1fr; gap:12px }
@@ -240,6 +259,8 @@ p{ margin:0 0 12px }
   .foot-in{ gap:20px }
 }
 @media (max-width:560px){
+  .notes a{ grid-template-columns:52px 1fr; gap:11px }
+  .nthumb{ width:52px }
   .top nav{ order:3; width:100%; margin-left:0 }
   .callbox{ margin-left:auto; text-align:right }
   .row > a{ grid-template-columns:76px 1fr; gap:12px }
