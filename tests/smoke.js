@@ -41,7 +41,7 @@ const { window } = dom;
 // inline the three local scripts by hand (jsdom won't fetch without a server)
 for (const src of [...window.document.querySelectorAll('script[src]')].map(s => s.getAttribute('src'))) {
   try {
-    const code = fs.readFileSync(path.join(ROOT, src), 'utf8');
+    const code = fs.readFileSync(path.join(ROOT, src.split('?')[0]), 'utf8');
     window.eval(code);
   } catch (e) { errs.push(`SCRIPT ${src}: ${e.stack.split('\n').slice(0,3).join(' | ')}`); }
 }

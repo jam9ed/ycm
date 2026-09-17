@@ -14,7 +14,7 @@ function load(url) {
     }});
   const w = dom.window;
   for (const src of [...w.document.querySelectorAll('script[src]')].map(s=>s.getAttribute('src')))
-    w.eval(fs.readFileSync(path.join(ROOT,src),'utf8'));
+    w.eval(fs.readFileSync(path.join(ROOT, src.split('?')[0]),'utf8'));
   w.document.dispatchEvent(new w.Event('DOMContentLoaded',{bubbles:true}));
   return w;
 }

@@ -52,6 +52,30 @@ chk('.wrap still supplies a gutter', /\.wrap\{[^}]*padding-inline:/.test(css));
   }
 }
 
+/* Every local asset reference is stamped with a hash of the file's contents, so
+   a reviewer can never be served a stale copy. GitHub Pages sends max-age=600
+   with no version in the URL, and a stale posts.js has no `fromSite`, so the
+   note rows fall back to drawings and it reads as broken images. If this fails,
+   run: node tools/stamp.js */
+{
+  const crypto = require('crypto');
+  const pages = fs.readdirSync(ROOT).filter(f => f.endsWith('.html') && !f.startsWith('_'));
+  const stale = [], bare = [];
+  for (const page of pages) {
+    const html = fs.readFileSync(path.join(ROOT, page), 'utf8');
+    const refs = [...html.matchAll(/(?:src|href)="(assets\/(?:js|css)\/[A-Za-z0-9._-]+\.(?:js|css))(\?v=([0-9a-f]+))?"/g)];
+    for (const [, asset, , stamp] of refs) {
+      const target = path.join(ROOT, asset);
+      if (!fs.existsSync(target)) continue;
+      const want = crypto.createHash('sha256').update(fs.readFileSync(target)).digest('hex').slice(0, 8);
+      if (!stamp) bare.push(`${page} -> ${asset}`);
+      else if (stamp !== want) stale.push(`${page} -> ${asset} (${stamp} != ${want})`);
+    }
+  }
+  chk('every asset reference carries a content stamp', bare.length === 0, bare.slice(0, 4).join(', '));
+  chk('and every stamp matches the file it points at', stale.length === 0, stale.slice(0, 4).join(', '));
+}
+
 console.log(out.join('\n'));
 const f = out.filter(l => l.startsWith('**')).length;
 console.log(`\n${f} failures of ${out.length}`);

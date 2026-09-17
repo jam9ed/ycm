@@ -47,7 +47,8 @@ const chk = (n, c, x='') => out.push(`${c ? 'PASS' : '**FAIL**'}  ${n}${x ? '  â
     chk('it links back to the other design',
         $$('a[href="index.html"]').length >= 1);
     chk('it loads its own skin on top of the shared one', (() => {
-      const hrefs = $$('link[rel="stylesheet"]').map(l => l.getAttribute('href'));
+      const hrefs = $$('link[rel="stylesheet"]')
+        .map(l => l.getAttribute('href').split('?')[0]);
       return hrefs[0].endsWith('ycm.css') && hrefs[1].endsWith('downhome.css');
     })(), $$('link[rel="stylesheet"]').map(l => l.getAttribute('href')).join(' then '));
   } catch (e) {
