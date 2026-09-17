@@ -10,7 +10,68 @@
 <script src="assets/js/gate.js"></script>
 </head>
 <body>
-<a class="skip" href="#list">Skip to the listings</a>
+<a class="skip" href="#notes">Skip to the writing</a>
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <symbol id="sp-anchor" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="4.2" r="2.1"/>
+      <path d="M12 6.3 V20.4"/>
+      <path d="M7.4 9.4 H16.6"/>
+      <path d="M4.4 13.6 Q4.4 20.4 12 20.4 Q19.6 20.4 19.6 13.6"/>
+      <path d="M2.7 14.8 L4.4 13.2 L6.1 14.8"/>
+      <path d="M17.9 14.8 L19.6 13.2 L21.3 14.8"/>
+    </g>
+  </symbol>
+  <symbol id="sp-ring" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="1.6">
+      <circle cx="12" cy="12" r="8.6"/>
+      <circle cx="12" cy="12" r="3.9"/>
+      <path d="M12 3.4 V8.1 M12 15.9 V20.6 M3.4 12 H8.1 M15.9 12 H20.6" stroke-linecap="round"/>
+    </g>
+  </symbol>
+  <symbol id="sp-prop" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="2.2"/>
+      <path d="M12 9.8 Q9.4 3.6 13.6 2.6 Q16.6 2 14.1 10.6"/>
+      <path d="M13.9 13.1 Q20.6 12.4 20.2 16.6 Q19.9 19.7 12.8 14.6"/>
+      <path d="M10.6 13.6 Q7.4 19.5 3.9 17.1 Q1.4 15.3 9.9 11.9"/>
+    </g>
+  </symbol>
+  <symbol id="sp-cleat" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M6 13 H18"/>
+      <path d="M6 13 Q3 13 3 10.6 Q3 8.8 5 8.8 Q6.6 8.8 6.6 10.4"/>
+      <path d="M18 13 Q21 13 21 10.6 Q21 8.8 19 8.8 Q17.4 8.8 17.4 10.4"/>
+      <path d="M9.6 13 V16.6 M14.4 13 V16.6"/>
+    </g>
+  </symbol>
+  <symbol id="sp-compass" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="8.8"/>
+      <path d="M15.6 8.4 L10.9 10.9 L8.4 15.6 L13.1 13.1 Z"/>
+    </g>
+  </symbol>
+  <symbol id="sp-wave" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+      <path d="M2 9.5 Q6 6.4 10 9.5 Q14 12.6 18 9.5 Q20.4 7.6 22 8.6"/>
+      <path d="M2 15 Q6 11.9 10 15 Q14 18.1 18 15 Q20.4 13.1 22 14.1"/>
+    </g>
+  </symbol>
+  <!-- Tilly: supervises, sits on whichever boat is nearest the door -->
+  <symbol id="sp-cat" viewBox="0 0 24 24">
+    <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M8.1 7.4 L7.1 3.9 L10.4 5.8"/>
+      <path d="M14.4 5.8 L17.7 3.9 L16.7 7.4"/>
+      <path d="M12.4 5.2 Q16.9 5.2 16.9 9.4 Q16.9 12 14.9 12.9"/>
+      <path d="M12.4 5.2 Q7.9 5.2 7.9 9.4 Q7.9 12.6 9.9 13.4 L9.9 20.1"/>
+      <path d="M14.9 12.9 Q16.1 15.4 16.1 20.1"/>
+      <path d="M9.9 20.1 H16.1"/>
+      <path d="M16.1 17.9 Q20.6 17.9 20.6 13.6 Q20.6 11.6 19.1 11.6"/>
+      <path d="M10.6 9.1 h.01 M14.2 9.1 h.01" stroke-width="2.1"/>
+    </g>
+  </symbol>
+</svg>
 
 <header class="top">
   <div class="wrap top-in">
@@ -25,8 +86,8 @@
       <span><b>York County Marine</b><span>YORKTOWN, VIRGINIA</span></span>
     </a>
     <nav>
-      <a href="#/" data-v="home">Listings</a>
-      <a href="#/notes" data-v="notes">Notes</a>
+      <a href="#/" data-v="home">Notes</a>
+      <a href="#/boats" data-v="boats">Boats for sale</a>
     </nav>
     <div class="callbox">
       <a href="tel:+17573299979">(757)&nbsp;329-9979</a>
@@ -43,12 +104,13 @@
   <section class="intro">
     <div class="wrap intro-in">
       <div>
-        <h1>Boston Whalers, bought and sold in Yorktown, Virginia.</h1>
-        <p class="lede">I am Dave. I buy them, go over them, run them on the York River, and sell
-        them on. Everything I have is on this page, with the year, the length and the price.</p>
-        <p class="lede">Call between ten and seven and ask me whatever you like &mdash; whether a
-        hull is worth saving, which one suits your use case best, what power makes sense, longevity,
-        maintenance, or just what you like about them. Would love to hear from you.</p>
+        <h1>I think about Boston Whalers more than is strictly normal.</h1>
+        <p class="lede">I am Dave. I buy them, go over them, run them on the York River, and write
+        down what I find &mdash; which hulls hold up, which ones are worth saving, what power
+        actually suits them. Most of this page is that. Some of them are also for sale.</p>
+        <p class="lede">Call between ten and seven and ask me whatever you like. Happy to talk about
+        a boat you already own, or one you are thinking of buying from somebody else. Would love to
+        hear from you.</p>
         <p class="sig">&mdash; Dave, (757) 329-9979</p>
       </div>
       <figure>
@@ -59,11 +121,78 @@
     </div>
   </section>
 
-  <section class="wrap sec" id="list-sec">
+  <!-- ---------------- the writing, which is the point ---------------- -->
+  <section class="wrap sec" id="notes-sec">
     <div class="sec-h">
-      <h2>What is here right now</h2>
+      <svg class="spot" aria-hidden="true"><use href="#sp-anchor"></use></svg>
+      <h2 id="notes">Notes from the yard</h2>
+      <a class="small" href="#/notes">All of them &rarr;</a>
+    </div>
+    <p class="lede" style="margin-bottom:20px">Boats arriving, boats leaving, what turned up when the
+    floor came out, and the occasional digression. Written as things happen.</p>
+    <div id="note-lead"></div>
+    <ul class="notes" id="notes-list"></ul>
+  </section>
+
+  <!-- ---------------- and then, quieter, the ones for sale ------------ -->
+  <section class="band">
+    <div class="wrap sec">
+      <div class="sec-h">
+        <svg class="spot" aria-hidden="true"><use href="#sp-cleat"></use></svg>
+        <h2>A few of what is in the yard</h2>
+        <span class="count" id="count-home"></span>
+      </div>
+      <ul class="list" id="list-home"></ul>
+      <p style="margin:18px 0 0"><a href="#/boats">See everything that is for sale &rarr;</a></p>
+    </div>
+  </section>
+
+  <!-- ---------------- there is more than the list shows --------------- -->
+  <section class="wrap sec">
+    <div class="split-note">
+      <svg class="spot spot-lg" aria-hidden="true"><use href="#sp-compass"></use></svg>
+      <div>
+        <h2>Not everything is on the list</h2>
+        <p class="lede">Boats come in faster than I get round to writing them up, and a fair few are
+        spoken for before they ever make the page. There are usually others in the yard, or on their
+        way, or sitting under a cover somewhere while I decide what to do about them.</p>
+        <p class="lede">So if you know what you are after &mdash; or you only half know &mdash; tell me
+        and I will keep an eye out. Finding somebody the right boat is most of what I actually do.</p>
+        <p style="margin-top:14px"><a class="mono" href="tel:+17573299979">(757) 329-9979</a>
+        <span class="small mute">&nbsp;&middot;&nbsp; ten until seven, every day but Christmas</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap split">
+      <img src="assets/img/v4/ron.jpg" width="1280" height="720" loading="lazy" decoding="async"
+           alt="Ron, the marine mechanic, working on an outboard in the shop">
+      <div>
+        <p class="eyebrow"><svg class="spot spot-sm" aria-hidden="true"><use href="#sp-prop"></use></svg> Before anything leaves</p>
+        <h2>Ron goes over every boat</h2>
+        <ol class="steps">
+          <li><b>01</b><span>Compression checked, fluids and plugs done, every system run and confirmed working.</span></li>
+          <li><b>02</b><span>Then it goes on the water for sea trials. Usually that is me driving.</span></li>
+          <li><b>03</b><span>Only then does it go on a truck. I deliver anywhere in the United States.</span></li>
+        </ol>
+        <p class="small mute" style="margin-top:14px">Ron also has a habit of buying the ones he
+        likes, which is usually a good sign about the boat.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================ everything for sale ================== -->
+<div id="view-boats" hidden>
+  <section class="wrap sec">
+    <div class="sec-h">
+      <svg class="spot" aria-hidden="true"><use href="#sp-ring"></use></svg>
+      <h2>Boats for sale</h2>
       <span class="count" id="count"></span>
     </div>
+    <p class="lede" style="margin-bottom:6px">What is written up and ready to go. There are usually a
+    few more than this &mdash; <a href="#/">ring me</a> if you do not see it.</p>
 
     <div class="controls">
       <div class="set" id="f-show">
@@ -92,32 +221,6 @@
 
     <ul class="list" id="list"></ul>
     <p class="none" id="none" hidden>Nothing in that combination. Try Any, or ring me &mdash; things move.</p>
-  </section>
-
-  <section class="band">
-    <div class="wrap split">
-      <img src="assets/img/v4/ron.jpg" width="1280" height="720" loading="lazy" decoding="async"
-           alt="Ron, the marine mechanic, working on an outboard in the shop">
-      <div>
-        <p class="eyebrow">Before anything leaves</p>
-        <h2>Ron goes over every boat</h2>
-        <ol class="steps">
-          <li><b>01</b><span>Compression checked, fluids and plugs done, every system run and confirmed working.</span></li>
-          <li><b>02</b><span>Then it goes on the water for sea trials. Usually that is me driving.</span></li>
-          <li><b>03</b><span>Only then does it go on a truck. I deliver anywhere in the United States.</span></li>
-        </ol>
-        <p class="small mute" style="margin-top:14px">Ron also has a habit of buying the ones he
-        likes, which is usually a good sign about the boat.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="wrap sec">
-    <div class="sec-h">
-      <h2>Notes from the yard</h2>
-      <a class="small" href="#/notes">All of them &rarr;</a>
-    </div>
-    <ul class="notes" id="notes"></ul>
   </section>
 </div>
 
@@ -165,7 +268,7 @@
     </div>
     <div class="foot-btm">
       <span>&copy; 2026 York County Marine LLC</span>
-      <em>Tilly has been hard at work on a new website.</em>
+      <em><svg class="spot spot-sm" aria-hidden="true"><use href="#sp-cat"></use></svg> Tilly has been hard at work on a new website.</em>
       <span><a href="index.html">v1</a> · <a href="downhome.html">v2</a> · <a href="v3.html">v3</a></span>
     </div>
   </div>

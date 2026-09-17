@@ -26,9 +26,40 @@ const rows = () => $$('#list .row');
 
   const ALL = w.YCM.boats, BOATS = ALL.filter(b => !b.kind);
 
-  // --- it is a list, and that is the first thing on the page --------------
-  ok('the listings are the page, not a carousel', $$('#list-sec').length === 1 && !$('.hero, .carousel, video'));
-  ok('every boat is listed', rows().length === BOATS.length, rows().length + ' of ' + BOATS.length);
+  // --- the writing leads, the boats follow --------------------------------
+  {
+    const html = read('v4.html');
+    const notesAt = html.indexOf('id="notes-sec"');
+    const boatsAt = html.indexOf('id="list-home"');
+    ok('the writing comes before the boats on the front page',
+       notesAt > 0 && boatsAt > 0 && notesAt < boatsAt, `notes@${notesAt} boats@${boatsAt}`);
+    ok('the nav leads with the writing too',
+       $$('.top nav a')[0].textContent.trim() === 'Notes', $$('.top nav a')[0].textContent.trim());
+    ok('nothing autoplays at the top', !$('video, .carousel'));
+  }
+  ok('a note leads the front page', !!$('#note-lead .lead-t') &&
+     $('#note-lead .lead-t').textContent === w.YCM_POSTS[0].title);
+  ok('with more of them underneath', $$('#notes-list li').length === 10, $$('#notes-list li').length + '');
+  ok('the front page shows only a few boats', $$('#list-home .row').length === 6,
+     $$('#list-home .row').length + '');
+  ok('and says how many there are in total',
+     /28 listings/.test($('#count-home').textContent), $('#count-home').textContent);
+  ok('there is a way through to all of them', !!$('a[href="#/boats"]'));
+
+  // --- the setup: there is more here than the list shows -------------------
+  {
+    const t = $('.split-note').textContent.replace(/\s+/g, ' ');
+    ok('the page says the list is not everything', /Not everything is on the list/.test(t));
+    ok('and invites people to say what they are after',
+       /tell me and I will keep an eye out/.test(t));
+    ok('with the phone number right there', !!$('.split-note a[href^="tel:"]'));
+  }
+
+  // --- the full list lives on its own page --------------------------------
+  w.location.hash = '#/boats';
+  w.dispatchEvent(new w.Event('hashchange'));
+  ok('boats for sale is its own page', $('#view-boats').hidden === false && $('#view-home').hidden === true);
+  ok('every boat is listed there', rows().length === BOATS.length, rows().length + ' of ' + BOATS.length);
   ok('non-boats are not called boats by default',
      rows().length === ALL.length - 8, ALL.length - rows().length + ' held back');
 
@@ -92,9 +123,10 @@ const rows = () => $$('#list .row');
      rows().every(r => !!r.querySelector('.shotwrap img') || !!r.querySelector('.noshot')));
 
   // --- notes ---------------------------------------------------------------
-  ok('the front page shows a handful of notes', $$('#notes li').length === 8, $$('#notes li').length + '');
-  ok('and the notes page shows all of them',
+  ok('the notes page shows all of them',
      $$('#notes-all li').length === w.YCM_POSTS.length, $$('#notes-all li').length + '');
+  ok('the lead note is not repeated in the list underneath',
+     !$$('#notes-list li .nt').some(n => n.textContent === w.YCM_POSTS[0].title));
 
   // --- one listing ---------------------------------------------------------
   const target = BOATS[2];
@@ -134,6 +166,28 @@ const rows = () => $$('#list .row');
     const withAttrs = $$('img[width][height]').map(i => i.getAttribute('src'));
     ok('the photographs reserve their space so the page does not jump',
        withAttrs.length >= 2, withAttrs.length + ' with width/height');
+  }
+
+  // --- the drawings --------------------------------------------------------
+  {
+    const html = read('v4.html');
+    const defined = [...html.matchAll(/<symbol id="(sp-[a-z]+)"/g)].map(m => m[1]);
+    const used    = [...html.matchAll(/<use href="#(sp-[a-z]+)"/g)].map(m => m[1]);
+    ok('the spot drawings are inline, costing no request', defined.length >= 6, defined.join(' '));
+    ok('every drawing used is one that exists',
+       used.every(u => defined.includes(u)), used.filter(u => !defined.includes(u)).join(' '));
+    ok('Tilly gets a cat', used.includes('sp-cat'));
+    ok('and the anchor is back, as the old site had it', used.includes('sp-anchor'));
+  }
+
+  // --- the old site's colours ----------------------------------------------
+  {
+    const css = read('assets/css/v4.css');
+    ok('the red the old site actually used', /--red:\s*#FF4F4F/i.test(css));
+    ok('its deeper red too', /--red-deep:\s*#C52800/i.test(css));
+    ok('the sign blue', /--navy:\s*#2B328C/i.test(css));
+    ok('the theme sky blue', /--sky:\s*#54A0EA/i.test(css));
+    ok('on white, as it was', /--paper:\s*#FFFFFF/i.test(css));
   }
 
   console.log('\n' + fail + ' failures of ' + (pass + fail));

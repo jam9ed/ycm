@@ -92,38 +92,58 @@
       </div></a></li>`;
   }
 
+  const tally = rows => {
+    const unpriced = rows.filter(b => !b.price).length;
+    return rows.length + (rows.length === 1 ? ' listing' : ' listings') +
+      (unpriced ? ` · ${unpriced} priced on request` : '');
+  };
+
   function paintList() {
     const rows = selected();
     $('#list').innerHTML = rows.map(rowHTML).join('');
     $('#none').hidden = rows.length > 0;
-    const priced = rows.filter(b => b.price);
-    $('#count').textContent =
-      rows.length + (rows.length === 1 ? ' listing' : ' listings') +
-      (priced.length && priced.length !== rows.length
-        ? ` · ${rows.length - priced.length} priced on request` : '');
+    $('#count').textContent = tally(rows);
     $$('#f-show button').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.show === state.show)));
     $$('#f-status button').forEach(x => x.setAttribute('aria-pressed', String(x.dataset.status === state.status)));
     $('#sort').value = state.sort;
+  }
+
+  /* The front page is about the writing, so it shows a handful of boats rather
+     than all of them — unfiltered, in the order Dave lists them. */
+  const FRONT = 6;
+  function paintFront() {
+    const boats = BOATS.filter(isBoat).slice().sort((a, b) => a.order - b.order);
+    $('#list-home').innerHTML = boats.slice(0, FRONT).map(rowHTML).join('');
+    $('#count-home').textContent = tally(boats);
   }
 
   const noteHTML = p => `<li><a href="#/note/${encodeURIComponent(p.id)}">
       <div class="nt">${esc(p.title)}</div>
       ${p.body && p.body[0] ? `<div class="nb">${esc(p.body[0])}</div>` : ''}</a></li>`;
 
-  // two lists: the handful on the front page, and all of them on their own
+  // The newest note leads the page; the rest sit under it as a plain index.
   function paintNotes() {
-    $('#notes').innerHTML     = POSTS.slice(0, 8).map(noteHTML).join('');
-    $('#notes-all').innerHTML = POSTS.map(noteHTML).join('');
+    const lead = POSTS[0];
+    $('#note-lead').innerHTML = lead ? `<a class="lead" href="#/note/${encodeURIComponent(lead.id)}">
+        <div class="lead-k">Latest</div>
+        <div class="lead-t">${esc(lead.title)}</div>
+        ${lead.body && lead.body[0] ? `<p class="lead-b">${esc(lead.body.slice(0, 2).join(' '))}</p>` : ''}
+        <div class="lead-m">Read it &rarr;</div></a>` : '';
+    $('#notes-list').innerHTML = POSTS.slice(1, 11).map(noteHTML).join('');
+    $('#notes-all').innerHTML  = POSTS.map(noteHTML).join('');
   }
 
   /* ---- views ------------------------------------------------------------ */
+  // Which nav item owns which view: anything about a boat belongs to Boats,
+  // everything else belongs to the writing.
+  const OWNER = { home:'home', notes:'home', note:'home', boats:'boats', detail:'boats' };
+
   function show(view) {
-    ['home', 'detail', 'notes', 'note'].forEach(v => $('#view-' + v).hidden = v !== view);
-    $$('.top nav a').forEach(a => {
-      const on = (view === 'home' && a.dataset.v === 'home') ||
-                 (view !== 'home' && a.dataset.v === view.replace('detail', 'home'));
-      on ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current');
-    });
+    ['home', 'boats', 'detail', 'notes', 'note']
+      .forEach(v => $('#view-' + v).hidden = v !== view);
+    $$('.top nav a').forEach(a =>
+      a.dataset.v === OWNER[view] ? a.setAttribute('aria-current', 'page')
+                                  : a.removeAttribute('aria-current'));
     window.scrollTo(0, 0);
   }
 
@@ -171,6 +191,7 @@
     if (m && m[1] === 'boat') return openBoat(decodeURIComponent(m[2]));
     if (m && m[1] === 'note') return openNote(decodeURIComponent(m[2]));
     if (h.startsWith('#/notes')) return show('notes');
+    if (h.startsWith('#/boats')) return show('boats');
     show('home');
   }
 
@@ -213,7 +234,7 @@
       console.warn('[YCM v4] config:', e.message);
     }
 
-    readURL(); wire(); paintList(); paintNotes(); render();
+    readURL(); wire(); paintList(); paintFront(); paintNotes(); render();
     document.body.dataset.ready = '1';
   }
 
