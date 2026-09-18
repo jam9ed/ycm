@@ -15,6 +15,10 @@
    An earlier version gave the whole run to the following post, which put a
    cabin boat and a V-berth on a post about an open centre console.
 
+   "Dave's waterfront estate is still available!" is a later post about the same
+   three properties and had no photograph of its own, so it borrows the house
+   from the listing post. That is the only image used twice.
+
    The estate listing is one such stretch: the headline post, a note about the
    agent, and a post that is only a phone number, with the eight property
    photographs in the run between them. They belong to the headline, and are
@@ -127,6 +131,7 @@ window.YCM_POSTS = [
   },
   {
     id:"dave-s-waterfront-estate-is-still-available", order:5,
+    wix:[ "769958_9a1e18af34fe40cb8ec61bcdf758101b~mv2.jpeg" ],
     title:"Dave's waterfront estate is still available!",
     body:[
       "Buy the house, or the cottage & carriage house next door, or the undeveloped peninsula -or combine them all for the ultimate family compound!",
