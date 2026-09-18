@@ -30,6 +30,13 @@
    dropped, as are the eight images that repeat, one of them 53 times, and two
    "sold" stickers that each appear once and so had to be found by looking.
 
+   TAGS. `tag:"Owners"` marks the posts about somebody taking a boat home —
+   the handover photographs, and the ones people send back afterwards. Dave's
+   own phrase for those is "happy pics on the water", which is why the New
+   owners section on v4 is headed with it. Ten posts qualify; picked by reading
+   them, because the phrasing that finds them also finds posts about the
+   weather, about a boat arriving, and about Ron buying one himself.
+
    PHOTOGRAPHS STAY ON WIX. `wix` holds the media identifier; the page builds a
    thumbnail and a full-size URL from it through Wix's own transform path.
    Anything attached in the staff portal overrides it.
@@ -103,6 +110,7 @@ window.YCM_POSTS = [
   },
   {
     id:"that-1998-40th-anniversary-edition-boston-whaler", order:4,
+    tag:"Owners",
     wix:[ "769958_36e7747aaff44c0fa724b978934074d0~mv2.jpeg" ],
     title:"That 1998 40th Anniversary Edition Boston Whaler",
     body:[
@@ -126,6 +134,7 @@ window.YCM_POSTS = [
   },
   {
     id:"remember-that-boston-whaler-110-sport-that-left-here", order:6,
+    tag:"Owners",
     wix:[ "769958_81659f07a5c14e388b11d3b45dd96368~mv2.jpg" ],
     title:"Remember that Boston Whaler 110 Sport that left here a few days ago?",
     body:[
@@ -209,6 +218,7 @@ window.YCM_POSTS = [
   },
   {
     id:"there-goes-another-whaler", order:11,
+    tag:"Owners",
     title:"There goes another Whaler!",
     body:[
       "Michael from Glide Transport’s escorting that 11 footer all the way to Hanover, New Hampshire.",
@@ -733,6 +743,7 @@ window.YCM_POSTS = [
   },
   {
     id:"we-always-enjoy-receiving-pics-from-happy-clients", order:50,
+    tag:"Owners",
     wix:[ "769958_1b7cd90aea4b48829917dbe4d0b43391~mv2.jpeg" ],
     title:"We always enjoy receiving pics from happy clients!",
     body:[
@@ -1003,6 +1014,7 @@ window.YCM_POSTS = [
   },
   {
     id:"here-we-see-a-very-happy-couple-with-their-new-to-th", order:68,
+    tag:"Owners",
     wix:[ "769958_60d24f78a47a479f8a4cf402f8cfda61~mv2.jpeg" ],
     title:"Here we see a very happy couple with their new to them 2019 Boston Whaler 160 Super Sport!",
     body:[
@@ -1259,6 +1271,7 @@ window.YCM_POSTS = [
   },
   {
     id:"there-goes-our-freshly-re-powered-1997-boston-whaler", order:84,
+    tag:"Owners",
     title:"There goes our freshly re-powered 1997 Boston Whaler 17 Standard!",
     body:[
       "The snow and (most of) the ice have melted, and once again boats are moving! - back to low teens this weekend....",
@@ -1303,6 +1316,7 @@ window.YCM_POSTS = [
   },
   {
     id:"this-one-s-heading-to-edgewater-florida-literally-a", order:87,
+    tag:"Owners",
     title:"This one’s heading to Edgewater Florida -literally a mile and a half from the Whaler plant!",
     body:[
       "The new owner wanted a low maintenance, reliable, hose it off and go Classic 17’ Boston Whaler with as little upholstery as possible.",
@@ -2317,6 +2331,7 @@ window.YCM_POSTS = [
   },
   {
     id:"the-exact-moment-ron-introduced-our-boston-whaler-da", order:150,
+    tag:"Owners",
     wix:[ "769958_24867b6aea8e4e7f9952f8fde0b088ff~mv2.jpeg" ],
     title:"The exact moment Ron introduced our Boston Whaler Dauntless to her new family  - in Greenwich, Connecticut 🙂",
     body:[],
@@ -2359,6 +2374,7 @@ window.YCM_POSTS = [
   },
   {
     id:"that-s-tim-his-new-to-him-freshly-delivered-boston-w", order:155,
+    tag:"Owners",
     wix:[ "769958_c9f5647404544a198b6aa5b85718c835~mv2.jpeg" ],
     title:"That's Tim & his new to him & freshly delivered Boston Whaler Dauntless 220!",
     body:[
@@ -2368,6 +2384,7 @@ window.YCM_POSTS = [
   },
   {
     id:"there-s-robert-jackson-with-a-freshly-delivered-1988", order:156,
+    tag:"Owners",
     wix:[ "769958_364d970bd57c4574a1f7ba9ebfe46a65~mv2.jpeg" ],
     title:"There’s Robert & Jackson with a freshly delivered 1988 Boston Whaler 15’ Super Sport!",
     body:[

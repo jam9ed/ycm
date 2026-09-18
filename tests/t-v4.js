@@ -251,6 +251,37 @@ const rows = () => $$('#list .row');
     ok('and her tag hangs below her', /\.tilly-tag\{[^}]*margin-top:/.test(css));
   }
 
+  // --- the Owners tag -------------------------------------------------------
+  // Dave's phrase for these is "happy pics on the water", which heads the New
+  // owners section; the posts themselves are tagged Owners.
+  {
+    const tagged = w.YCM_POSTS.filter(p => p.tag === 'Owners');
+    ok('the owner posts are tagged', tagged.length === 10, tagged.length + ' tagged');
+    ok('none of them is about the weather or a boat merely arriving',
+       !tagged.some(p => /spring warmup|here comes that boston whaler 170/i.test(p.title)));
+
+    w.location.hash = '#/notes';
+    w.dispatchEvent(new w.Event('hashchange'));
+    const badged = $$('#notes-all li .ntag');
+    ok('each shows its tag in the index', badged.length === tagged.length, badged.length + ' badges');
+    ok('and the tag reads Owners', badged.every(b => b.textContent === 'Owners'));
+    ok('untagged posts carry no badge',
+       $$('#notes-all li').length - $$('#notes-all li .ntag').length
+         === w.YCM_POSTS.length - tagged.length);
+
+    w.location.hash = '#/note/' + encodeURIComponent(tagged[0].id);
+    w.dispatchEvent(new w.Event('hashchange'));
+    ok('the post itself shows the tag too', !!$('#note .ntag'));
+  }
+
+  // --- his phrase sits with the owners section ------------------------------
+  {
+    const t = $('.owners').textContent.replace(/\s+/g, ' ');
+    ok('the New owners section is headed with his own phrase',
+       /Happy pics on the water/i.test(t));
+    ok('and points at the tag', /tagged Owners/i.test(t));
+  }
+
   // --- the drawings --------------------------------------------------------
   {
     const html = read('v4.html');

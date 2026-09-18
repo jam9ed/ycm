@@ -155,7 +155,7 @@
     return `<li><a href="#/note/${encodeURIComponent(p.id)}">
       <div class="nthumb${shot ? '' : ' tint-' + (h % 4)}">${face}</div>
       <div>
-        <div class="nt">${esc(p.title)}</div>
+        <div class="nt">${p.tag ? `<span class="ntag">${esc(p.tag)}</span>` : ''}${esc(p.title)}</div>
         ${p.body && p.body[0] ? `<div class="nb">${esc(p.body[0])}</div>` : ''}
       </div></a></li>`;
   };
@@ -224,6 +224,7 @@
     const shots = allShots(p);
     $('#note').innerHTML = `
       <a class="back" href="#/notes">&larr; All notes</a>
+      ${p.tag ? `<div class="ntag ntag-lg">${esc(p.tag)}</div>` : ''}
       <h1>${esc(p.title)}</h1>
       <div class="prose" style="margin-top:16px">${(p.body || []).map(t => `<p>${esc(t)}</p>`).join('')}</div>
       ${shots.length ? `<div class="gal-full">${shots.map((x, i) =>
