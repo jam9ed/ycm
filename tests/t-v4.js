@@ -43,7 +43,7 @@ const rows = () => $$('#list .row');
   ok('the front page shows only a few boats', $$('#list-home .row').length === 6,
      $$('#list-home .row').length + '');
   ok('and says how many there are in total',
-     /28 listings/.test($('#count-home').textContent), $('#count-home').textContent);
+     /^28 listings$/.test($('#count-home').textContent.trim()), $('#count-home').textContent);
   ok('there is a way through to all of them', !!$('a[href="#/boats"]'));
 
   // --- the setup: there is more here than the list shows -------------------
@@ -77,7 +77,7 @@ const rows = () => $$('#list .row');
     const asked  = rows().filter(x => x.querySelector('.ask')).length;
     ok('every row shows a price or says to call', priced + asked === rows().length,
        priced + ' priced, ' + asked + ' on request');
-    ok('the count says how many are priced on request', /priced on request/.test($('#count').textContent),
+    ok('the count is a plain total', /^\d+ listings?$/.test($('#count').textContent.trim()),
        $('#count').textContent);
   }
 

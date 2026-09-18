@@ -15,6 +15,11 @@
    An earlier version gave the whole run to the following post, which put a
    cabin boat and a V-berth on a post about an open centre console.
 
+   The estate listing is one such stretch: the headline post, a note about the
+   agent, and a post that is only a phone number, with the eight property
+   photographs in the run between them. They belong to the headline, and are
+   placed there by hand.
+
    The rule is a heuristic and has exceptions: a post can carry an image before
    its text AND one after it, which makes a lone image between two posts
    genuinely ambiguous. The 1998 catalogue cover is one such — it illustrates
@@ -1402,6 +1407,7 @@ window.YCM_POSTS = [
   },
   {
     id:"anyone-looking-for-a-waterfront-family-compound", order:91,
+    wix:[ "769958_9a1e18af34fe40cb8ec61bcdf758101b~mv2.jpeg", "769958_0997e847283a4fb586cb55f7a8949356~mv2.jpg", "769958_b5c84ac361ee4f46bbbd946178f2930b~mv2.jpeg", "769958_55f08080a6b445c7b3aae1c54c58a054~mv2.jpg", "769958_345484c38c064d809211d5199dae0907~mv2.jpeg", "769958_0f0677115e8a4ee28f8fdf907d53a113~mv2.jpeg", "769958_c58bdf075bbd45279706958c6ddec355~mv2.jpeg", "769958_9075f86226ae421abd5ed9b481610c32~mv2.jpg" ],
     title:"Anyone looking for a Waterfront Family Compound?",
     body:[
       "You've seen dozens (and dozens) of YCM Boston Whaler walk-around and sea-trial videos filmed from this location! Now this beautiful property is available!",
@@ -1415,7 +1421,6 @@ window.YCM_POSTS = [
   },
   {
     id:"that-s-our-buddy-bradley-gregerson-real-estate-agent", order:92,
-    wix:[ "769958_9a1e18af34fe40cb8ec61bcdf758101b~mv2.jpeg", "769958_0997e847283a4fb586cb55f7a8949356~mv2.jpg", "769958_b5c84ac361ee4f46bbbd946178f2930b~mv2.jpeg", "769958_55f08080a6b445c7b3aae1c54c58a054~mv2.jpg", "769958_345484c38c064d809211d5199dae0907~mv2.jpeg", "769958_0f0677115e8a4ee28f8fdf907d53a113~mv2.jpeg", "769958_c58bdf075bbd45279706958c6ddec355~mv2.jpeg", "769958_9075f86226ae421abd5ed9b481610c32~mv2.jpg" ],
     title:"That's our buddy Bradley Gregerson - Real Estate Agent and Jeremy from j2realestatemedia getting some cool drone footage for our upcoming Zillow listing. - Give Bradley a call if you're looking for sprawling, private waterfront family compound! - or just call David @ YCM!",
     body:[],
   },

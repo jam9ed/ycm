@@ -92,11 +92,8 @@
       </div></a></li>`;
   }
 
-  const tally = rows => {
-    const unpriced = rows.filter(b => !b.price).length;
-    return rows.length + (rows.length === 1 ? ' listing' : ' listings') +
-      (unpriced ? ` · ${unpriced} priced on request` : '');
-  };
+  const tally = rows =>
+    rows.length + (rows.length === 1 ? ' listing' : ' listings');
 
   function paintList() {
     const rows = selected();
