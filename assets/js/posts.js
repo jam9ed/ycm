@@ -3,26 +3,36 @@
 
    HOW THE BOUNDARIES ARE KNOWN. The page is one long Wix feed of alternating
    image and rich-text components. Each rich-text component is one post: its
-   first paragraph is the title, the rest is the body. An image belongs to the
-   component that FOLLOWS it, which was checked against three posts whose
-   subject is identifiable — the Florida transport, the family collecting their
-   Dauntless, and Tim beside his — and held in all three.
+   first paragraph is the title, the rest is the body.
 
-   WHAT THIS REPLACES. The previous parse took a fixed window of fourteen
-   paragraphs per post: 36 of its 43 posts were exactly that length, so most ran
-   past their real ending, swallowed the site tagline and then truncated the
-   post after them. Three posts here are fourteen paragraphs long, and they come
-   by it honestly.
+   HOW THE PHOTOGRAPHS ARE PLACED. A run of images sits between two posts and is
+   shared between them: the LAST image in the run heads the post about to start,
+   and the ones before it close out the post just finished. Checked against five
+   posts whose subject is identifiable — the Florida transport, the family
+   collecting their Dauntless, Tim beside his, the barn find (a cuddy-cabin boat
+   and its interior), and the 170 Montauk that follows it.
 
-   CHROME. Any paragraph appearing in three or more components is site furniture
-   rather than writing — "YCM a different kind of boat dealer" appears 128 times
-   on the page — and is dropped, as are the eight images that repeat (one of
-   them 53 times).
+   An earlier version gave the whole run to the following post, which put a
+   cabin boat and a V-berth on a post about an open centre console.
 
-   PHOTOGRAPHS stay on Wix. `wix` holds the media identifier; the site builds a
-   thumbnail and a full-size URL from it through Wix's own transform path, so
-   nothing is downloaded and nothing is guessed. Anything attached in the staff
-   portal overrides it.
+   The rule is a heuristic and has exceptions: a post can carry an image before
+   its text AND one after it, which makes a lone image between two posts
+   genuinely ambiguous. The 1998 catalogue cover is one such — it illustrates
+   the 1996 Outrage post before it, not the Newport delivery after it — and is
+   placed by hand. The staff portal is how any other is corrected.
+
+   WHAT THIS REPLACES. The parse before it took a fixed fourteen paragraphs per
+   post: 36 of its 43 were exactly that length, so most ran past their ending,
+   swallowed the site tagline and truncated the post after them.
+
+   CHROME. Any paragraph in three or more components is furniture rather than
+   writing — "YCM a different kind of boat dealer" appears 128 times — and is
+   dropped, as are the eight images that repeat, one of them 53 times, and two
+   "sold" stickers that each appear once and so had to be found by looking.
+
+   PHOTOGRAPHS STAY ON WIX. `wix` holds the media identifier; the page builds a
+   thumbnail and a full-size URL from it through Wix's own transform path.
+   Anything attached in the staff portal overrides it.
    ========================================================================== */
 window.YCM_POSTS = [
   {
@@ -35,7 +45,6 @@ window.YCM_POSTS = [
   },
   {
     id:"in-the-ycm-pipeline", order:1,
-    wix:[ "769958_c8b10458fba646bd95f18dddcf7a3ca0~mv2.jpg" ],
     title:"In the YCM Pipeline….",
     body:[
       "2015 Boston Whaler 150 Super Sport!",
@@ -62,7 +71,7 @@ window.YCM_POSTS = [
   },
   {
     id:"time-to-sell-our-office-2018-nucamp-tab-320s", order:2,
-    wix:[ "769958_2b2fb0604a78442aa60ffe3d77974a5d~mv2.jpg", "769958_c265ea8d110f4b7a898c96b4b5bec098~mv2.jpeg" ],
+    wix:[ "769958_c265ea8d110f4b7a898c96b4b5bec098~mv2.jpeg", "769958_84fef0d6fe644e2a9e3cf98c1b91f9fc~mv2.jpeg", "769958_8feceb8ea4aa4ae080a5eb8ba139a6c1~mv2.jpeg", "769958_99b750edd8704f9fa539c259d2cc2533~mv2.jpeg", "769958_99163b6bcd644037a698d5e63acdabef~mv2.jpeg", "769958_7622a7199af44d559d73c5d4e54028cf~mv2.jpeg" ],
     title:"Time to sell our office / 2018 NuCamp Tab 320S",
     body:[
       "I bought this beautiful little Teardrop Camper from the original owners about 3 years ago to use as temporary office, inside of our large metal building -and maybe to one day camp in.",
@@ -155,7 +164,7 @@ window.YCM_POSTS = [
   },
   {
     id:"barn-find-an-old-car-boat-tractor-etc-found-in-a-bar", order:9,
-    wix:[ "769958_236d2acbddd54f7eb24c07f0113644e7~mv2.jpeg" ],
+    wix:[ "769958_236d2acbddd54f7eb24c07f0113644e7~mv2.jpeg", "769958_60d8d29085144caa8724a2bed8e5c42c~mv2.jpeg", "769958_6de5ea6ac39a405fa8d37b24300e9cf2~mv2.jpeg" ],
     title:"Barn Find -an old car, boat, tractor, etc found in a barn…",
     body:[
       "Object often covered in dust, some barns may have spare wagon wheels hanging on wall…",
@@ -188,7 +197,7 @@ window.YCM_POSTS = [
   },
   {
     id:"we-brought-in-another-boston-whaler-170-montauk-toda", order:10,
-    wix:[ "769958_60d8d29085144caa8724a2bed8e5c42c~mv2.jpeg", "769958_6de5ea6ac39a405fa8d37b24300e9cf2~mv2.jpeg", "769958_e2af4e20621241bb93b394bacf177ae9~mv2.jpeg" ],
+    wix:[ "769958_e2af4e20621241bb93b394bacf177ae9~mv2.jpeg" ],
     title:"We brought in another Boston Whaler 170 Montauk today!",
     body:[
       "She’s a local, lift kept boat from the brackish waters of the Chickahominy River.",
@@ -230,6 +239,7 @@ window.YCM_POSTS = [
   },
   {
     id:"how-about-a-freshwater-50th-anniversary-130-sport-wi", order:15,
+    wix:[ "769958_1c23520754fd40cab067bf37e79dd8fd~mv2.jpeg", "769958_ca48a4083c0e4f3fb9596a10c3fbf53f~mv2.jpeg", "769958_f55bfe1083fa49ddb908e091a45bae0a~mv2.jpeg", "769958_3e11bd77184945729ff1928b2de0df3f~mv2.jpeg", "769958_f63f3a3f7b04455a8b3618abc6ccaddf~mv2.jpeg" ],
     title:"How about a Freshwater, 50th Anniversary 130 Sport - with a 40 hp Fuel Injected Four Stroke Mercury with only 109 freshwater hours!",
     body:[
       "The original owners manuals, in the the Boston Whaler Red Canvas Pouch, and 50th Anniversary Commemorative Brass Key Chain are included.",
@@ -241,7 +251,7 @@ window.YCM_POSTS = [
   },
   {
     id:"celebrating-her-50th-birthday-clearing-out-some-proj", order:16,
-    wix:[ "769958_1c23520754fd40cab067bf37e79dd8fd~mv2.jpeg", "769958_ca48a4083c0e4f3fb9596a10c3fbf53f~mv2.jpeg", "769958_f55bfe1083fa49ddb908e091a45bae0a~mv2.jpeg", "769958_3e11bd77184945729ff1928b2de0df3f~mv2.jpeg", "769958_f63f3a3f7b04455a8b3618abc6ccaddf~mv2.jpeg", "769958_7d78285889b24769b6c6e8e17b11d14d~mv2.jpeg" ],
+    wix:[ "769958_7d78285889b24769b6c6e8e17b11d14d~mv2.jpeg" ],
     title:"Celebrating her 50th birthday & clearing out some projects...",
     body:[
       "1976 Boston Whaler Montauk!",
@@ -277,7 +287,7 @@ window.YCM_POSTS = [
   },
   {
     id:"here-comes-that-one-owner-garage-kept-senior-owned-n", order:19,
-    wix:[ "769958_0ab416ad4e9d4c5db10874566324bd2c~mv2.jpeg" ],
+    wix:[ "769958_0ab416ad4e9d4c5db10874566324bd2c~mv2.jpeg", "769958_ab3836ba96b84d41ac7911437eb94819~mv2.jpeg" ],
     title:"Here comes that ONE OWNER, Garage Kept, Senior Owned & Never Bottom Painted, Gorgeous, all Original, 2000 Boston Whaler 17 Montauk we’ve been talking about!",
     body:[
       "Glide Transport will have her here on Wednesday.",
@@ -289,7 +299,7 @@ window.YCM_POSTS = [
   },
   {
     id:"this-senior-owned-1999-boston-whaler-montauk-17-arri", order:20,
-    wix:[ "769958_ab3836ba96b84d41ac7911437eb94819~mv2.jpeg", "769958_048434bdfd89451483d335d70adbff31~mv2.jpeg", "769958_30f98e173bce4b44b76eec7f1ed4dacc~mv2.jpeg" ],
+    wix:[ "769958_048434bdfd89451483d335d70adbff31~mv2.jpeg" ],
     title:"This senior owned 1999 Boston Whaler Montauk 17 arrived last night @ YCM!",
     body:[
       "She was REPOWERED in 2021 with a brand new Yamaha F70 Fuel Injected Four Stroke -now with only 118 hours!",
@@ -313,7 +323,7 @@ window.YCM_POSTS = [
   },
   {
     id:"a-brief-note-and-departing-boat-pic-from-brent-in-fl", order:21,
-    wix:[ "769958_a4704247cb07437285a8bdd262abbb2b~mv2.jpeg" ],
+    wix:[ "769958_a4704247cb07437285a8bdd262abbb2b~mv2.jpeg", "769958_cbabb3e717e54b0e96b09ae620f23b77~mv2.jpeg", "769958_a12a4e4bc5cd4d8ebd081c82c08f783a~mv2.jpeg" ],
     title:"A brief note and departing boat pic from Brent in Florida...",
     body:[
       "\"Thank you so much for making this as painless as you have. I have been putting selling it off for 3 years because I didn't want to deal with the hassle of it all.\"",
@@ -322,7 +332,7 @@ window.YCM_POSTS = [
   },
   {
     id:"one-owner-since-1978", order:22,
-    wix:[ "769958_cbabb3e717e54b0e96b09ae620f23b77~mv2.jpeg", "769958_a12a4e4bc5cd4d8ebd081c82c08f783a~mv2.jpeg", "769958_7eb6e2a701eb494cb0fe06a457892304~mv2.jpeg" ],
+    wix:[ "769958_7eb6e2a701eb494cb0fe06a457892304~mv2.jpeg" ],
     title:"One owner since 1978.",
     body:[
       "Freshwater boat since new.",
@@ -349,7 +359,7 @@ window.YCM_POSTS = [
   },
   {
     id:"the-first-time-this-boston-whaler-17-sport-was-in-ou", order:24,
-    wix:[ "769958_18389d2666634eff86e03c1a3af33aa3~mv2.jpeg" ],
+    wix:[ "769958_18389d2666634eff86e03c1a3af33aa3~mv2.jpeg", "769958_14a967bdfdba4fec850726f14026f87a~mv2.jpeg" ],
     title:"The first time this Boston Whaler 17 Sport was in our inventory, she was a gorgeous, one owner, garage kept dream boat -and one of the nicest all original classic Whalers we’d ever had.",
     body:[
       "Fast forward 5 years, she’s back in the YCM inventory, and not quite the picture of near perfection she once was.",
@@ -377,7 +387,7 @@ window.YCM_POSTS = [
   },
   {
     id:"2000-boston-whaler-160-dauntless", order:25,
-    wix:[ "769958_14a967bdfdba4fec850726f14026f87a~mv2.jpeg", "769958_b0d0baa8b6314e318a63316e2dc4105e~mv2.jpeg" ],
+    wix:[ "769958_b0d0baa8b6314e318a63316e2dc4105e~mv2.jpeg" ],
     title:"2000 Boston Whaler 160 Dauntless!",
     body:[
       "Another FRESHWATER, ONE OWNER, GARAGE KEPT BEAUTY!",
@@ -492,6 +502,7 @@ window.YCM_POSTS = [
   },
   {
     id:"from-their-garage-to-ours", order:33,
+    wix:[ "769958_159ea0e408264609bb73a0a68d7cb73e~mv2.jpeg", "769958_d6d9097baf354dd7a7f3bf16dbdece98~mv2.jpeg" ],
     title:"From their garage to ours!",
     body:[
       "2015 Freshwater 150 Super Sport!",
@@ -502,7 +513,7 @@ window.YCM_POSTS = [
   },
   {
     id:"that-s-a-4-000-trailer", order:34,
-    wix:[ "769958_159ea0e408264609bb73a0a68d7cb73e~mv2.jpeg", "769958_d6d9097baf354dd7a7f3bf16dbdece98~mv2.jpeg", "769958_223c61b82d84456fa51a3988199fbd0d~mv2.jpeg" ],
+    wix:[ "769958_223c61b82d84456fa51a3988199fbd0d~mv2.jpeg" ],
     title:"That's a $4,000 Trailer!",
     body:[],
   },
@@ -515,7 +526,7 @@ window.YCM_POSTS = [
   },
   {
     id:"make-hay-while-the-sunshines-carpe-diem-do-sea-trial", order:36,
-    wix:[ "769958_6f2cc9876b4f45d0a7514c4cfa725910~mv2.jpeg" ],
+    wix:[ "769958_6f2cc9876b4f45d0a7514c4cfa725910~mv2.jpeg", "769958_1d9c84fad6ad4208af479f93a553d9ab~mv2.jpeg", "769958_e26d96bf949743de870e1689cc97d04b~mv2.jpeg" ],
     title:"Make hay while the sunshines, carpe diem, do sea-trials while the wind ain’t blowin’ - all the same.",
     body:[
       "Yesterday’s weather was perfect -so we launched seven boats!",
@@ -532,7 +543,7 @@ window.YCM_POSTS = [
   },
   {
     id:"our-boston-whaler-150-super-sport-will-be-here-in-a", order:37,
-    wix:[ "769958_1d9c84fad6ad4208af479f93a553d9ab~mv2.jpeg", "769958_e26d96bf949743de870e1689cc97d04b~mv2.jpeg", "769958_f91fbd7db4f04c2f8745642a2e54a85a~mv2.jpeg" ],
+    wix:[ "769958_f91fbd7db4f04c2f8745642a2e54a85a~mv2.jpeg" ],
     title:"Our Boston Whaler 150 Super Sport will be here in a few days!",
     body:[
       "There is a lot of interest in this one, so we dug up the Sea-Trial video from a few years ago.",
@@ -603,7 +614,7 @@ window.YCM_POSTS = [
   },
   {
     id:"2019-boston-whaler-outrage-23-2", order:42,
-    wix:[ "769958_a903646d23b842759d3cc6524896ebd6~mv2.jpeg" ],
+    wix:[ "769958_a903646d23b842759d3cc6524896ebd6~mv2.jpeg", "769958_ac0bf3d9a66a479ca4c38ff0a68391a4~mv2.jpeg" ],
     title:"2019 Boston Whaler Outrage 23!",
     body:[
       "Twin 2019 Evinrude ETec G2 150 High Output Engines with extremely low hours -and still under warranty!",
@@ -620,7 +631,7 @@ window.YCM_POSTS = [
   },
   {
     id:"there-s-a-boston-whaler-170-montauk-heading-south-th", order:43,
-    wix:[ "769958_ac0bf3d9a66a479ca4c38ff0a68391a4~mv2.jpeg", "769958_979fa71b05fd4fffa09933eede3b1c10~mv2.jpeg" ],
+    wix:[ "769958_979fa71b05fd4fffa09933eede3b1c10~mv2.jpeg" ],
     title:"There's a Boston Whaler 170 Montauk heading south! This delivery goes to Dave in Fort Lauderdale! Dave's been a real pleasure to work with -and he's getting a fantastic Whaler!",
     body:[],
   },
@@ -636,6 +647,7 @@ window.YCM_POSTS = [
   },
   {
     id:"2019-boston-whaler-160-super-sport", order:45,
+    wix:[ "769958_d243a215fcdb4dcf8cd79f443c4a6d45~mv2.jpeg", "769958_3e89e9fd65494d49b5c376971788ae19~mv2.jpeg" ],
     title:"2019 Boston Whaler 160 Super Sport!",
     body:[
       "57 Total Hours!",
@@ -679,7 +691,7 @@ window.YCM_POSTS = [
   },
   {
     id:"1996-boston-whaler-19-outrage", order:46,
-    wix:[ "769958_d243a215fcdb4dcf8cd79f443c4a6d45~mv2.jpeg", "769958_3e89e9fd65494d49b5c376971788ae19~mv2.jpeg", "769958_b110153a540d4cf492398390c74fbb12~mv2.jpeg" ],
+    wix:[ "769958_b110153a540d4cf492398390c74fbb12~mv2.jpeg", "769958_4f7ff4de3c1349b2aadd3dddacb3af33~mv2.jpeg" ],
     title:"1996 Boston Whaler 19 Outrage!",
     body:[
       "This big 19 foot center console  (19’8”) was rebadged the Outrage 20 the following year.  She’s powered by the original Johnson 175 Ocean Pro, and sits on a 2006 galvanized trailer.",
@@ -694,7 +706,6 @@ window.YCM_POSTS = [
   },
   {
     id:"next-ycm-delivery-boston-whaler-newport-to-portland", order:47,
-    wix:[ "769958_4f7ff4de3c1349b2aadd3dddacb3af33~mv2.jpeg" ],
     title:"Next YCM delivery -Boston Whaler Newport to Portland, Maine!",
     body:[
       "Austin bought this beautiful little Boston Whaler Newport a few weeks back -which turned out to be the hottest boat of the season -with more calls, texts, emails, and even a few attempts of usurpation!",
@@ -733,7 +744,7 @@ window.YCM_POSTS = [
   },
   {
     id:"four-years-ago-this-month-we-sold-this-exceptional-o", order:51,
-    wix:[ "769958_792b8f3d8bfe4ec9ae5b8759bcb43f73~mv2.jpeg" ],
+    wix:[ "769958_792b8f3d8bfe4ec9ae5b8759bcb43f73~mv2.jpeg", "769958_ae65cab376654c8ab88d3f3819e61c7d~mv2.jpg" ],
     title:"Four years ago this month we sold this exceptional one owner, freshwater (from Vermont), garage kept, 2009 130 Super Sport to a guy named Dave in Upstate, New York.",
     body:[
       "Dave called us this morning, he’s just not using her as much as planned, and he’s ready to sell.",
@@ -747,7 +758,7 @@ window.YCM_POSTS = [
   },
   {
     id:"remember-that-really-sweet-1986-boston-whaler-newpor", order:52,
-    wix:[ "769958_ae65cab376654c8ab88d3f3819e61c7d~mv2.jpg", "769958_29cdba071f234dec9cb197adde2e4bb7~mv2.jpeg" ],
+    wix:[ "769958_29cdba071f234dec9cb197adde2e4bb7~mv2.jpeg" ],
     title:"Remember that really sweet 1986 Boston Whaler Newport?",
     body:[
       "Here she is on the water -this boat is as fun as she is beautiful!",
@@ -840,6 +851,7 @@ window.YCM_POSTS = [
   },
   {
     id:"2004-boston-whaler", order:57,
+    wix:[ "769958_fd842e3447df44af84cf8c06967dc4dd~mv2.jpeg" ],
     title:"2004 Boston Whaler",
     body:[
       "220 Dauntless!",
@@ -855,7 +867,7 @@ window.YCM_POSTS = [
   },
   {
     id:"2010-boston-whaler-130-super-sport", order:58,
-    wix:[ "769958_fd842e3447df44af84cf8c06967dc4dd~mv2.jpeg", "769958_b37d049ee8f64f80a4c2a0caeee5016a~mv2.jpeg" ],
+    wix:[ "769958_b37d049ee8f64f80a4c2a0caeee5016a~mv2.jpeg" ],
     title:"2010 Boston Whaler 130 Super Sport",
     body:[
       "Walk-Around Video!",
@@ -970,7 +982,7 @@ window.YCM_POSTS = [
   },
   {
     id:"boston-whaler-claims-the-first-center-console-but-gr", order:67,
-    wix:[ "769958_c47d7e8c94614b3f9590c8e5e419b853~mv2.jpeg" ],
+    wix:[ "769958_c47d7e8c94614b3f9590c8e5e419b853~mv2.jpeg", "769958_cc0c7ea625e3422396a7fce1de17f982~mv2.jpeg" ],
     title:"Boston Whaler claims the first center console, but Grady White invented and perfected the walk-around!",
     body:[
       "ONE OWNER  -1999 GRADY WHITE 208 ADVENTURE!",
@@ -991,7 +1003,7 @@ window.YCM_POSTS = [
   },
   {
     id:"here-we-see-a-very-happy-couple-with-their-new-to-th", order:68,
-    wix:[ "769958_cc0c7ea625e3422396a7fce1de17f982~mv2.jpeg", "769958_60d24f78a47a479f8a4cf402f8cfda61~mv2.jpeg" ],
+    wix:[ "769958_60d24f78a47a479f8a4cf402f8cfda61~mv2.jpeg" ],
     title:"Here we see a very happy couple with their new to them 2019 Boston Whaler 160 Super Sport!",
     body:[
       "Part of the deal -we have to sell their 2006 130 Sport! Give us a call if you're in the market!",
@@ -1031,8 +1043,14 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"arriving-today", order:72,
-    wix:[ "769958_14b92b22b3be4432a0eeee40265380b3~mv2.jpeg", "769958_6383704aac0d420e96935373ba98ec27~mv2.jpeg" ],
+    id:"here-s-a-little-more-on-our-230-vantage", order:72,
+    wix:[ "769958_14b92b22b3be4432a0eeee40265380b3~mv2.jpeg" ],
+    title:"Here's a little more on our 230 Vantage!",
+    body:[],
+  },
+  {
+    id:"arriving-today", order:73,
+    wix:[ "769958_6383704aac0d420e96935373ba98ec27~mv2.jpeg", "769958_d0e68dff4f0e4617abff0c8af79b8505~mv2.jpeg", "769958_c831806e3cbe4cf185c6c1181ecce3fc~mv2.png", "769958_d050027e5f884136b0dd19ede4271fb2~mv2.png", "769958_51faf116a60d425091d7440ac4571915~mv2.png", "769958_7b0012a5ef4f4c88b41af196c152e600~mv2.png", "769958_d7b467efd0f14dfe9d71b424dc165525~mv2.png", "769958_45df972340d0438c871d064e215eba66~mv2.png", "769958_d626b13bd89f43799ef4071ca5032ef9~mv2.png", "769958_bfed4cd6946a4b109a66260ab204584d~mv2.png", "769958_edf7f468b7c54887bcb22d1f3ed671ec~mv2.png", "769958_3615bf7ee5d34bbe9b48d1e0ec2e8c6a~mv2.png", "769958_84aa76b46c774473bf5493deeb5cb5b8~mv2.png", "769958_00d951f6f1bf4d2b8950f9eee43f3f5d~mv2.png", "769958_7124649f78a8418b9218e5349c3ea600~mv2.png", "769958_8beee0d15a8f41ac959ebd9c186edfb7~mv2.png" ],
     title:"Arriving Today!",
     body:[
       "Concerned those rising gas prices might put damper on your family’s summertime fun?",
@@ -1083,8 +1101,8 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"arriving-this-week", order:73,
-    wix:[ "769958_d0e68dff4f0e4617abff0c8af79b8505~mv2.jpeg", "769958_c831806e3cbe4cf185c6c1181ecce3fc~mv2.png", "769958_d050027e5f884136b0dd19ede4271fb2~mv2.png", "769958_51faf116a60d425091d7440ac4571915~mv2.png", "769958_7b0012a5ef4f4c88b41af196c152e600~mv2.png", "769958_d7b467efd0f14dfe9d71b424dc165525~mv2.png", "769958_45df972340d0438c871d064e215eba66~mv2.png", "769958_d626b13bd89f43799ef4071ca5032ef9~mv2.png", "769958_bfed4cd6946a4b109a66260ab204584d~mv2.png", "769958_edf7f468b7c54887bcb22d1f3ed671ec~mv2.png", "769958_3615bf7ee5d34bbe9b48d1e0ec2e8c6a~mv2.png", "769958_84aa76b46c774473bf5493deeb5cb5b8~mv2.png", "769958_00d951f6f1bf4d2b8950f9eee43f3f5d~mv2.png", "769958_7124649f78a8418b9218e5349c3ea600~mv2.png", "769958_8beee0d15a8f41ac959ebd9c186edfb7~mv2.png", "769958_d7cc29d923f54e66855155195063b7f5~mv2.png" ],
+    id:"arriving-this-week", order:74,
+    wix:[ "769958_d7cc29d923f54e66855155195063b7f5~mv2.png", "769958_c0f700aea1b649f389e5c72846fe7d30~mv2.jpg", "769958_7a2cf78c76be4528b4c9793090d41add~mv2.jpg", "769958_8567be0653c04b59bdbf5710ee0ad137~mv2.jpg" ],
     title:"Arriving this week!",
     body:[
       "2014 Boston Whaler 230 Vantage!",
@@ -1092,8 +1110,8 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"another-sneak-peak-our-incoming", order:74,
-    wix:[ "769958_c0f700aea1b649f389e5c72846fe7d30~mv2.jpg", "769958_7a2cf78c76be4528b4c9793090d41add~mv2.jpg", "769958_8567be0653c04b59bdbf5710ee0ad137~mv2.jpg", "769958_58fa1785fcc24c4fbb65bde5b7faf205~mv2.jpeg" ],
+    id:"another-sneak-peak-our-incoming", order:75,
+    wix:[ "769958_58fa1785fcc24c4fbb65bde5b7faf205~mv2.jpeg" ],
     title:"Another sneak peak @ our incoming",
     body:[
       "1986 Boston Whaler Newport!",
@@ -1102,14 +1120,14 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"there-goes-our-2001-boston-whaler-montauk-17-she-s-k", order:75,
+    id:"there-goes-our-2001-boston-whaler-montauk-17-she-s-k", order:76,
     title:"There goes our 2001 Boston Whaler Montauk 17 - she's Ken's boat now, and he's getting a nice one!",
     body:[
       "Delivery is to Raleigh, NC a little later this afternoon.",
     ],
   },
   {
-    id:"in-the-ycm-pipeline-once-again", order:76,
+    id:"in-the-ycm-pipeline-once-again", order:77,
     title:"In the YCM Pipeline once again!",
     body:[
       "About 5 years ago YCM sold this beautiful, one owner, 1980 Boston Whaler 17 Sport to an older gentleman down in Georgia -this morning he reached out to us, ready to step away from boat ownership.",
@@ -1117,21 +1135,22 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"looking-for-a-high-quality-smaller-boat-with-timeles", order:77,
+    id:"looking-for-a-high-quality-smaller-boat-with-timeles", order:78,
     wix:[ "769958_593cd0b8270e4c7789a2616612419ea8~mv2.jpeg" ],
     title:"Looking for a high quality, smaller boat with timeless lines?",
     body:[],
   },
   {
-    id:"another-teaser-shot-of-our-incoming-1986-boston-whal", order:78,
+    id:"another-teaser-shot-of-our-incoming-1986-boston-whal", order:79,
+    wix:[ "769958_948d469b74204b1badf0fb1decb24562~mv2.jpeg", "769958_65a5a0a26c1f49ae9a9f37a679429ac3~mv2.jpeg" ],
     title:"Another teaser shot of our incoming 1986 Boston Whaler Newport...",
     body:[
       "Arriving next week at York County Marine!",
     ],
   },
   {
-    id:"we-are-extremely-excited-to-announce-our-partnership", order:79,
-    wix:[ "769958_948d469b74204b1badf0fb1decb24562~mv2.jpeg", "769958_65a5a0a26c1f49ae9a9f37a679429ac3~mv2.jpeg", "769958_ad0bd224e55248ecaf601df1125a1cec~mv2.png" ],
+    id:"we-are-extremely-excited-to-announce-our-partnership", order:80,
+    wix:[ "769958_ad0bd224e55248ecaf601df1125a1cec~mv2.png", "769958_a9db7f57ebbe4485ab473d4d0c6dae1a~mv2.jpg" ],
     title:"We are extremely excited to announce our partnership with high-end Canadian boat builder Rossiter Boats!",
     body:[
       "Rossiter’s classic lines and extraordinary build quality, coupled with an impressive array of customizable options, including a host of gelcoat colors, upholstery colors, and interior layouts -and our shared love of smaller boats makes them a natural fit!",
@@ -1141,8 +1160,8 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"absolutely-stunning-example-of-rossiter-r-14-dc-14-f", order:80,
-    wix:[ "769958_a9db7f57ebbe4485ab473d4d0c6dae1a~mv2.jpg", "769958_a8c95e6879bb40aa9d2a5d44e05ba922~mv2.jpeg" ],
+    id:"absolutely-stunning-example-of-rossiter-r-14-dc-14-f", order:81,
+    wix:[ "769958_a8c95e6879bb40aa9d2a5d44e05ba922~mv2.jpeg", "769958_180eabc0cf81422d849d4c34174ef75c~mv2.jpeg", "769958_3e91dd4107a84d4ba196f954cbd99508~mv2.jpeg", "769958_3b3e60ec02404d67bea21c09bd223176~mv2.jpeg" ],
     title:"Absolutely Stunning example of Rossiter R 14 DC (14 Foot Dual Console) on display at the 2026 Toronto International Boat Show.",
     body:[
       "The hull is in custom gel coat color \"Jay Blue\" with deck, liner and stripe in \"Dune\".",
@@ -1153,8 +1172,8 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"another-gorgeous-classic-boston-whaler", order:81,
-    wix:[ "769958_180eabc0cf81422d849d4c34174ef75c~mv2.jpeg", "769958_3e91dd4107a84d4ba196f954cbd99508~mv2.jpeg", "769958_3b3e60ec02404d67bea21c09bd223176~mv2.jpeg", "769958_5b3f78423daa458a8d0743a13fdbd536~mv2.jpg" ],
+    id:"another-gorgeous-classic-boston-whaler", order:82,
+    wix:[ "769958_5b3f78423daa458a8d0743a13fdbd536~mv2.jpg", "769958_9519308be00d43be955c7ff45573b04a~mv2.jpg", "769958_6781db4f73b84064b86ced20fd6655b1~mv2.jpg" ],
     title:"-Another Gorgeous, Classic Boston Whaler!",
     body:[
       "-1986 Newport!",
@@ -1188,8 +1207,8 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"available-soon-1990-boston-whaler-17-montauk-striper", order:82,
-    wix:[ "769958_9519308be00d43be955c7ff45573b04a~mv2.jpg", "769958_6781db4f73b84064b86ced20fd6655b1~mv2.jpg", "769958_69599714f10b4b3ea6733e649d8d7ff2~mv2.jpeg" ],
+    id:"available-soon-1990-boston-whaler-17-montauk-striper", order:83,
+    wix:[ "769958_69599714f10b4b3ea6733e649d8d7ff2~mv2.jpeg" ],
     title:"Available Soon…1990 Boston Whaler 17 Montauk / Striper",
     body:[
       "She’s real pretty, from about 12’ away…",
@@ -1239,7 +1258,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"there-goes-our-freshly-re-powered-1997-boston-whaler", order:83,
+    id:"there-goes-our-freshly-re-powered-1997-boston-whaler", order:84,
     title:"There goes our freshly re-powered 1997 Boston Whaler 17 Standard!",
     body:[
       "The snow and (most of) the ice have melted, and once again boats are moving! - back to low teens this weekend....",
@@ -1248,7 +1267,8 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"wednesday-s-sea-trails-continued", order:84,
+    id:"wednesday-s-sea-trails-continued", order:85,
+    wix:[ "769958_3402a49451d7481e9db86a1c41c90410~mv2.jpeg" ],
     title:"Wednesday’s Sea-Trails Continued!",
     body:[
       "Today’s low temp was 14 degrees! Snow and ice starts later this evening -but Wednesday was about 50ish…",
@@ -1271,8 +1291,8 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"here-comes-that-boston-whaler-170-dauntless", order:85,
-    wix:[ "769958_3402a49451d7481e9db86a1c41c90410~mv2.jpeg", "769958_0972bc11aeb042e997ca75b92a56bca7~mv2.jpeg" ],
+    id:"here-comes-that-boston-whaler-170-dauntless", order:86,
+    wix:[ "769958_0972bc11aeb042e997ca75b92a56bca7~mv2.jpeg" ],
     title:"Here comes that Boston Whaler 170 Dauntless!",
     body:[
       "She was loaded onto a YCM supplied trailer, and arrives at the boat yard later tonight.",
@@ -1282,7 +1302,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"this-one-s-heading-to-edgewater-florida-literally-a", order:86,
+    id:"this-one-s-heading-to-edgewater-florida-literally-a", order:87,
     title:"This one’s heading to Edgewater Florida -literally a mile and a half from the Whaler plant!",
     body:[
       "The new owner wanted a low maintenance, reliable, hose it off and go Classic 17’ Boston Whaler with as little upholstery as possible.",
@@ -1305,7 +1325,8 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"2014-boston-whaler-230-vantage", order:87,
+    id:"2014-boston-whaler-230-vantage", order:88,
+    wix:[ "769958_af0f357d16ba4c62837300c58b1506e2~mv2.jpg", "769958_febb88332bc94acabf0bd12e06eb0c22~mv2.jpg", "769958_8f5599c3e3bf4f8c89dae0dbeb8e0407~mv2.jpg", "769958_c4532246a6dc40c7a16ae62e9e6e3020~mv2.jpeg" ],
     title:"2014 Boston Whaler 230 Vantage!",
     body:[
       "Mercury 250 Verado with 45 TOTAL HOURS!",
@@ -1332,8 +1353,8 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"2013-boston-whaler-170-dauntless", order:88,
-    wix:[ "769958_af0f357d16ba4c62837300c58b1506e2~mv2.jpg", "769958_febb88332bc94acabf0bd12e06eb0c22~mv2.jpg", "769958_8f5599c3e3bf4f8c89dae0dbeb8e0407~mv2.jpg", "769958_c4532246a6dc40c7a16ae62e9e6e3020~mv2.jpeg", "769958_d03c13e02ce246ffade1b607ce4bd40f~mv2.jpeg" ],
+    id:"2013-boston-whaler-170-dauntless", order:89,
+    wix:[ "769958_d03c13e02ce246ffade1b607ce4bd40f~mv2.jpeg" ],
     title:"2013 Boston Whaler 170 Dauntless!",
     body:[
       "-One Senior Owner",
@@ -1356,7 +1377,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"more-sea-trials", order:89,
+    id:"more-sea-trials", order:90,
     wix:[ "769958_4af084113f7245c5a145886a8b3d6154~mv2.jpeg" ],
     title:"More Sea-Trials!",
     body:[
@@ -1366,7 +1387,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"anyone-looking-for-a-waterfront-family-compound", order:90,
+    id:"anyone-looking-for-a-waterfront-family-compound", order:91,
     title:"Anyone looking for a Waterfront Family Compound?",
     body:[
       "You've seen dozens (and dozens) of YCM Boston Whaler walk-around and sea-trial videos filmed from this location! Now this beautiful property is available!",
@@ -1379,13 +1400,19 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"call-david-if-interested-757-329-9979", order:91,
-    wix:[ "769958_9a1e18af34fe40cb8ec61bcdf758101b~mv2.jpeg", "769958_0997e847283a4fb586cb55f7a8949356~mv2.jpg", "769958_b5c84ac361ee4f46bbbd946178f2930b~mv2.jpeg", "769958_55f08080a6b445c7b3aae1c54c58a054~mv2.jpg", "769958_345484c38c064d809211d5199dae0907~mv2.jpeg", "769958_0f0677115e8a4ee28f8fdf907d53a113~mv2.jpeg", "769958_c58bdf075bbd45279706958c6ddec355~mv2.jpeg", "769958_9075f86226ae421abd5ed9b481610c32~mv2.jpg", "769958_4b4fbb93307a4fd0973600fda652a20d~mv2.jpg" ],
+    id:"that-s-our-buddy-bradley-gregerson-real-estate-agent", order:92,
+    wix:[ "769958_9a1e18af34fe40cb8ec61bcdf758101b~mv2.jpeg", "769958_0997e847283a4fb586cb55f7a8949356~mv2.jpg", "769958_b5c84ac361ee4f46bbbd946178f2930b~mv2.jpeg", "769958_55f08080a6b445c7b3aae1c54c58a054~mv2.jpg", "769958_345484c38c064d809211d5199dae0907~mv2.jpeg", "769958_0f0677115e8a4ee28f8fdf907d53a113~mv2.jpeg", "769958_c58bdf075bbd45279706958c6ddec355~mv2.jpeg", "769958_9075f86226ae421abd5ed9b481610c32~mv2.jpg" ],
+    title:"That's our buddy Bradley Gregerson - Real Estate Agent and Jeremy from j2realestatemedia getting some cool drone footage for our upcoming Zillow listing. - Give Bradley a call if you're looking for sprawling, private waterfront family compound! - or just call David @ YCM!",
+    body:[],
+  },
+  {
+    id:"call-david-if-interested-757-329-9979", order:93,
+    wix:[ "769958_4b4fbb93307a4fd0973600fda652a20d~mv2.jpg" ],
     title:"Call David if interested! 757-329-9979",
     body:[],
   },
   {
-    id:"sea-trials-2", order:92,
+    id:"sea-trials-2", order:94,
     title:"Sea-Trials!",
     body:[
       "Boston Whaler 170 Dauntless!",
@@ -1394,14 +1421,14 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"merry-christmas-from-the-ycm-crew-starring-tilly-the", order:93,
+    id:"merry-christmas-from-the-ycm-crew-starring-tilly-the", order:95,
     title:"Merry Christmas from the YCM Crew - starring Tilly the Tabby!",
     body:[
       "*Musical credits go to Mathew Anniss",
     ],
   },
   {
-    id:"here-s-a-super-quick-christmas-eve-video-of-our-fres", order:94,
+    id:"here-s-a-super-quick-christmas-eve-video-of-our-fres", order:96,
     title:"Here’s a super quick Christmas Eve video of our Freshwater Boston Whaler 170 Dauntless from Indiana.",
     body:[
       "For a much deeper dive, give us a call to schedule a live FaceTime walk-around video.",
@@ -1410,7 +1437,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"baby-it-s-cold-outside", order:95,
+    id:"baby-it-s-cold-outside", order:97,
     wix:[ "769958_fa7d35a372034226989a613d31676fc0~mv2.jpeg" ],
     title:"Baby it's cold outside!",
     body:[
@@ -1422,7 +1449,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"2013-boston-whaler-170-dauntless-in-glacier-green", order:96,
+    id:"2013-boston-whaler-170-dauntless-in-glacier-green", order:98,
     wix:[ "769958_f2455765ca5b4804b6fe3d8704ee86a2~mv2.jpeg" ],
     title:"2013 Boston Whaler 170 Dauntless -in Glacier Green!",
     body:[
@@ -1454,8 +1481,8 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"here-she-is-one-of-the-nicest-40th-anniversaries-sti", order:97,
-    wix:[ "769958_5d9632fbb7ce4363b02a40b49b94bd9d~mv2.jpeg", "769958_c9b325e93e43482cb90d58642d9b33e4~mv2.jpeg" ],
+    id:"here-she-is-one-of-the-nicest-40th-anniversaries-sti", order:99,
+    wix:[ "769958_c9b325e93e43482cb90d58642d9b33e4~mv2.jpeg", "769958_12de4a9367194f7aa0c82e1454562ed4~mv2.jpeg" ],
     title:"Here she is -one of the nicest 40th Anniversaries still in existence. Hull # 210 of 250, she's a true survivor - no bottom paint, no holes drilled, never abused, and senior owned.",
     body:[
       "She's all original, and in fantastic, garage kept condition.",
@@ -1467,8 +1494,8 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"wahoo-14-4-side-console-ltd", order:98,
-    wix:[ "769958_12de4a9367194f7aa0c82e1454562ed4~mv2.jpeg", "769958_071f778876114fe6b4a417c4dfb6b9cc~mv2.jpeg" ],
+    id:"wahoo-14-4-side-console-ltd", order:100,
+    wix:[ "769958_071f778876114fe6b4a417c4dfb6b9cc~mv2.jpeg", "769958_8810f2bedc6e481b8b3dfe9235aa35f5~mv2.jpeg", "769958_10c8875276224385a75ed81cf3a0070c~mv2.jpeg", "769958_a7b00b2533fa4b84b3e9424ef529868e~mv2.jpeg" ],
     title:"Wahoo! 14.4 Side Console LTD",
     body:[
       "Exactly one year ago yesterday we listed this 1987 Wahoo for sale here on our website, and Facebook page.",
@@ -1524,8 +1551,8 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"stern-barr-transportation-picking-up-our-classic-15", order:99,
-    wix:[ "769958_8810f2bedc6e481b8b3dfe9235aa35f5~mv2.jpeg", "769958_10c8875276224385a75ed81cf3a0070c~mv2.jpeg", "769958_a7b00b2533fa4b84b3e9424ef529868e~mv2.jpeg", "769958_6549e31d4c95427394b4dbf251b4dce9~mv2.jpeg" ],
+    id:"stern-barr-transportation-picking-up-our-classic-15", order:101,
+    wix:[ "769958_6549e31d4c95427394b4dbf251b4dce9~mv2.jpeg" ],
     title:"Stern-Barr Transportation picking up our Classic 15' Super Sport",
     body:[
       "& Exceptional 40th Anniversary 13!   -They'll be here in a few days!",
@@ -1534,13 +1561,13 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"if-you-or-someone-on-your-list-wants-a-ycm-hoodie-fo", order:100,
+    id:"if-you-or-someone-on-your-list-wants-a-ycm-hoodie-fo", order:102,
     wix:[ "769958_121ed329fa7e4aa494749de57ae9a785~mv2.jpeg" ],
     title:"If you or someone on your list wants a YCM Hoodie for Christmas -  whatever it is you're doing, put down and give us a call!  757-329-9979",
     body:[],
   },
   {
-    id:"1998-boston-whaler-40th-anniversary-edition-13-sport", order:101,
+    id:"1998-boston-whaler-40th-anniversary-edition-13-sport", order:103,
     wix:[ "769958_dfe44c48a91b40568de363487bc4f17d~mv2.jpeg" ],
     title:"1998 Boston Whaler 40th Anniversary Edition 13 Sport!",
     body:[
@@ -1570,7 +1597,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"sea-trails-2001-boston-whaler-montauk-17", order:102,
+    id:"sea-trails-2001-boston-whaler-montauk-17", order:104,
     title:"Sea-Trails 2001 Boston Whaler Montauk 17!",
     body:[
       "This exceptional Montauk can be found in our inventory (always a link at the top of the page!)",
@@ -1581,8 +1608,8 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"coming-back-into-the-ycm-pipeline", order:103,
-    wix:[ "769958_d366e75ca90049dea36b5afdf877ac35~mv2.jpeg" ],
+    id:"coming-back-into-the-ycm-pipeline", order:105,
+    wix:[ "769958_d366e75ca90049dea36b5afdf877ac35~mv2.jpeg", "769958_896e8c53ed3b4429ad95ca51b2eba047~mv2.jpeg", "769958_0ec2efd0fdf84d18885a5889994e2c9a~mv2.jpeg" ],
     title:"Coming Back Into the YCM Pipeline…",
     body:[
       "Back in 2022 we picked up this freshwater Boston Whaler 150 Montauk way out in Cheyenne, Wyoming.",
@@ -1611,8 +1638,8 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"just-in-time-for-christmas", order:104,
-    wix:[ "769958_896e8c53ed3b4429ad95ca51b2eba047~mv2.jpeg", "769958_0ec2efd0fdf84d18885a5889994e2c9a~mv2.jpeg", "769958_845548f18d74494eaa87a297719324d2~mv2.jpeg" ],
+    id:"just-in-time-for-christmas", order:106,
+    wix:[ "769958_845548f18d74494eaa87a297719324d2~mv2.jpeg" ],
     title:"Just in time for Christmas!",
     body:[
       "Pre-order your YCM Hoodie today!",
@@ -1640,7 +1667,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"our-boston-whalers-go-everywhere", order:105,
+    id:"our-boston-whalers-go-everywhere", order:107,
     title:"Our Boston Whalers go everywhere!",
     body:[
       "This gorgeous 170 Montauk just left for Kingston, Massachusetts.",
@@ -1650,7 +1677,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"not-ours-but-spotted-on-ebay", order:106,
+    id:"not-ours-but-spotted-on-ebay", order:108,
     wix:[ "769958_16f55d3796ca4021b7fb94e08e85d76c~mv2.png" ],
     title:"Not ours, but spotted on Ebay…",
     body:[
@@ -1660,7 +1687,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"so-we-re-learning-primarily-from-our-youtube-channel", order:107,
+    id:"so-we-re-learning-primarily-from-our-youtube-channel", order:109,
     title:"So, we’re learning (primarily from our Youtube channel) that most of America has about 1 minute span of attention -so I’m going to be trying a series of very these very short videos, along with our more detailed longer versions!",
     body:[
       "As always, give us a call with questions!",
@@ -1668,7 +1695,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"interested-this-one-s-available", order:108,
+    id:"interested-this-one-s-available", order:110,
     title:"Interested?  This one's available!",
     body:[
       "See full, detailed walk-around video posted previously   -and give us a call!",
@@ -1676,14 +1703,14 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"sea-trial-video", order:109,
+    id:"sea-trial-video", order:111,
     title:"Sea Trial Video!",
     body:[
       "- Boston Whaler 170 Montauk!",
     ],
   },
   {
-    id:"this-exceptional-boston-whaler-montauk-sold-quickly", order:110,
+    id:"this-exceptional-boston-whaler-montauk-sold-quickly", order:112,
     title:"This exceptional Boston Whaler Montauk sold quickly!",
     body:[
       "She's heading Kingston, Massachusetts soon!",
@@ -1691,7 +1718,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"so-we-re-learning-primarily-from-our-youtube-channel-2", order:111,
+    id:"so-we-re-learning-primarily-from-our-youtube-channel-2", order:113,
     title:"So, we’re learning (primarily from our Youtube channel) that most of America has about 1 minute span of attention -so I’m going to be trying a series of very these very short videos, along with our more detailed longer versions!",
     body:[
       "As always, give us a call with questions!",
@@ -1699,8 +1726,8 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"2017-alumacraft-v14-2", order:112,
-    wix:[ "769958_3ed51caa3eb64452ac05b40be0c2fba7~mv2.jpeg" ],
+    id:"2017-alumacraft-v14-2", order:114,
+    wix:[ "769958_3ed51caa3eb64452ac05b40be0c2fba7~mv2.jpeg", "769958_500b6537265545718888f068aabcb755~mv2.jpeg" ],
     title:"2017 AlumaCraft V14",
     body:[
       "2017 Karavan Galvanized Trailer",
@@ -1716,8 +1743,8 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"here-comes-our-super-nice-2011-freshwater-garage-kep", order:113,
-    wix:[ "769958_500b6537265545718888f068aabcb755~mv2.jpeg", "769958_a75d8ef7526347c189a440fd0facac1e~mv2.jpeg" ],
+    id:"here-comes-our-super-nice-2011-freshwater-garage-kep", order:115,
+    wix:[ "769958_a75d8ef7526347c189a440fd0facac1e~mv2.jpeg" ],
     title:"Here comes our super nice 2011, Freshwater, Garage Kept, Boston Whaler 170 Montauk -with 2025 Suzuki 90 hp Four Stroke!",
     body:[
       "She left Saint Paul, Minnesota this morning, and arrives@ YCM sometime on Wednesday!",
@@ -1732,7 +1759,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"we-ll-be-back-to-work-soon", order:114,
+    id:"we-ll-be-back-to-work-soon", order:116,
     wix:[ "769958_0b1b424fc3e14eb784c4ae7f41a2e65e~mv2.jpeg" ],
     title:"We'll be back to work soon.",
     body:[
@@ -1740,8 +1767,8 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"we-ll-be-taking-a-break-for-a-few-days", order:115,
-    wix:[ "769958_e97c66886404402c919da871650279f5~mv2.jpeg" ],
+    id:"we-ll-be-taking-a-break-for-a-few-days", order:117,
+    wix:[ "769958_e97c66886404402c919da871650279f5~mv2.jpeg", "769958_0d6ec5c1f14948c7bcef423b175fed24~mv2.jpeg" ],
     title:"We’ll be taking a break for a few days…",
     body:[
       "After 5 1/2 years of successfully avoiding covid, it finally found me.",
@@ -1751,8 +1778,8 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"here-s-a-quick-shot-of-our-83-boston-whaler-15-sport", order:116,
-    wix:[ "769958_0d6ec5c1f14948c7bcef423b175fed24~mv2.jpeg", "769958_b8f71f94e5e94032a6656a45c7a53879~mv2.jpeg" ],
+    id:"here-s-a-quick-shot-of-our-83-boston-whaler-15-sport", order:118,
+    wix:[ "769958_b8f71f94e5e94032a6656a45c7a53879~mv2.jpeg" ],
     title:"Here’s a quick shot of our ’83 Boston Whaler 15 Sport Center Console -she’s just about ready ready for sea trials!",
     body:[
       "She’s powered by a super clean, freshly serviced, freshwater, 1994 60 hp Mercury two stroke.",
@@ -1765,8 +1792,8 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"1999-boston-whaler-dauntless-16-center-console-w-201", order:117,
-    wix:[ "769958_3b2f74af91ef4f54850387c90808c15a~mv2.jpeg" ],
+    id:"1999-boston-whaler-dauntless-16-center-console-w-201", order:119,
+    wix:[ "769958_3b2f74af91ef4f54850387c90808c15a~mv2.jpeg", "769958_fd78face1ac54199b2afe9c222afb6fc~mv2.jpeg", "769958_09cdc3a255b4496f8a9549936123f35f~mv2.jpeg", "769958_74dd6b1893e44773b2427a980f0a59a3~mv2.jpeg", "769958_06b167d9a1e2476c88ceccb58a961e8d~mv2.jpeg", "769958_8a42ddd5284e4d6eaa1be2c8a1f07ef7~mv2.jpeg" ],
     title:"1999 Boston Whaler Dauntless 16 Center Console w/2014 Evinrude Etec 90, & 2013 EZ Loader Trailer!",
     body:[
       "This garage kept package is another exceptional find.",
@@ -1780,8 +1807,8 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"this-one-s-coming-all-the-way-from-minnesota", order:118,
-    wix:[ "769958_fd78face1ac54199b2afe9c222afb6fc~mv2.jpeg", "769958_09cdc3a255b4496f8a9549936123f35f~mv2.jpeg", "769958_74dd6b1893e44773b2427a980f0a59a3~mv2.jpeg", "769958_06b167d9a1e2476c88ceccb58a961e8d~mv2.jpeg", "769958_8a42ddd5284e4d6eaa1be2c8a1f07ef7~mv2.jpeg", "769958_8189ab8323a347f684ee5583385ed2b3~mv2.jpeg" ],
+    id:"this-one-s-coming-all-the-way-from-minnesota", order:120,
+    wix:[ "769958_8189ab8323a347f684ee5583385ed2b3~mv2.jpeg" ],
     title:"This one’s coming all the way from Minnesota!",
     body:[
       "She’s a 2011 Boston Whaler 170 Montauk  -WITH 2025 90 hp Suzuki Four Stroke!",
@@ -1797,8 +1824,14 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"1991-boston-whaler-outrage-17", order:119,
-    wix:[ "769958_c148304aa22b462e870831863a184e1b~mv2.jpeg", "769958_f3c6d19e745547778922154332734164~mv2.jpeg" ],
+    id:"here-s-a-walk-around-of-our-07-boston-whaler-130-spo", order:121,
+    wix:[ "769958_c148304aa22b462e870831863a184e1b~mv2.jpeg" ],
+    title:"Here's a walk-around of our '07 Boston Whaler 130 Sport - this boat is in exceptional condition!",
+    body:[],
+  },
+  {
+    id:"1991-boston-whaler-outrage-17", order:122,
+    wix:[ "769958_f3c6d19e745547778922154332734164~mv2.jpeg" ],
     title:"1991 Boston Whaler Outrage 17",
     body:[
       "2002 Yamaha F115 Fuel Injected Four Stroke",
@@ -1812,7 +1845,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"there-goes-our-1999-boston-whaler-17-standard-she-s", order:120,
+    id:"there-goes-our-1999-boston-whaler-17-standard-she-s", order:123,
     title:"There goes our 1999 Boston Whaler 17 Standard - she’s heading to West Kingston, Rhode Island.",
     body:[
       "That’s Michael from Glide Transport handling the delivery.",
@@ -1823,8 +1856,8 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"exceptional-amazing-condition", order:121,
-    wix:[ "769958_2256ea723cdc4f1289e0a9a8d0dd7501~mv2.jpeg" ],
+    id:"exceptional-amazing-condition", order:124,
+    wix:[ "769958_2256ea723cdc4f1289e0a9a8d0dd7501~mv2.jpeg", "769958_18efdaa94d6e412c82b730f87eec1996~mv2.jpeg" ],
     title:"Exceptional/Amazing Condition",
     body:[
       "-Mercury Four Stroke, Fuel Injected 40 hp",
@@ -1842,8 +1875,8 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"ycm-purchased-this-limited-edition-13-footer-back-in", order:122,
-    wix:[ "769958_18efdaa94d6e412c82b730f87eec1996~mv2.jpeg", "769958_2457da38e54b40409d524b8d802799e9~mv2.jpeg" ],
+    id:"ycm-purchased-this-limited-edition-13-footer-back-in", order:125,
+    wix:[ "769958_2457da38e54b40409d524b8d802799e9~mv2.jpeg", "769958_2878a70712944922a1269292b46997cb~mv2.jpeg" ],
     title:"YCM purchased this limited edition 13 footer back in December of 2022.",
     body:[
       "She was in a garage some 2,800 miles away in Carson City, Nevada.",
@@ -1867,19 +1900,19 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"steve-from-pathfinders-express-on-his-way-to-ycm-fro", order:123,
-    wix:[ "769958_2878a70712944922a1269292b46997cb~mv2.jpeg", "769958_cfdc7ab4daca4350867c6b774402c852~mv2.jpg" ],
+    id:"steve-from-pathfinders-express-on-his-way-to-ycm-fro", order:126,
+    wix:[ "769958_cfdc7ab4daca4350867c6b774402c852~mv2.jpg" ],
     title:"Steve from Pathfinders Express on his way to YCM from Nevada in 2022",
     body:[],
   },
   {
-    id:"michael-from-glide-transport-leaving-ycm-for-indiana", order:124,
+    id:"michael-from-glide-transport-leaving-ycm-for-indiana", order:127,
     wix:[ "769958_338f441a245e4e878d955aad6fb79aa2~mv2.jpeg" ],
     title:"Michael from Glide Transport leaving YCM for Indiana",
     body:[],
   },
   {
-    id:"when-york-county-marine-purchased-this-one-owner-gar", order:125,
+    id:"when-york-county-marine-purchased-this-one-owner-gar", order:128,
     wix:[ "769958_fffaf837969841f0b48eae239f714aad~mv2.jpeg" ],
     title:"When York County Marine purchased this one owner, garage kept 1961 Boston Whaler from Denise in Nashville last April, we made her a promise  - “We’ll find her a good home.”",
     body:[
@@ -1905,14 +1938,14 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"there-s-a-really-cool-pic-of-mystic-seaport-museum-s", order:126,
+    id:"there-s-a-really-cool-pic-of-mystic-seaport-museum-s", order:129,
     title:"There’s a really cool pic of Mystic Seaport Museum’s Senior Curator Quentin Snediker checking in our 1961 Boston Whaler!",
     body:[
       "If you’re in Mystic, look for our little Whaler and send us your own pics!",
     ],
   },
   {
-    id:"2003-atlas-boat-works-acadia-21", order:127,
+    id:"2003-atlas-boat-works-acadia-21", order:130,
     wix:[ "769958_7206bce4873c47c3bbbbd874b6adecbe~mv2.jpeg" ],
     title:"2003 Atlas Boat Works Acadia 21",
     body:[
@@ -1922,13 +1955,13 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"a-rare-word-from-blitz-retired-ycm-marketing-genius", order:128,
+    id:"a-rare-word-from-blitz-retired-ycm-marketing-genius", order:131,
     wix:[ "769958_4565f704a8494d56870fbd2a6db2419d~mv2.jpeg" ],
     title:"A rare word from BLITZ  -retired YCM Marketing Genius, Super Model, & Stuntman…",
     body:[],
   },
   {
-    id:"there-s-michael-w-glide-transport-somewhere-outside", order:129,
+    id:"there-s-michael-w-glide-transport-somewhere-outside", order:132,
     wix:[ "769958_f0eb551660fb4c709d986ae72ba48be8~mv2.jpeg" ],
     title:"There's Michael w/Glide Transport somewhere outside of Little Rock, Arkansas -hitching up our /'83 15 Super Sport!",
     body:[
@@ -1936,7 +1969,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"sea-trails-1993-boston-whaler-outrage-19-ii", order:130,
+    id:"sea-trails-1993-boston-whaler-outrage-19-ii", order:133,
     title:"Sea Trails - 1993 Boston Whaler Outrage 19 II",
     body:[
       "We've had this one a while, she kept getting moved to the back of the line, but now she's ready for a new home!",
@@ -1964,21 +1997,22 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"sea-trials-on-the-york-river-we-re-prepping-this-170", order:131,
+    id:"sea-trials-on-the-york-river-we-re-prepping-this-170", order:134,
     title:"Sea Trials on the York River -we're prepping this 170 Super Sport for a Michigan delivery, just outside of Detroit.",
     body:[
       "Boston Whaler's 170 and 160 Super Sports are Whaler's all time best riding side consoles -they're fast, agile, and dry, with surprisingly good ride quality -even on big waters!",
     ],
   },
   {
-    id:"cool", order:132,
+    id:"cool", order:135,
     title:"Cool...",
     body:[
       "\"Traveler\" is here -the Yanmar diesel fires right up, runs great & sounds awesome -sea trials next...",
     ],
   },
   {
-    id:"here-comes-traveler", order:133,
+    id:"here-comes-traveler", order:136,
+    wix:[ "769958_72cbb640657b4970920a15cb06061639~mv2.jpeg", "769958_f399b72638434fadab968dce7cad7f0e~mv2.jpeg", "769958_ddcab646763f4d33861eb94d5b97fed8~mv2.jpeg", "769958_3bc10bb83e6c4767b217ed55f229963a~mv2.jpeg" ],
     title:"Here Comes \"Traveler\" !",
     body:[
       "That's Michael from Glide Transport picking up our Atlas Boat Works Acadia 21 from Smith Mountain Lake in western, Va.",
@@ -1986,8 +2020,8 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"1983-boston-whaler-15-super-sport", order:134,
-    wix:[ "769958_72cbb640657b4970920a15cb06061639~mv2.jpeg", "769958_f399b72638434fadab968dce7cad7f0e~mv2.jpeg", "769958_ddcab646763f4d33861eb94d5b97fed8~mv2.jpeg", "769958_3bc10bb83e6c4767b217ed55f229963a~mv2.jpeg", "769958_de4f871ad6564bc785c7e0b741f2055d~mv2.jpeg" ],
+    id:"1983-boston-whaler-15-super-sport", order:137,
+    wix:[ "769958_de4f871ad6564bc785c7e0b741f2055d~mv2.jpeg" ],
     title:"1983 Boston Whaler 15 Super Sport!",
     body:[
       "-One Owner",
@@ -2013,7 +2047,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"bilge-pump-or-no-bilge-pump-this-conversation-comes", order:135,
+    id:"bilge-pump-or-no-bilge-pump-this-conversation-comes", order:138,
     wix:[ "769958_a7ff81322c2347628a051418d476c3d7~mv2.jpeg" ],
     title:"Bilge pump, or no bilge pump -this conversation comes up often!",
     body:[
@@ -2022,8 +2056,8 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"need-a-trailer", order:136,
-    wix:[ "769958_bd8ccfebd667443eb3314d27c26a6178~mv2.jpeg" ],
+    id:"need-a-trailer", order:139,
+    wix:[ "769958_bd8ccfebd667443eb3314d27c26a6178~mv2.jpeg", "769958_5bd7db7ba5894ec19646282fb8c10ff0~mv2.jpeg" ],
     title:"Need a trailer?",
     body:[
       "YCM is an EZ Loader and a Magic Tilt dealer -primarily because older boat trailers are often our biggest problem!",
@@ -2063,8 +2097,8 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"you-smell-that", order:137,
-    wix:[ "769958_5bd7db7ba5894ec19646282fb8c10ff0~mv2.jpeg", "769958_f564e271b4e648658a58a4e7651f2d36~mv2.jpeg" ],
+    id:"you-smell-that", order:140,
+    wix:[ "769958_f564e271b4e648658a58a4e7651f2d36~mv2.jpeg" ],
     title:"You smell that?",
     body:[
       "Ron’s working on a two stroke 60 hp Mercury - freshly rebuilt carbs, new plugs, etc, etc..",
@@ -2084,8 +2118,8 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"ok-so-this-one-s-well-outside-of-our-norm", order:138,
-    wix:[ "769958_26c652ba1e5646f1ab5d9d9f0c6f9fd4~mv2.jpeg" ],
+    id:"ok-so-this-one-s-well-outside-of-our-norm", order:141,
+    wix:[ "769958_26c652ba1e5646f1ab5d9d9f0c6f9fd4~mv2.jpeg", "769958_4ddd8be3f4c549e19c589d65f12e43a2~mv2.jpg", "769958_2aeffcf1058a4f5b90d79b093eac4db4~mv2.jpeg", "769958_04af7b9f5d894f38957749f1ea65b894~mv2.jpeg" ],
     title:"Ok, so this one’s well outside of our norm -",
     body:[
       "While we love our Boston Whalers, there’s always room here for classic, beautiful lines, and unusual designs.",
@@ -2127,8 +2161,8 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"2001-boston-whaler-montauk-17", order:139,
-    wix:[ "769958_4ddd8be3f4c549e19c589d65f12e43a2~mv2.jpg", "769958_2aeffcf1058a4f5b90d79b093eac4db4~mv2.jpeg", "769958_04af7b9f5d894f38957749f1ea65b894~mv2.jpeg", "769958_c551fc69d6964b07b271be12e1984f22~mv2.jpeg" ],
+    id:"2001-boston-whaler-montauk-17", order:142,
+    wix:[ "769958_c551fc69d6964b07b271be12e1984f22~mv2.jpeg", "769958_a0b4ca067ca449de9a96469ccf6b4315~mv2.jpeg", "769958_6e203ace9ad845e4a9083992daa11dbf~mv2.jpeg", "769958_316f8fbf3cf74168b76d9faa1b49e696~mv2.jpeg", "769958_c9dbeb13712d4740833c45f0becc7315~mv2.jpeg" ],
     title:"2001 Boston Whaler Montauk 17!",
     body:[
       "It simply does not get any better than this!",
@@ -2164,8 +2198,8 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"super-rare-boston-whaler-impact-12", order:140,
-    wix:[ "769958_a0b4ca067ca449de9a96469ccf6b4315~mv2.jpeg", "769958_6e203ace9ad845e4a9083992daa11dbf~mv2.jpeg", "769958_316f8fbf3cf74168b76d9faa1b49e696~mv2.jpeg", "769958_c9dbeb13712d4740833c45f0becc7315~mv2.jpeg", "769958_c58e088e5244465596ae887702e1af34~mv2.jpg" ],
+    id:"super-rare-boston-whaler-impact-12", order:143,
+    wix:[ "769958_c58e088e5244465596ae887702e1af34~mv2.jpg", "769958_866de5d0788047f999c8b3be419bb872~mv2.jpg" ],
     title:"Super Rare Boston Whaler Impact 12!",
     body:[
       "Technically we're just helping a friend sell his Impact, which YCM sold him back in 2020!",
@@ -2198,8 +2232,8 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"more-sea-trials-2", order:141,
-    wix:[ "769958_866de5d0788047f999c8b3be419bb872~mv2.jpg", "769958_e177ca9e0d274217aea298e2f1684923~mv2.jpg" ],
+    id:"more-sea-trials-2", order:144,
+    wix:[ "769958_e177ca9e0d274217aea298e2f1684923~mv2.jpg" ],
     title:"More Sea Trials …",
     body:[
       "Dauntless, Montauk & a Dolfin Pod...",
@@ -2217,15 +2251,15 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"all-ycm-whalers-go-through-a-series-of-sea-trials-pr", order:142,
+    id:"all-ycm-whalers-go-through-a-series-of-sea-trials-pr", order:145,
     title:"All YCM Whalers go through a series of sea trials prior to professional delivery.",
     body:[
       "The two 11 footers are heading to Cohasset, Massachusetts, the '89 Montauk leaves today for Norfolk,Virginia, and the '91 Montauk leaves tomorrow for Annapolis, Maryland.",
     ],
   },
   {
-    id:"2011-boston-whaler-170-montauk", order:143,
-    wix:[ "769958_1ea931387386467c8d1c1764bf31130d~mv2.jpeg" ],
+    id:"2011-boston-whaler-170-montauk", order:146,
+    wix:[ "769958_1ea931387386467c8d1c1764bf31130d~mv2.jpeg", "769958_59f033b4ace6487b95f74686c2891160~mv2.jpeg" ],
     title:"2011 Boston Whaler 170 Montauk!",
     body:[
       "-90 HP Mercury Fuel Injected Four Stroke",
@@ -2243,8 +2277,8 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"it-s-always-fun-to-hear-from-happy-boat-buyers", order:144,
-    wix:[ "769958_59f033b4ace6487b95f74686c2891160~mv2.jpeg", "769958_a2aa7eda36d04976b8a43d41c9d9abe0~mv2.jpeg" ],
+    id:"it-s-always-fun-to-hear-from-happy-boat-buyers", order:147,
+    wix:[ "769958_a2aa7eda36d04976b8a43d41c9d9abe0~mv2.jpeg" ],
     title:"It's always fun to hear from happy boat buyers!",
     body:[
       "Rob from Wilmington, NC bought this 1994 Grady White from us a few weeks back.",
@@ -2253,7 +2287,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"one-owner-2002-boston-whaler-130-sport", order:145,
+    id:"one-owner-2002-boston-whaler-130-sport", order:148,
     wix:[ "769958_18f60b2679af42a48e35691b611a45e1~mv2.jpeg" ],
     title:"One owner 2002 Boston Whaler 130 Sport!",
     body:[
@@ -2267,7 +2301,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"here-comes-a-couple-of-boston-whaler-110-sports-all", order:146,
+    id:"here-comes-a-couple-of-boston-whaler-110-sports-all", order:149,
     wix:[ "769958_faa53d589f964bc981f62cc58cd70035~mv2.jpeg" ],
     title:"Here comes a couple of Boston Whaler 110 Sports all the way from Florida",
     body:[
@@ -2282,13 +2316,13 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"the-exact-moment-ron-introduced-our-boston-whaler-da", order:147,
+    id:"the-exact-moment-ron-introduced-our-boston-whaler-da", order:150,
     wix:[ "769958_24867b6aea8e4e7f9952f8fde0b088ff~mv2.jpeg" ],
     title:"The exact moment Ron introduced our Boston Whaler Dauntless to her new family  - in Greenwich, Connecticut 🙂",
     body:[],
   },
   {
-    id:"sea-trials-3", order:148,
+    id:"sea-trials-3", order:151,
     title:"Sea Trials!",
     body:[
       "- 2001 Boston Whaler 17 Montauk!",
@@ -2299,7 +2333,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"there-goes-our-2012-dauntless-200-she-s-heading-to-g", order:149,
+    id:"there-goes-our-2012-dauntless-200-she-s-heading-to-g", order:152,
     title:"There goes our 2012 Dauntless 200  -she’s heading to Greenwich, Connecticut where Jason, Dawn and the kids are anxiously awaiting!",
     body:[
       "This is a fantastic family oriented Whaler  -ample seating, a private head, stowable picnic/cocktail table, plenty of power for skiing, lots of storage, open decks for fishing w/rod holders, a livewell, raw water washdown, etc, etc  -and she’s fast too!",
@@ -2307,7 +2341,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"random-whaler-in-service-shot", order:150,
+    id:"random-whaler-in-service-shot", order:153,
     wix:[ "769958_72e65b405c26482fa6d6dd61a4230006~mv2.jpeg" ],
     title:"Random Whaler in service shot...",
     body:[
@@ -2316,15 +2350,15 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"there-s-the-ycm-moke-spotted-throwing-out-skittles-a", order:151,
-    wix:[ "769958_b4976cdd218d4e55940380310f12be77~mv2.png" ],
+    id:"there-s-the-ycm-moke-spotted-throwing-out-skittles-a", order:154,
+    wix:[ "769958_b4976cdd218d4e55940380310f12be77~mv2.png", "769958_c52f4f1d1c7946f198497904e67bd663~mv2.jpg" ],
     title:"There's the YCM Moke -spotted throwing out Skittles @ a 4th of July parade...",
     body:[
       "Hope everyone had a great weekend!",
     ],
   },
   {
-    id:"that-s-tim-his-new-to-him-freshly-delivered-boston-w", order:152,
+    id:"that-s-tim-his-new-to-him-freshly-delivered-boston-w", order:155,
     wix:[ "769958_c9f5647404544a198b6aa5b85718c835~mv2.jpeg" ],
     title:"That's Tim & his new to him & freshly delivered Boston Whaler Dauntless 220!",
     body:[
@@ -2333,7 +2367,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"there-s-robert-jackson-with-a-freshly-delivered-1988", order:153,
+    id:"there-s-robert-jackson-with-a-freshly-delivered-1988", order:156,
     wix:[ "769958_364d970bd57c4574a1f7ba9ebfe46a65~mv2.jpeg" ],
     title:"There’s Robert & Jackson with a freshly delivered 1988 Boston Whaler 15’ Super Sport!",
     body:[
@@ -2344,7 +2378,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"there-goes-a-boston-whaler-180-dauntless", order:154,
+    id:"there-goes-a-boston-whaler-180-dauntless", order:157,
     title:"There goes a Boston Whaler 180 Dauntless!",
     body:[
       "We’re delivering this one about an hour up the road to our new friend Terrence's place in Mathew’s County, Va.",
@@ -2353,7 +2387,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"a-few-days-ago-we-delivered-this-boston-whaler-170-d", order:155,
+    id:"a-few-days-ago-we-delivered-this-boston-whaler-170-d", order:158,
     title:"A few days ago we delivered this Boston Whaler 170 Dauntless to a marina on the Virginia side of the Potomac River, with views of the Ronald Reagan Washington Airport and the Capitol Building off in the distance.",
     body:[
       "The 405 mile long Potomac forms a natural border between Virginia and Maryland, Virginia and Washington DC, as well as West Virginia and Maryland further to the west.",
@@ -2367,8 +2401,8 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"1989-boston-whaler-montauk-17", order:156,
-    wix:[ "769958_1d29294e6cd14487bc47a9972681c693~mv2.jpeg" ],
+    id:"1989-boston-whaler-montauk-17", order:159,
+    wix:[ "769958_1d29294e6cd14487bc47a9972681c693~mv2.jpeg", "769958_a1267454d1b44fd89e38b42a912ed2d3~mv2.jpeg" ],
     title:"1989 Boston Whaler Montauk 17!",
     body:[
       "This beautiful Classic Whaler is sitting on a 2022 Load Rite aluminum trailer that's never been in saltwater & she's powered by a 50 hp Honda Four stroke - I know, a little light on the HP, but you know you want her!",
@@ -2377,8 +2411,8 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"ycm-marketplace-barn-find", order:157,
-    wix:[ "769958_a1267454d1b44fd89e38b42a912ed2d3~mv2.jpeg", "769958_af2887bfd3c34239ba6d6442a4dc437a~mv2.jpeg" ],
+    id:"ycm-marketplace-barn-find", order:160,
+    wix:[ "769958_af2887bfd3c34239ba6d6442a4dc437a~mv2.jpeg" ],
     title:"YCM Marketplace Barn Find!",
     body:[
       "Or, more accurately, carport find...",
@@ -2396,15 +2430,15 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"update-she-s-here-and-she-s-amazing", order:158,
+    id:"update-she-s-here-and-she-s-amazing", order:161,
     title:"Update, she's here, and she's amazing!",
     body:[
       "Call to schedule a Facetime walk-around!",
     ],
   },
   {
-    id:"the-nicest-boston-whaler-dauntless-220-on-planet-ear", order:159,
-    wix:[ "769958_b9ea2dd9423e40d7b0db8d07b4ec716b~mv2.jpeg" ],
+    id:"the-nicest-boston-whaler-dauntless-220-on-planet-ear", order:162,
+    wix:[ "769958_b9ea2dd9423e40d7b0db8d07b4ec716b~mv2.jpeg", "769958_c59964b944254ddd82ad8ecffef6189e~mv2.jpeg", "769958_bf596e64c25a4405995d95178deab946~mv2.jpeg", "769958_7a9f250ef3ef4f15810be87f6e1c8126~mv2.jpeg" ],
     title:"-The nicest Boston Whaler Dauntless 220 on Planet Earth...",
     body:[
       "-One Owner - Yes, one, original owner purchased new on 2001",
@@ -2417,13 +2451,13 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"2014-boston-whaler-170-super-sport-mercury-90-hp-fou", order:160,
-    wix:[ "769958_c59964b944254ddd82ad8ecffef6189e~mv2.jpeg", "769958_bf596e64c25a4405995d95178deab946~mv2.jpeg", "769958_7a9f250ef3ef4f15810be87f6e1c8126~mv2.jpeg", "769958_3b064387514c4e4d8eff5c95f91b9ea0~mv2.jpeg" ],
+    id:"2014-boston-whaler-170-super-sport-mercury-90-hp-fou", order:163,
+    wix:[ "769958_3b064387514c4e4d8eff5c95f91b9ea0~mv2.jpeg" ],
     title:"2014 Boston Whaler 170 Super Sport\nMercury 90 hp Four Stroke w/112 Hours\nSki Tower w/Bimini -  $25k with Galv Trailer",
     body:[],
   },
   {
-    id:"anyone-looking-for-project", order:161,
+    id:"anyone-looking-for-project", order:164,
     wix:[ "769958_bc2843768f0d483f97d65fc6c429a8cd~mv2.jpeg" ],
     title:"Anyone looking for PROJECT?",
     body:[
@@ -2439,7 +2473,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"busy-day-here-ycm-boston-whalers-coming-boston-whale", order:162,
+    id:"busy-day-here-ycm-boston-whalers-coming-boston-whale", order:165,
     title:"Busy day here @ YCM - Boston Whalers coming, Boston Whalers going…",
     body:[
       "This 150 Super Sport passed sea her trials this morning, and now she's heading Maryland, then on to New Jersey.",
@@ -2448,8 +2482,8 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"here-comes-our-03-boston-whaler-dauntless-220", order:163,
-    wix:[ "769958_16086432ede248f0843309efeb2dda5e~mv2.jpeg" ],
+    id:"here-comes-our-03-boston-whaler-dauntless-220", order:166,
+    wix:[ "769958_16086432ede248f0843309efeb2dda5e~mv2.jpeg", "769958_cf0c118c19db4754beb80ad8c24028af~mv2.jpeg" ],
     title:"Here comes our '03 Boston Whaler Dauntless 220!",
     body:[
       "Michael w/Glide Transport’s picking her up in Oxford, MD as we speak! She’ll be here @ YCM in the morning!",
@@ -2458,8 +2492,8 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"more-sea-trials-3", order:164,
-    wix:[ "769958_cf0c118c19db4754beb80ad8c24028af~mv2.jpeg", "769958_f1607edb29a84befa9c56fbd4aeb4ddb~mv2.jpeg" ],
+    id:"more-sea-trials-3", order:167,
+    wix:[ "769958_f1607edb29a84befa9c56fbd4aeb4ddb~mv2.jpeg" ],
     title:"More Sea Trials…",
     body:[
       "Here’s our Yamaha F70 Four Stroke powered Boston Whaler 17 Standard - think Classic Montauk, but with fiberglass side console & Starboard benches!",
@@ -2471,7 +2505,8 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"2001-boston-whaler-montauk-17-2", order:165,
+    id:"2001-boston-whaler-montauk-17-2", order:168,
+    wix:[ "769958_e33aaf1353924af0ab4dc58b4bfdb820~mv2.jpeg", "769958_2a6bc649cb524b658f3230a16d455a47~mv2.jpeg", "769958_ca95d12807cf48e593bf0d2bada75082~mv2.jpeg", "769958_8c121bc88279413ab32dd15ada77e572~mv2.jpeg" ],
     title:"2001 Boston Whaler Montauk 17!",
     body:[
       "2019 Yamaha 90 Horse Power, Fuel Injected, Four Stroke -with only 110 Total Hours!",
@@ -2497,8 +2532,8 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"there-s-that-really-nice-boston-whaler-dauntless-18", order:166,
-    wix:[ "769958_e33aaf1353924af0ab4dc58b4bfdb820~mv2.jpeg", "769958_2a6bc649cb524b658f3230a16d455a47~mv2.jpeg", "769958_ca95d12807cf48e593bf0d2bada75082~mv2.jpeg", "769958_8c121bc88279413ab32dd15ada77e572~mv2.jpeg", "769958_f5ef1e1acbf44518b3c1798abb5a5883~mv2.jpeg" ],
+    id:"there-s-that-really-nice-boston-whaler-dauntless-18", order:169,
+    wix:[ "769958_f5ef1e1acbf44518b3c1798abb5a5883~mv2.jpeg", "769958_a04164af4d144d168dd73049b1c38844~mv2.jpeg" ],
     title:"There’s that really nice Boston Whaler Dauntless 18 we’ve been telling y'all about!",
     body:[
       "John from Stern-Barr Transport has her all loaded up somewhere in northern Michigan  -we should see her here @ YCM late in the day tomorrow.",
@@ -2506,13 +2541,13 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"blitz-is-on-the-lookout-for-new-ycm-tractor", order:167,
-    wix:[ "769958_a04164af4d144d168dd73049b1c38844~mv2.jpeg", "769958_999eb639d3b24b7dad72930e9d52dd3d~mv2.jpeg" ],
+    id:"blitz-is-on-the-lookout-for-new-ycm-tractor", order:170,
+    wix:[ "769958_999eb639d3b24b7dad72930e9d52dd3d~mv2.jpeg" ],
     title:"Blitz is on the lookout for new YCM tractor!",
     body:[],
   },
   {
-    id:"we-re-looking-for-another-tractor-ycm", order:168,
+    id:"we-re-looking-for-another-tractor-ycm", order:171,
     title:"We're looking for another tractor @ YCM!",
     body:[
       "Just like with Whalers  -we like to buy our tractors pre-owned!",
@@ -2522,7 +2557,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"as-a-100-online-boat-dealer-our-boats-come-from-ever", order:169,
+    id:"as-a-100-online-boat-dealer-our-boats-come-from-ever", order:172,
     title:"As a 100% online boat dealer, our boats come from everywhere, and they go everywhere…",
     body:[
       "First on, last off - that super nice Maritime Skiff is making her way to Alexandria Bay, New York, then Canada.",
@@ -2533,7 +2568,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"while-the-river-could-ve-been-a-little-calmer-sea-tr", order:170,
+    id:"while-the-river-could-ve-been-a-little-calmer-sea-tr", order:173,
     title:"While the river could’ve been a little calmer  -sea trails are always a blast in a Classic 15’ Whaler!",
     body:[
       "With a max horsepower of 70, this one’s conservatively powered by a 40 hp Evinrude Etec  -and she jumps right up on top and hauls #$$!!",
@@ -2543,7 +2578,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"ycm-s-boat-for-the-season", order:171,
+    id:"ycm-s-boat-for-the-season", order:174,
     wix:[ "769958_25c348839e004efd9568d8c75d486714~mv2.jpeg" ],
     title:"YCM’s boat for the season…",
     body:[
@@ -2561,8 +2596,8 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"coming-from-the-freshwater-lakes-of-northern-michiga", order:172,
-    wix:[ "769958_01b4ab43dac04f2baa399c7ff8cfc93b~mv2.jpeg" ],
+    id:"coming-from-the-freshwater-lakes-of-northern-michiga", order:175,
+    wix:[ "769958_01b4ab43dac04f2baa399c7ff8cfc93b~mv2.jpeg", "769958_b33a83897c514ea5b4d623a3daf10647~mv2.jpeg", "769958_9308b7daf34a41b38787ec11cfc88ed1~mv2.jpeg" ],
     title:"Coming from the freshwater lakes of northern Michigan, this well kept, low hour, senior owned Boston Whaler has spent most of her boating days in freshwater.",
     body:[
       "Boston Whaler first introduced the Dauntless 18 in 1998 as a higher-end, more family friendly, and watersports oriented alternative to their popular Outrage and Montauk line, which tended to lean more toward fishing than family -or seating.",
@@ -2601,8 +2636,8 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"we-re-ready-to-switch-this-one-over-to-the-ycm-proje", order:173,
-    wix:[ "769958_b33a83897c514ea5b4d623a3daf10647~mv2.jpeg", "769958_9308b7daf34a41b38787ec11cfc88ed1~mv2.jpeg", "769958_aa826578563d4c14ac08f0b8a5abbc29~mv2.jpeg" ],
+    id:"we-re-ready-to-switch-this-one-over-to-the-ycm-proje", order:176,
+    wix:[ "769958_aa826578563d4c14ac08f0b8a5abbc29~mv2.jpeg" ],
     title:"We’re ready to switch this one over to the YCM Project List.",
     body:[
       "We took this 1987 Boston Whaler Outrage 18 in on trade back in 2022, as I recall it was toward a very nice, recently re-powered 20’ Dauntless.",
@@ -2620,7 +2655,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"remember-that-gorgeous-1995-boston-whaler-outrage-17", order:174,
+    id:"remember-that-gorgeous-1995-boston-whaler-outrage-17", order:177,
     wix:[ "769958_d494883c38fe4defae94b7163de1d3fc~mv2.jpeg" ],
     title:"Remember that gorgeous 1995 Boston Whaler Outrage 17 that everyone wanted?",
     body:[
@@ -2629,7 +2664,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"that-s-michael-with-glide-transport-picking-up-our-b", order:175,
+    id:"that-s-michael-with-glide-transport-picking-up-our-b", order:178,
     wix:[ "769958_353eb623a4244578a624b5fb12af2d32~mv2.jpeg" ],
     title:"That's Michael with Glide Transport picking up our Boston Whaler 110 Sport somewhere in Kansas.",
     body:[
@@ -2638,7 +2673,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"jeff-lew-on-lake-gaskin", order:176,
+    id:"jeff-lew-on-lake-gaskin", order:179,
     title:"Jeff & Lew on Lake Gaskin…",
     body:[
       "Jeff bought that beautiful 1965 Boston Whaler Nauset from York County Marine a couple of years ago -this boat set new YCM records for page likes, shares and phone calls!",
@@ -2651,7 +2686,7 @@ window.YCM_POSTS = [
     ],
   },
   {
-    id:"pound-for-pound-boston-whaler-s-all-time-most-fun-hu", order:177,
+    id:"pound-for-pound-boston-whaler-s-all-time-most-fun-hu", order:180,
     wix:[ "769958_9432ecce95024a4aa88b3637427aa509~mv2.png" ],
     title:"Pound for pound -Boston Whaler's all-time most fun hull!",
     body:[
