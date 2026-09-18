@@ -160,6 +160,14 @@
       </div></a></li>`;
   };
 
+  /* #/notes?tag=Owners narrows the index to one tag. The hash carries it
+     rather than the querystring, because the querystring already holds the
+     boat filters and the two should not tread on each other. */
+  const tagFilter = () => {
+    const m = (location.hash || '').match(/^#\/notes\?tag=([^&]+)/);
+    return m ? decodeURIComponent(m[1]) : '';
+  };
+
   // The newest note leads the page; the rest sit under it as a plain index.
   function paintNotes() {
     const lead = POSTS[0];
@@ -174,7 +182,14 @@
           <div class="lead-m">Read it &rarr;</div>
         </div></a>` : '';
     $('#notes-list').innerHTML = POSTS.slice(1, 11).map(noteHTML).join('');
-    $('#notes-all').innerHTML  = POSTS.map(noteHTML).join('');
+    const tag = tagFilter();
+    const shown = tag ? POSTS.filter(p => p.tag === tag) : POSTS;
+    $('#notes-all').innerHTML = shown.map(noteHTML).join('');
+    $('#notes-filter').innerHTML = tag
+      ? `<span class="ntag">${esc(tag)}</span> ${shown.length} of ${POSTS.length} notes
+         &nbsp;<a href="#/notes">show all</a>`
+      : '';
+    $('#notes-filter').hidden = !tag;
   }
 
   /* ---- views ------------------------------------------------------------ */
@@ -224,7 +239,7 @@
     const shots = allShots(p);
     $('#note').innerHTML = `
       <a class="back" href="#/notes">&larr; All notes</a>
-      ${p.tag ? `<div class="ntag ntag-lg">${esc(p.tag)}</div>` : ''}
+      ${p.tag ? `<a class="ntag ntag-lg" href="#/notes?tag=${encodeURIComponent(p.tag)}">${esc(p.tag)}</a>` : ''}
       <h1>${esc(p.title)}</h1>
       <div class="prose" style="margin-top:16px">${(p.body || []).map(t => `<p>${esc(t)}</p>`).join('')}</div>
       ${shots.length ? `<div class="gal-full">${shots.map((x, i) =>
@@ -240,7 +255,7 @@
     const m = h.match(/^#\/(boat|note)\/(.+)$/);
     if (m && m[1] === 'boat') return openBoat(decodeURIComponent(m[2]));
     if (m && m[1] === 'note') return openNote(decodeURIComponent(m[2]));
-    if (h.startsWith('#/notes')) return show('notes');
+    if (h.startsWith('#/notes')) { paintNotes(); return show('notes'); }
     if (h.startsWith('#/boats')) return show('boats');
     show('home');
   }

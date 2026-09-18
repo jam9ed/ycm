@@ -274,11 +274,49 @@ const rows = () => $$('#list .row');
     ok('the post itself shows the tag too', !!$('#note .ntag'));
   }
 
+  // --- the tag is a way through to the rest -------------------------------
+  {
+    const tagged = w.YCM_POSTS.filter(p => p.tag === 'Owners');
+    w.location.hash = '#/notes?tag=Owners';
+    w.dispatchEvent(new w.Event('hashchange'));
+    ok('a tag narrows the index', $$('#notes-all li').length === tagged.length,
+       $$('#notes-all li').length + ' of ' + w.YCM_POSTS.length);
+    ok('and only the tagged ones show',
+       $$('#notes-all li .ntag').length === tagged.length);
+    ok('it says what it is showing and offers the way back',
+       !$('#notes-filter').hidden && /show all/i.test($('#notes-filter').textContent),
+       $('#notes-filter').textContent.replace(/\s+/g, ' ').trim().slice(0, 48));
+
+    w.location.hash = '#/notes';
+    w.dispatchEvent(new w.Event('hashchange'));
+    ok('clearing it puts them all back', $$('#notes-all li').length === w.YCM_POSTS.length);
+    ok('and the notice goes away', $('#notes-filter').hidden === true);
+
+    w.location.hash = '#/notes?tag=Nonesuch';
+    w.dispatchEvent(new w.Event('hashchange'));
+    ok('an unknown tag shows nothing rather than everything', $$('#notes-all li').length === 0);
+    w.location.hash = '#/notes';
+    w.dispatchEvent(new w.Event('hashchange'));
+  }
+  {
+    const tagged = w.YCM_POSTS.filter(p => p.tag === 'Owners');
+    w.location.hash = '#/note/' + encodeURIComponent(tagged[0].id);
+    w.dispatchEvent(new w.Event('hashchange'));
+    const a = $('#note a.ntag');
+    ok('the tag on a post links to the others', !!a && a.getAttribute('href') === '#/notes?tag=Owners',
+       a && a.getAttribute('href'));
+  }
+  ok('and so does the one in the owners section',
+     !!$('.owners a.ntag[href="#/notes?tag=Owners"]'));
+  ok('a row badge is not a nested link',
+     $$('#notes-list li .ntag').every(t => t.tagName !== 'A'));
+
   // --- his phrase sits with the owners section ------------------------------
   {
     const t = $('.owners').textContent.replace(/\s+/g, ' ');
-    ok('the New owners section is headed with his own phrase',
+    ok('the section is headed with his own phrase',
        /Happy pics on the water/i.test(t));
+    ok('and no longer carries a second heading', !/New owners/i.test(t));
     ok('and points at the tag', /tagged Owners/i.test(t));
   }
 

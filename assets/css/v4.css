@@ -274,6 +274,10 @@ p{ margin:0 0 12px }
        text-transform:uppercase; background:var(--gold-lt); color:var(--slate);
        border-radius:3px; padding:1.5px 6px; margin-right:7px; vertical-align:2px }
 .ntag-lg{ font-size:11px; padding:3px 9px; margin:0 0 10px }
+a.ntag{ text-decoration:none }
+a.ntag:hover{ background:var(--gold); text-decoration:none }
+.notes-filter{ display:flex; align-items:center; gap:4px; font-size:13.5px;
+  color:var(--ink-3); border-bottom:1px solid var(--line); padding-bottom:12px; margin:0 0 4px }
 
 .nb{ font-size:13.5px; color:var(--ink-3); margin-top:2px;
      display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical; overflow:hidden }
