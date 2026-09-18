@@ -77,12 +77,15 @@ chk('no photo ships attached to any ad', seededPhotos === 0, seededPhotos + ' at
 const byOrigin = o => window.YCM_POOL.filter(p => p.origin === o);
 chk('inventory-page photos carry a suggested ad',
     byOrigin('live').filter(p => p.suggest).length === 72, byOrigin('live').filter(p => p.suggest).length);
-chk('blog photos carry a suggested post',
-    byOrigin('blog').filter(p => p.suggest).length === 89, byOrigin('blog').filter(p => p.suggest).length);
-chk('every blog suggestion names a real post', (() => {
-  const ids = new Set(window.YCM_POSTS.map(p => p.id));
-  return byOrigin('blog').filter(p => p.suggest).every(p => ids.has(p.suggest));
-})());
+// Blog photographs used to carry a guessed post id. They no longer need to:
+// the posts were re-parsed from the archive and carry their own photographs,
+// so the guess has nothing left to do.
+chk('blog photos no longer carry a guessed post',
+    byOrigin('blog').filter(p => p.suggest).length === 0,
+    byOrigin('blog').filter(p => p.suggest).length + ' still do');
+chk('posts carry their own photographs instead',
+    window.YCM_POSTS.filter(p => (p.wix || []).length).length > 100,
+    window.YCM_POSTS.filter(p => (p.wix || []).length).length + ' of ' + window.YCM_POSTS.length);
 const camper = window.YCM_POOL.filter(p => /camper_\d/.test(p.file));
 chk('the camper photos recovered from the re-archive are in the pool', camper.length === 5, camper.length);
 chk('and every one is suggested to the camper ad',
@@ -188,7 +191,6 @@ chk('posts are listed for attaching', $$('#postlist .adcard').length === window.
   const pid = $$('#postlist .adcard')[0].dataset.pid;
   $(`[data-addpost="${pid}"]`).click();
   chk('the picker names the post it is filling', /Add photos to post/.test($('.sheet-head').textContent));
-  chk('and groups what sat inside it', /Sat inside this post/.test($('.sheet').textContent));
   const picked = $$('.sheet .pcard').slice(0, 2).map(c => (c.click(), c.dataset.f));
   $('#savepick').click();
   const links = JSON.parse(window.localStorage.getItem('ycm.postlinks.v1'));
@@ -205,71 +207,6 @@ chk('posts are listed for attaching', $$('#postlist .adcard').length === window.
   $(`[data-prm="${f}"]`).click();
   const after = JSON.parse(window.localStorage.getItem('ycm.postlinks.v1'));
   chk('removing one takes it off the post', !(after[pid] || []).includes(f));
-}
-
-// --- suggested photographs for posts -------------------------------------
-// The mapping came from the order things sat on the live page and is wrong
-// about one time in four, so it is offered with the picture showing and never
-// applied on its own.
-{
-  const photosTab = $$('#anav a').find(a => /photo/i.test(a.textContent));
-  if (photosTab) photosTab.click();
-  const D = window.document;
-
-  const sugg = {};
-  (window.YCM_POOL || []).forEach(x => {
-    if (x.origin === 'blog' && x.suggest) (sugg[x.suggest] = sugg[x.suggest] || []).push(x.file);
-  });
-  const withSugg = Object.keys(sugg);
-  chk('some posts have a suggestion to offer', withSugg.length > 0, withSugg.length + ' posts');
-
-  const cards = () => $$('#postlist .adcard');
-  const offered = () => $$('#postlist .sugg');
-  // an earlier test in this suite attaches a photo on purpose, and a post that
-  // already has one is not offered a guess
-  const linkedNow = JSON.parse(window.localStorage.getItem('ycm.postlinks.v1') || '{}');
-  const expectOffers = withSugg.filter(id => !(linkedNow[id] || []).length).length;
-  chk('every post with a suggestion and no photo is offered it',
-      offered().length === expectOffers, offered().length + ' of ' + expectOffers);
-  chk('a post that already has a photo is not offered a guess',
-      Object.keys(linkedNow).filter(id => (linkedNow[id] || []).length)
-        .every(id => !$(`#postlist .adcard[data-pid="${id}"] .sugg`)));
-  chk('the suggestion shows the photograph before anything is accepted',
-      offered().every(b => !!b.querySelector('.sugg-strip img')));
-  chk('those previews are thumbnails, not full-size originals',
-      offered().every(b => [...b.querySelectorAll('.sugg-strip img')]
-        .every(i => /^assets\/img\/thumbs\//.test(i.getAttribute('src')))));
-  chk('and it warns how often the guess is wrong',
-      /one in four is wrong/i.test($('#suggbar').textContent), $('#suggbar').textContent.trim().slice(0, 60));
-  chk('nothing is attached merely by offering it',
-      offered().every(b => {
-        const id = b.closest('.adcard').dataset.pid;
-        const l = JSON.parse(window.localStorage.getItem('ycm.postlinks.v1') || '{}');
-        return !(l[id] || []).length;
-      }));
-
-  // accept one
-  const first = offered()[0].closest('.adcard');
-  const pid = first.dataset.pid;
-  first.querySelector('[data-sacc]').click();
-  const links = JSON.parse(window.localStorage.getItem('ycm.postlinks.v1') || '{}');
-  chk('accepting attaches that post’s photographs',
-      JSON.stringify(links[pid]) === JSON.stringify(sugg[pid]), (links[pid] || []).length + ' attached');
-  const card = $(`#postlist .adcard[data-pid="${pid}"]`);
-  chk('and the offer is replaced by the real strip',
-      !card.querySelector('.sugg') && !!card.querySelector('.adcard-strip img'));
-
-  // turn one down
-  const next = offered()[0].closest('.adcard');
-  const nid = next.dataset.pid;
-  next.querySelector('[data-sno]').click();
-  chk('turning one down puts it away',
-      !$(`#postlist .adcard[data-pid="${nid}"] .sugg`));
-  chk('and does not attach anything',
-      !JSON.parse(window.localStorage.getItem('ycm.postlinks.v1') || '{}')[nid]);
-  chk('the bar counts what is left to review',
-      /\d+ posts? have a photograph suggested/.test($('#suggbar').textContent),
-      $('#suggbar').textContent.trim().slice(0, 40));
 }
 
 $$('#anav a')[0].click();

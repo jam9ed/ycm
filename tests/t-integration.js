@@ -14,8 +14,8 @@ const LINKS = {
 
 // and an afternoon of the same in the Posts list
 const POST_LINKS = {
-  'delivery-day':      ['assets/img/posts/post_159.jpg'],
-  'a-wyoming-whaler':  ['assets/img/posts/post_160.jpg', 'assets/img/posts/post_161.jpg'],
+  'update-she-s-here':   ['assets/img/posts/post_159.jpg'],
+  'in-the-ycm-pipeline': ['assets/img/posts/post_160.jpg', 'assets/img/posts/post_161.jpg'],
 };
 fs.mkdirSync(path.dirname(CONFIG), { recursive: true });
 fs.writeFileSync(CONFIG, JSON.stringify({
@@ -92,11 +92,11 @@ const chk = (n, c, x='') => out.push(`${c ? 'PASS' : '**FAIL**'}  ${n}${x ? '  â
         `${notes.length - plain.length} with photos, ${plain.length} without`);
 
     // the post's own page shows the photograph too
-    window.location.hash = '#/blog/delivery-day';
+    window.location.hash = '#/blog/update-she-s-here';
     window.dispatchEvent(new window.Event('hashchange'));
     chk('the note page leads with its linked photo',
         !!$('#view-blog img') &&
-        $('#view-blog img').getAttribute('src') === POST_LINKS['delivery-day'][0],
+        $('#view-blog img').getAttribute('src') === POST_LINKS['update-she-s-here'][0],
         $('#view-blog img') && $('#view-blog img').getAttribute('src'));
   } catch (e) {
     chk('integration suite ran', false, e.message);

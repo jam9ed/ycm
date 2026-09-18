@@ -128,15 +128,29 @@
     return h;
   };
 
+  /* Photographs stay on Wix. `wix` holds a media identifier and Wix's own
+     transform path gives us both sizes from it, so nothing is downloaded and
+     no local thumbnail has to be generated. Anything attached in the staff
+     portal is a local file and takes precedence. */
+  const WIX = 'https://static.wixstatic.com/media/';
+  const shotOf = p => {
+    const local = (p.images || [])[0];
+    if (local) return { thumb: thumb(local), full: local };
+    const m = (p.wix || [])[0];
+    return m ? { thumb: WIX + m + '/v1/fill/w_400,h_300,al_c,q_80/file.jpg', full: WIX + m } : null;
+  };
+  const allShots = p => (p.images || []).length
+    ? p.images.map(f => ({ full: f }))
+    : (p.wix || []).map(m => ({ full: WIX + m }));
+
   /* Three things a row can show, in order of how much they can be trusted:
-     the photograph somebody attached in the portal; failing that, the one that
-     sat inside this post on the live site (right about three times in four —
-     wrong ones get replaced in the portal); failing that, a drawing. */
+     the photograph somebody attached in the portal; failing that, the one the
+     post carried on the live site; failing that, a drawing. */
   const noteHTML = p => {
-    const shot = (p.images || [])[0] || (p.fromSite || [])[0];
+    const shot = shotOf(p);
     const h = hashOf(p.id);
     const face = shot
-      ? `<img src="${esc(thumb(shot))}" alt="" loading="lazy" decoding="async">`
+      ? `<img src="${esc(shot.thumb)}" alt="" loading="lazy" decoding="async">`
       : `<svg class="nspot" aria-hidden="true"><use href="#${NOTE_SPOTS[h % NOTE_SPOTS.length]}"></use></svg>`;
     return `<li><a href="#/note/${encodeURIComponent(p.id)}">
       <div class="nthumb${shot ? '' : ' tint-' + (h % 4)}">${face}</div>
@@ -149,9 +163,9 @@
   // The newest note leads the page; the rest sit under it as a plain index.
   function paintNotes() {
     const lead = POSTS[0];
-    const leadShot = lead && ((lead.images || [])[0] || (lead.fromSite || [])[0]);
+    const leadShot = lead && shotOf(lead);
     $('#note-lead').innerHTML = lead ? `<a class="lead${leadShot ? ' lead-has' : ''}" href="#/note/${encodeURIComponent(lead.id)}">
-        ${leadShot ? `<div class="lead-shot"><img src="${esc(thumb(leadShot))}" alt=""
+        ${leadShot ? `<div class="lead-shot"><img src="${esc(leadShot.thumb)}" alt=""
              width="400" height="300" decoding="async"></div>` : ''}
         <div>
           <div class="lead-k">Latest</div>
@@ -207,13 +221,13 @@
     /* Whatever the portal attached, or failing that what the post showed on the
        live site. Full size and uncropped here — the note index crops to a
        thumbnail, but on the post itself you want the whole photograph. */
-    const shots = (p.images || []).length ? p.images : (p.fromSite || []);
+    const shots = allShots(p);
     $('#note').innerHTML = `
       <a class="back" href="#/notes">&larr; All notes</a>
       <h1>${esc(p.title)}</h1>
       <div class="prose" style="margin-top:16px">${(p.body || []).map(t => `<p>${esc(t)}</p>`).join('')}</div>
-      ${shots.length ? `<div class="gal-full">${shots.map((f, i) =>
-        `<figure><img src="${esc(f)}" alt="" ${i ? 'loading="lazy"' : ''} decoding="async"></figure>`
+      ${shots.length ? `<div class="gal-full">${shots.map((x, i) =>
+        `<figure><img src="${esc(x.full)}" alt="" ${i ? 'loading="lazy"' : ''} decoding="async"></figure>`
         ).join('')}</div>` : ''}`;
     show('note');
   }

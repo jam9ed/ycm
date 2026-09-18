@@ -145,9 +145,17 @@ const rows = () => $$('#list .row');
      !/ycm\.css/.test(html));
   ok('no marketing furniture', !/schedule a consultation|request a quote|newsletter|subscribe/i.test(html));
   ok('the old site’s blue is carried through', /#2B328C/i.test(read('assets/css/v4.css')));
-  ok('every image on the page exists',
-     $$('img[src]').every(i => fs.existsSync(path.join(root, i.getAttribute('src')))),
-     $$('img[src]').map(i => i.getAttribute('src')).filter(s => !fs.existsSync(path.join(root, s))).join(', '));
+  {
+    const srcs = $$('img[src]').map(i => i.getAttribute('src'));
+    const local = srcs.filter(s => !/^https?:/.test(s));
+    const remote = srcs.filter(s => /^https?:/.test(s));
+    ok('every local image on the page exists',
+       local.every(s => fs.existsSync(path.join(root, s))),
+       local.filter(s => !fs.existsSync(path.join(root, s))).join(', '));
+    ok('the post photographs are left on Wix rather than copied here',
+       remote.length > 0 && remote.every(s => s.startsWith('https://static.wixstatic.com/media/')),
+       remote.length + ' remote');
+  }
 
   // The <img> width/height attributes reserve layout space, but they also act as
   // presentational hints. A concrete height:720px beats aspect-ratio, which only
@@ -180,22 +188,19 @@ const rows = () => $$('#list .row');
        rows.every(r => { const t = r.querySelector('.nthumb');
                          return !!t.querySelector('img') || !!t.querySelector('.nspot'); }));
 
-    const withSite = POSTS.filter(p => (p.fromSite || []).length);
-    ok('most posts have a photograph recovered from the live site',
-       withSite.length >= 35, withSite.length + ' of ' + POSTS.length);
-    ok('every one of those files is on disk',
-       withSite.every(p => p.fromSite.every(f => fs.existsSync(path.join(root, f)))));
-
+    const withPic = POSTS.filter(p => (p.wix || []).length);
+    ok('most posts carry a photograph from the live page',
+       withPic.length > POSTS.length / 3, withPic.length + ' of ' + POSTS.length);
     const shown = rows.filter(r => r.querySelector('.nthumb img'));
     ok('those rows show it rather than a drawing',
-       shown.length === withSite.length, shown.length + ' rows with a photograph');
-    ok('and show it at thumbnail size, not full resolution',
-       shown.every(r => /^assets\/img\/thumbs\//.test(r.querySelector('img').getAttribute('src'))));
+       shown.length === withPic.length, shown.length + ' rows with a photograph');
+    ok('and ask Wix for a thumbnail rather than the full image',
+       shown.every(r => /static\.wixstatic\.com\/media\/.+\/v1\/fill\/w_400/.test(
+         r.querySelector('img').getAttribute('src'))));
 
     const drawn = rows.filter(r => r.querySelector('.nspot'));
-    ok('the few with nothing recovered still get a drawing',
-       drawn.length === POSTS.length - withSite.length, drawn.length + ' rows drawn');
-    // the same note must keep the same drawing between renders
+    ok('posts with no photograph still get a drawing',
+       drawn.length === POSTS.length - withPic.length, drawn.length + ' rows drawn');
     const before = drawn.map(r => r.querySelector('use').getAttribute('href'));
     w.location.hash = '#/'; w.dispatchEvent(new w.Event('hashchange'));
     w.location.hash = '#/notes'; w.dispatchEvent(new w.Event('hashchange'));
@@ -204,32 +209,21 @@ const rows = () => $$('#list .row');
     ok('a drawn note keeps its drawing between visits',
        JSON.stringify(before) === JSON.stringify(after));
 
-    // `fromSite` is a recovered guess. Anything attached in the portal wins.
-    const target = withSite[0];
-    const chosen = 'assets/img/posts/post_001.jpg';
-    ok('a portal attachment overrides the recovered photograph', (() => {
-      const withImg = { ...target, images: [chosen] };
-      const shot = (withImg.images || [])[0] || (withImg.fromSite || [])[0];
-      return shot === chosen && shot !== target.fromSite[0];
-    })());
-
     ok('the lead note leads with its photograph too',
-       !!$('#note-lead .lead-shot img') || !(w.YCM_POSTS[0].fromSite || []).length);
+       !!$('#note-lead .lead-shot img') || !(POSTS[0].wix || []).length);
   }
 
   // --- a note's own page shows the photographs whole ------------------------
   {
-    const withShots = w.YCM_POSTS.find(p => (p.fromSite || []).length);
+    const withShots = w.YCM_POSTS.find(p => (p.wix || []).length > 1);
     w.location.hash = '#/note/' + encodeURIComponent(withShots.id);
     w.dispatchEvent(new w.Event('hashchange'));
     const imgs = $$('#note .gal-full img');
     ok('the note page shows every photograph it has',
-       imgs.length === withShots.fromSite.length, imgs.length + ' of ' + withShots.fromSite.length);
-    ok('at full size, not the thumbnail',
-       imgs.every(i => !/\/thumbs\//.test(i.getAttribute('src'))),
-       imgs.map(i => i.getAttribute('src')).join(' '));
-    ok('and they are the originals on disk',
-       imgs.every(i => fs.existsSync(path.join(root, i.getAttribute('src')))));
+       imgs.length === withShots.wix.length, imgs.length + ' of ' + withShots.wix.length);
+    ok('at full size: no thumbnail transform on the URL',
+       imgs.every(i => !/\/v1\/fill\//.test(i.getAttribute('src'))),
+       imgs[0] && imgs[0].getAttribute('src').slice(0, 72));
     ok('the writing comes before the pictures on a post', (() => {
       const html = $('#note').innerHTML;
       return html.indexOf('class="prose"') < html.indexOf('gal-full');
@@ -242,7 +236,7 @@ const rows = () => $$('#list .row');
       ok('a note photograph is not cropped to a ratio',
          /height:\s*auto/.test(rule) && !/aspect-ratio/.test(rule), rule.trim());
     }
-    const bare = w.YCM_POSTS.find(p => !(p.fromSite || []).length);
+    const bare = w.YCM_POSTS.find(p => !(p.wix || []).length);
     w.location.hash = '#/note/' + encodeURIComponent(bare.id);
     w.dispatchEvent(new w.Event('hashchange'));
     ok('a note with no photograph shows no empty gallery', $$('#note .gal-full').length === 0);
