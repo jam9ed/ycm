@@ -48,11 +48,11 @@ const rows = () => $$('#list .row');
 
   // --- the setup: there is more here than the list shows -------------------
   {
-    const t = $('.split-note').textContent.replace(/\s+/g, ' ');
+    const t = $('.split-note:not(.owners)').textContent.replace(/\s+/g, ' ');
     ok('the page says the list is not everything', /Not everything is on the list/.test(t));
     ok('and invites people to say what they are after',
        /tell me and I will keep an eye out/.test(t));
-    ok('with the phone number right there', !!$('.split-note a[href^="tel:"]'));
+    ok('with the phone number right there', !!$('.split-note:not(.owners) a[href^="tel:"]'));
   }
 
   // --- the full list lives on its own page --------------------------------
