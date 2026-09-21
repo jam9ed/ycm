@@ -5,11 +5,15 @@ const $$ = s => [...window.document.querySelectorAll(s)];
 const out = [];
 const chk = (n, c, x='') => out.push(`${c ? 'PASS' : '**FAIL**'}  ${n}${x ? '  — ' + x : ''}`);
 
+// jsdom has no confirm(); the portal asks before discarding work, so say yes.
+window.confirm = () => true;
+
 (async () => {
 await ready('#tbody tr');
 
 chk('no script errors', errs.length === 0, errs.join(' ;; '));
-chk('nav rendered', $$('#anav a').length === 4);
+chk('nav rendered', $$('#anav a').length === 6, $$('#anav a').map(a => a.dataset.tab).join(','));
+const goto = t => $(`#anav a[data-tab="${t}"]`).click();
 chk('KPI tiles', $$('.kpi').length === 5, $$('.kpi').length);
 const rowCount = $$('#tbody tr').length;
 chk('table rows = all ads', rowCount === window.YCM.boats.length, `${rowCount} vs ${window.YCM.boats.length}`);
@@ -34,6 +38,10 @@ $('#bulk').value = 'sold';
 $('#bulk').dispatchEvent(new window.Event('change', { bubbles: true }));
 const stored = JSON.parse(window.localStorage.getItem('ycm.inventory.v1'));
 chk('bulk status persisted', stored.find(r => r.id === targetId).status === 'sold', stored.find(r => r.id === targetId).status);
+// a sale with no date sits outside every total on the Sold page, so marking one
+// sold dates it — today, and editable
+chk('marking sold stamps the date', /^\d{4}-\d{2}-\d{2}$/.test(stored.find(r => r.id === targetId).soldOn || ''),
+    stored.find(r => r.id === targetId).soldOn);
 
 // --- create a listing ---------------------------------------------------
 $('#asearch').value = ''; $('#asearch').dispatchEvent(new window.Event('input', { bubbles: true }));
@@ -64,7 +72,7 @@ chk('edit persists', after2.find(r => r.id === made.id).price === 17500);
 chk('edit did not duplicate', after2.filter(r => r.id === made.id).length === 1);
 
 // --- photos: pick some, save them to an ad -------------------------------
-$$('#anav a')[2].click();
+goto('media');
 chk('photos tab renders', /Add photos/.test($('#amain').textContent));
 const liveRows = () => JSON.parse(window.localStorage.getItem('ycm.inventory.v1')) || window.YCM.boats;
 chk('every ad is listed', $$('#adlist .adcard').length === liveRows().length, $$('#adlist .adcard').length);
@@ -209,8 +217,147 @@ chk('posts are listed for attaching', $$('#postlist .adcard').length === window.
   chk('removing one takes it off the post', !(after[pid] || []).includes(f));
 }
 
-$$('#anav a')[0].click();
+goto('list');
 chk('back to inventory', !!$('#tbody'));
+
+// --- notes: the archive, edited by exception ------------------------------
+goto('notes');
+const NOTES = window.YCM_POSTS;
+const edits = () => JSON.parse(window.localStorage.getItem('ycm.postedits.v1') || '{}');
+chk('notes tab lists every note', $$('#notelist .notecard').length === NOTES.length,
+    $$('#notelist .notecard').length + ' of ' + NOTES.length);
+chk('nothing is edited to begin with', Object.keys(edits()).length === 0, JSON.stringify(edits()).slice(0, 80));
+chk('notes read newest first', $$('#notelist .notecard')[0].dataset.nid === NOTES[0].id,
+    $$('#notelist .notecard')[0].dataset.nid);
+
+{
+  const q = $('#notesearch');
+  q.value = 'Montauk'; q.dispatchEvent(new window.Event('input', { bubbles: true }));
+  const found = $$('#notelist .notecard').length;
+  chk('note search narrows', found > 0 && found < NOTES.length, `${NOTES.length} -> ${found}`);
+  chk('search hides the reorder arrows — the list is no longer the running order',
+      $$('#notelist [data-up]').length === 0);
+  q.value = ''; q.dispatchEvent(new window.Event('input', { bubbles: true }));
+}
+
+// hide: off the site, still in the list
+{
+  const id = NOTES[3].id;
+  $(`[data-hide="${id}"]`).click();
+  chk('hiding a note is recorded', edits()[id] && edits()[id].hidden === true, JSON.stringify(edits()[id]));
+  chk('and it is still listed, marked', !!$(`.notecard[data-nid="${id}"].off`));
+  chk('the public view drops it',
+      !window.YCM_CONFIG.mergePosts(NOTES, edits()).some(p => p.id === id));
+  chk('the portal still sees it',
+      window.YCM_CONFIG.mergePosts(NOTES, edits(), true).some(p => p.id === id));
+  $(`[data-hide="${id}"]`).click();
+  chk('showing it again clears the record entirely', !edits()[id], JSON.stringify(edits()[id]));
+}
+
+// edit: only the changed field is saved, and the transcription is kept
+{
+  const seedNote = NOTES[1];
+  $(`[data-note="${seedNote.id}"]`).click();
+  chk('note editor opens on the right note', $('#n-title').value === seedNote.title, $('#n-title').value);
+  chk('the body comes back paragraph per line',
+      $('#n-body').value.split('\n').length === seedNote.body.length);
+  chk('and the transcription is shown beside it', /As transcribed/.test($('#amain').textContent));
+  $('#n-title').value = 'In the YCM pipeline — updated';
+  $('#n-tag').value = 'Owners';
+  $('#notesave').click();
+  const patch = edits()[seedNote.id];
+  chk('the edit is saved', patch && patch.title === 'In the YCM pipeline — updated', JSON.stringify(patch));
+  chk('only what changed is saved — not the whole note',
+      patch && !('body' in patch), Object.keys(patch || {}).join(','));
+  chk('the list shows the new title',
+      $(`.notecard[data-nid="${seedNote.id}"]`).textContent.includes('updated'));
+  chk('the tag is carried through to the public view',
+      window.YCM_CONFIG.mergePosts(NOTES, edits()).find(p => p.id === seedNote.id).tag === 'Owners');
+
+  // and it can be put back
+  $(`[data-note="${seedNote.id}"]`).click();
+  $('#noterevert').click();
+  chk('reverting drops the patch', !edits()[seedNote.id]);
+  chk('and the note reads as transcribed again',
+      window.YCM_CONFIG.mergePosts(NOTES, edits()).find(p => p.id === seedNote.id).title === seedNote.title);
+}
+
+// a note written here, rather than transcribed
+{
+  $('#newnote').click();
+  $('#n-title').value = 'Two Montauks went out this morning';
+  $('#n-body').value = 'Both to the same family.\nThey have been waiting since March.';
+  $('#notesave').click();
+  const mine = window.YCM_CONFIG.mergePosts(NOTES, edits())[0];
+  chk('a new note leads the list', mine.title === 'Two Montauks went out this morning', mine.title);
+  chk('it carries its paragraphs', mine.body.length === 2, JSON.stringify(mine.body));
+  chk('and it is marked as written here',
+      /Written here/.test($('#notelist .notecard').textContent));
+  chk('the count of notes grew by exactly one',
+      window.YCM_CONFIG.mergePosts(NOTES, edits()).length === NOTES.length + 1);
+
+  // reordering swaps two notes' places and nothing else
+  const before = $$('#notelist .notecard').map(c => c.dataset.nid);
+  $(`[data-down="${before[0]}"]`).click();
+  const after = $$('#notelist .notecard').map(c => c.dataset.nid);
+  chk('moving a note down swaps it with the one below',
+      after[0] === before[1] && after[1] === before[0], after.slice(0, 2).join(' / '));
+  chk('and leaves the rest alone',
+      after.slice(2).join() === before.slice(2).join());
+  $(`[data-up="${before[0]}"]`).click();
+  chk('moving it back restores the order',
+      $$('#notelist .notecard').map(c => c.dataset.nid).join() === before.join());
+}
+
+// --- sold: worked out from the records, never estimated -------------------
+goto('sold');
+chk('the boat marked sold earlier is here', $$('#soldbody tr').length === 1, $$('#soldbody tr').length + ' rows');
+chk('sold KPIs render', $$('.kpi').length === 5, $$('.kpi').length);
+chk('an incomplete record is reported, not hidden',
+    /no figure/.test($$('.kpi .delta')[0].textContent), $$('.kpi .delta')[0].textContent);
+chk('a dated sale is plotted', !!$('.chart .col-bar'));
+chk('the run is twelve months', $$('.chart .col-tick').length === 12, $$('.chart .col-tick').length);
+chk('the chart is labelled for a screen reader', /Boats sold per month/.test($('.chart').getAttribute('aria-label')));
+chk('no figure yet, so no median', $$('.kpi b')[2].textContent === '—', $$('.kpi b')[2].textContent);
+
+{
+  const row = $('#soldbody tr');
+  const ask = JSON.parse(window.localStorage.getItem('ycm.inventory.v1')).find(r => r.id === row.dataset.sid).price;
+  const set = (f, v) => { const i = $(`#soldbody [data-f="${f}"]`); i.value = v;
+                          i.dispatchEvent(new window.Event('change', { bubbles: true })); };
+  set('soldPrice', String(ask - 1000));
+  set('listedOn', '2026-01-01');
+  set('soldOn', '2026-03-02');
+  const rec = JSON.parse(window.localStorage.getItem('ycm.inventory.v1')).find(r => r.id === row.dataset.sid);
+  chk('the sale record persists', rec.soldPrice === ask - 1000 && rec.soldOn === '2026-03-02',
+      `${rec.soldPrice} on ${rec.soldOn}`);
+  chk('days on the market are counted from the two dates',
+      $('#soldbody tr td:nth-child(6)').textContent.trim() === '60',
+      $('#soldbody tr td:nth-child(6)').textContent);
+  // signed the way a discount reads: under the asking price is a minus
+  const off = '\u2212' + (1000 / ask * 100).toFixed(1) + '%';
+  chk('and the movement against the asking price',
+      $('#soldbody tr td:nth-child(7)').textContent.trim() === off,
+      $('#soldbody tr td:nth-child(7)').textContent + ' vs ' + off);
+  chk('a sale under the ask is flagged', !!$('#soldbody .off-ask'));
+  chk('the money KPIs fill in once there is a figure', $$('.kpi b')[2].textContent !== '—',
+      $$('.kpi b')[2].textContent);
+  chk('length bands appear', $$('.bandrow').length >= 1, $$('.bandrow').length + ' bands');
+}
+
+// nothing sold -> say so, rather than draw a trend out of nothing
+{
+  goto('list');
+  $$('.rowsel').forEach(c => { c.checked = false; });
+  const sold = JSON.parse(window.localStorage.getItem('ycm.inventory.v1')).filter(r => r.status === 'sold');
+  const cb = $(`#tbody tr[data-id="${sold[0].id}"] .rowsel`);
+  cb.checked = true; cb.dispatchEvent(new window.Event('change', { bubbles: true }));
+  $('#bulk').value = 'available';
+  $('#bulk').dispatchEvent(new window.Event('change', { bubbles: true }));
+  goto('sold');
+  chk('with nothing sold the page says so, and draws no chart',
+      /Nothing sold yet/.test($('#amain').textContent) && !$('.chart'));
+}
 
 console.log(out.join('\n'));
 const failed = out.filter(l => l.startsWith('**')).length;

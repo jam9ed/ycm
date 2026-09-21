@@ -216,9 +216,20 @@ p{ margin:0 0 12px }
             filter:grayscale(1); opacity:.78;
             transition:filter .15s ease, opacity .15s ease }
 .folks li:hover img{ filter:none; opacity:1 }
-/* Two of the five have no usable wordmark on file, so they are set instead. */
-.folk-name{ font-size:15px; font-weight:560; color:var(--ink-2); letter-spacing:-.01em }
-@media (max-width:560px){ .folks{ gap:26px } .folks img{ height:34px } }
+/* Two of the five have no usable wordmark on file, so they are set instead.
+   Stacked onto two lines and given the logos' own height, so the row reads as
+   five marks of one size rather than three marks and two short lines of type. */
+.folk-name{
+  flex-direction:column; align-items:flex-start; justify-content:center; height:44px;
+  font-size:15px; font-weight:560; color:var(--ink-2); letter-spacing:-.01em;
+  line-height:1.2; opacity:.78; transition:opacity .15s ease;
+}
+.folk-name span{ display:block; white-space:nowrap }
+.folk-name:hover{ opacity:1; color:var(--ink) }
+@media (max-width:560px){
+  .folks{ gap:26px } .folks img{ height:34px }
+  .folk-name{ height:34px; font-size:13px }
+}
 
 /* ---- the note that leads ------------------------------------------------- */
 .lead{ border-top:3px solid var(--steel); border-bottom:1px solid var(--line);

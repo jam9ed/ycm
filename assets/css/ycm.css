@@ -575,6 +575,75 @@ textarea.inp{ min-height:120px; resize:vertical; line-height:1.6; font-family:va
 .pickgroup-h{ display:flex; align-items:center; gap:12px; margin-bottom:11px }
 .pickgroup-h .label{ color:var(--ink-2) }
 
+/* A hint outside a form field — the panels use it for the sentence under a
+   heading, and it read as body copy until it was given the field's own style. */
+.hint{ font-size:11.5px; color:var(--ink-3); line-height:1.5; font-weight:400; letter-spacing:0; text-transform:none }
+
+/* --- notes ------------------------------------------------------------- */
+.ntag{
+  display:inline-block; font-size:9.5px; font-weight:700; letter-spacing:.07em;
+  text-transform:uppercase; background:var(--brass-soft); color:var(--brass);
+  border-radius:3px; padding:2px 6px; margin-right:7px; vertical-align:1.5px;
+}
+.nflag{
+  display:inline-block; font-size:9.5px; font-weight:700; letter-spacing:.07em;
+  text-transform:uppercase; background:var(--paper-3); color:var(--ink-3);
+  border-radius:3px; padding:2px 6px; margin-left:7px; vertical-align:1.5px;
+}
+.nflag-new{ background:var(--sea-soft); color:var(--sea) }
+.notecard{
+  display:flex; align-items:flex-start; gap:16px; padding:13px 15px;
+  border:1px solid var(--line); border-radius:var(--r); background:var(--paper); margin-bottom:8px;
+}
+.notecard-txt{ flex:1; min-width:0 }
+.notecard-ttl{ font-weight:600; font-size:14.5px; letter-spacing:-.01em; line-height:1.35 }
+.notecard-b{
+  margin:4px 0 0; font-size:13px; color:var(--ink-2); line-height:1.5;
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+}
+.notecard-m{ font-size:11.5px; color:var(--ink-3); margin-top:5px; font-variant-numeric:tabular-nums }
+.notecard-acts{ display:flex; align-items:center; gap:6px; flex:0 0 auto; flex-wrap:wrap; justify-content:flex-end }
+.notecard-acts .icon-btn{ width:28px; height:28px; font-size:13px }
+.notecard-acts .icon-btn[disabled]{ opacity:.3; cursor:default }
+/* A hidden note is still listed — greyed rather than gone, so it can be found
+   and put back. */
+.notecard.off{ background:var(--paper-2); border-style:dashed }
+.notecard.off .notecard-ttl, .notecard.off .notecard-b{ color:var(--ink-3) }
+.prose.orig{ font-size:14px; color:var(--ink-3); max-width:66ch }
+.prose.orig p{ margin:8px 0 0 }
+
+/* --- sold: one series, so one hue and no legend ------------------------- */
+.chart-wrap{ overflow-x:auto; margin-top:18px; padding-bottom:2px }
+.chart{ width:100%; min-width:520px; height:158px; overflow:visible }
+.chart-base{ stroke:var(--line-2); stroke-width:1 }
+.col-bar{ fill:var(--sea) }
+.col-hit{ fill:transparent }                     /* the hover target, not the mark */
+.col:hover .col-bar{ fill:var(--ink) }
+.col-cap{
+  fill:var(--ink); font:600 11px/1 var(--font-ui); text-anchor:middle;
+  font-variant-numeric:tabular-nums;
+}
+.col-tick{ fill:var(--ink-3); font:400 10.5px/1 var(--font-ui); text-anchor:middle }
+
+.bandbars{ display:grid; gap:9px }
+.bandrow{ display:grid; grid-template-columns:130px minmax(60px,1fr) 34px 84px; align-items:center; gap:12px; font-size:13px }
+.bandrow-l{ color:var(--ink-2) }
+.bandrow-t{ display:block; height:12px; background:var(--paper-3); border-radius:0 3px 3px 0 }
+.bandrow-t i{ display:block; height:100%; background:var(--sea); border-radius:0 4px 4px 0 }
+.bandrow-n{ text-align:right; font-weight:600 }
+.bandrow-v{ text-align:right; color:var(--ink-3); font-size:12.5px }
+
+.inp-sm{ padding:5px 8px; font-size:12.5px; min-width:118px }
+input.inp-sm.num{ min-width:96px; text-align:right; font-variant-numeric:tabular-nums }
+.soldtbl td{ vertical-align:middle }
+.soldtbl .off-ask{ color:var(--signal) }
+
+@media (max-width:720px){
+  .notecard{ flex-direction:column; gap:10px }
+  .notecard-acts{ justify-content:flex-start }
+  .bandrow{ grid-template-columns:104px minmax(40px,1fr) 30px 70px; gap:8px; font-size:12px }
+}
+
 /* featured box */
 .hero-media{ display:block; position:relative; text-decoration:none; color:inherit }
 .hero-media::after{

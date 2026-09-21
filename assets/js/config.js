@@ -14,6 +14,7 @@
        "savedAt": "2026-09-05T15:12:00.000Z",
        "links":     { "<listing-id>": ["assets/img/inv/live_004.jpg", ...] },
        "postLinks": { "<post-id>":    ["assets/img/posts/post_004.jpg", ...] },
+       "postEdits": { "<post-id>":    { title, body, tag, order, hidden } },
        "setAside":  ["assets/img/boats/src_012dfbd305.jpg", ...],
        "listings": [ { id, year, make, model, price, ... } ]
      }
@@ -21,6 +22,13 @@
    `links` is authoritative for photographs and is meant to be read and edited
    by a human. Listing records carry their video slots but no photographs, so
    there is exactly one place a photo-to-boat claim is recorded.
+
+   `postEdits` is sparse on purpose. There are 181 notes and their text is
+   transcribed verbatim in posts.js; writing all of them back out on every save
+   would put a second copy of the archive in the config file and make a one-word
+   correction indistinguishable from a re-transcription. Only the fields a
+   person actually changed are recorded, so the file says exactly what was
+   edited and posts.js stays the source of truth for everything else.
    ========================================================================== */
 (() => {
 'use strict';
@@ -107,12 +115,33 @@ const Config = {
     /* Blog posts carry no images of their own either; they are attached the
        same way listings are. */
     const postLinks = (cfg && cfg.postLinks) || {};
-    const postRows = (posts || []).map(p => ({ ...p, images: postLinks[p.id] || [] }));
-    return { rows, aside: new Set((cfg && cfg.setAside) || []), postLinks, posts: postRows };
+    const postEdits = (cfg && cfg.postEdits) || {};
+    const postRows = this.mergePosts(posts, postEdits)
+      .map(p => ({ ...p, images: postLinks[p.id] || [] }));
+    return { rows, aside: new Set((cfg && cfg.setAside) || []), postLinks, postEdits, posts: postRows };
+  },
+
+  /* seed notes + saved corrections -> the notes in the order they are read.
+
+     A patch for an id the seed does not have is a note somebody wrote in the
+     portal rather than a correction to one from the archive, so it joins the
+     list instead of being dropped. `hidden` takes a note off the site without
+     deleting anything: the public pages call this without the second argument
+     and never see it, the portal passes `true` and can put it back. */
+  mergePosts(seedPosts, postEdits, includeHidden) {
+    const seed = seedPosts || [], edits = postEdits || {};
+    const known = new Set(seed.map(p => p.id));
+    const own = Object.keys(edits).filter(id => !known.has(id))
+      .map(id => ({ id, title: '', body: [], ...clone(edits[id]) }));
+    return [...seed.map(p => ({ ...p, ...clone(edits[p.id] || {}) })), ...own]
+      .map((p, i) => ({ ...p, seq: i }))
+      .filter(p => includeHidden || !p.hidden)
+      .sort((a, b) => (a.order ?? a.seq) - (b.order ?? b.seq) || a.seq - b.seq)
+      .map(({ seq, ...p }) => p);
   },
 
   /* the state the app runs on -> the file */
-  build(rows, aside, postLinks) {
+  build(rows, aside, postLinks, postEdits) {
     const links = {};
     rows.forEach(r => {
       const photos = (r.media || []).filter(isPhoto);
@@ -127,11 +156,16 @@ const Config = {
     Object.entries(postLinks || {}).forEach(([id, files]) => {
       if (Array.isArray(files) && files.length) pl[id] = files;
     });
+    const pe = {};
+    Object.entries(postEdits || {}).forEach(([id, patch]) => {
+      if (patch && typeof patch === 'object' && Object.keys(patch).length) pe[id] = clone(patch);
+    });
     return {
       version: 1,
       savedAt: new Date().toISOString(),
       links,
       postLinks: pl,
+      postEdits: pe,
       titles,                       // lets a later rename be reconciled by headline
       setAside: [...aside].sort(),
       // photographs live in `links` only, so they are recorded in one place
@@ -230,7 +264,8 @@ const Config = {
       return v;
     };
     const norm = c => JSON.stringify(stable({
-      links: c.links, postLinks: c.postLinks || {}, setAside: c.setAside, listings: c.listings }));
+      links: c.links, postLinks: c.postLinks || {}, postEdits: c.postEdits || {},
+      setAside: c.setAside, listings: c.listings }));
     return norm(a) === norm(b);
   },
 };

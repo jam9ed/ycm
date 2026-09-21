@@ -15,7 +15,7 @@ plain `python -m http.server` equivalent — everything works except saving.
 | | |
 |---|---|
 | `index.html` | Public portal — browse, filter, boat detail |
-| `admin.html` | Staff portal — add/edit listings, bulk status, media |
+| `admin.html` | Staff portal — listings, notes, photos, sales |
 | `assets/js/lazy-video.js` | The `<ycm-video>` element |
 | `assets/js/data.js` | Inventory, transcribed from the archive |
 | `assets/js/media-library.js` | the 186-photo pool — file and source, nothing else |
@@ -199,6 +199,8 @@ The file is meant to be read by a person:
     "bw-montauk-17-1998": ["assets/img/inv/live_004.jpg", "assets/img/inv/live_005.jpg"],
     "portland-pudgy":     ["assets/img/inv/live_048.jpg"]
   },
+  "postLinks": { "barn-find-an-old-car-boat": ["assets/img/posts/post_044.jpg"] },
+  "postEdits": { "there-goes-another-whaler": { "tag": "Owners" } },
   "setAside": ["assets/img/boats/src_012dfbd305.jpg"],
   "listings": [ { "id": "bw-montauk-17-1998", "year": 1998, "price": 30000, "..." : "" } ]
 }
@@ -207,6 +209,14 @@ The file is meant to be read by a person:
 `links` is authoritative for photographs and listing records carry none, so a
 photo-to-boat claim is recorded in exactly one place. Video slots stay on the
 listing. A test asserts the round trip is lossless.
+
+`postEdits` is sparse on purpose. The 181 notes are transcribed verbatim in
+`posts.js`; writing them all back out on every save would put a second copy of
+the archive in this file and make a one-word correction indistinguishable from a
+re-transcription. Only the fields somebody actually changed are recorded — so the
+file says exactly what was edited, and `posts.js` stays the source of truth for
+everything else. A patch under an id the archive does not have is a note written
+in the portal, and joins the list on the same terms.
 
 ### When this needs a database
 
@@ -220,7 +230,10 @@ The shape is already relational, which is the part that usually hurts:
 |---|---|
 | `listings[]` | `listings` — id, year, make, model, length, price, status, hours… (already typed, not prose) |
 | `links{}` | `listing_photos` — listing_id, path, position |
+| `postLinks{}` | `note_photos` — note_id, path, position |
+| `postEdits{}` | `notes` — the edited columns, over the transcription |
 | `setAside[]` | `photos.state` — a column, not a separate list |
+| `soldOn` / `soldPrice` on a listing | `sales` — listing_id, listed_on, sold_on, sold_price |
 
 `ads-config.json` imports straight into that as a seed. What forces the move is
 not size — it is a second person triaging at the same time, or wanting an audit
@@ -232,17 +245,41 @@ the Gallery counts how many are still in that state.
 
 ### Admin
 
-`admin.html` — inventory table with search and bulk status changes, a typed
-listing editor (price is a number, length is a number, highlights are an array),
-drag-and-drop photos, and video attached by pasting a playback URL. Photos are
-downscaled to 1600px on the way in.
+`admin.html` — six tabs over the same saved file.
 
-The **Gallery** tab is the photo pool and its drag-and-drop linking, described
-above.
+| Tab | What it is for |
+|---|---|
+| **Inventory** | the listing table: search, bulk status, and a typed editor (price is a number, length is a number, the copy is an array of paragraphs) |
+| **New ad** | that editor, empty |
+| **Notes** | the 181 notes from the yard — correct the wording, tag one, reorder them, hide one, or write a new one |
+| **Photos** | the photo pool and the picker, described above |
+| **Sold** | what has sold, and what that says |
+| **Delivery** | a placeholder for the transport board |
+
+**Notes** edits by exception. The wording came off the old site verbatim, so only
+what somebody changes is saved and the transcription stays beside it in the
+editor, never overwritten — one button puts a note back the way it was found.
+Hiding takes a note off every public page and leaves it in this list, so nothing
+is deleted to get it off the site.
+
+**Sold** is worked out from the sale records and from nothing else: a date and a
+figure, typed by whoever made the sale. Marking a boat sold on the Inventory page
+dates it today and sends it here for the figure. A sale with no date is left out
+of the months rather than dropped into the current one, and a sale with no figure
+is left out of the money rather than counted as a zero — both are then reported
+as missing, so a thin-looking month is always either a thin month or a record
+somebody still has to finish. With nothing sold the page says so instead of
+drawing a trend out of an empty set.
+
+What it shows: boats sold, delivered value, median sale, median days on the
+market, and the median movement against the asking price; a column per month for
+the last twelve; a breakdown by length; and every record in a table you can type
+straight into. Also a CSV export, because the first thing anyone asks of a sales
+figure is to put it in a spreadsheet.
 
 Persistence is `localStorage` via a single `store` object at the top of
-`admin.js`. Swap those three methods for `fetch()` calls and nothing above them
-changes. **Export JSON** gives you the whole catalogue to seed a real backend.
+`admin.js`. Swap those methods for `fetch()` calls and nothing above them
+changes. **Export config** gives you the whole catalogue to seed a real backend.
 
 ---
 

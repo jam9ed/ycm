@@ -43,6 +43,34 @@ shuffled.listings = shuffled.listings.map(l => Object.keys(l).reverse()
 chk('key order does not make a saved config look dirty', CFG.same(shuffled, built));
 
 chk('same() spots a difference', !CFG.same(built, CFG.build(seed.map(r => ({...r})), new Set())));
+
+// --- notes: saved by exception -------------------------------------------
+const seedNotes = [
+  { id:'n1', order:0, title:'She is here', body:['Two hundred hours.'] },
+  { id:'n2', order:1, title:'In the pipeline', body:['A 130 Sport.'], tag:'Owners' },
+];
+const edits = {
+  n1: { title:'She is here at last' },     // a correction
+  n2: { hidden:true },                     // off the site, not deleted
+  n3: { title:'Written in the portal', body:['Nothing to transcribe.'], order:-1 },
+};
+const withNotes = CFG.build(rows, aside, {}, edits);
+chk('build records the note edits', JSON.stringify(withNotes.postEdits) === JSON.stringify(edits));
+chk('and drops a patch with nothing in it',
+    Object.keys(CFG.build(rows, aside, {}, { n1:{}, n2:edits.n2 }).postEdits).join() === 'n2');
+
+const notes = CFG.apply(seed, withNotes, seedNotes).posts;
+chk('a correction is laid over the transcription', notes.find(p => p.id === 'n1').title === 'She is here at last');
+chk('the rest of that note is untouched',
+    JSON.stringify(notes.find(p => p.id === 'n1').body) === JSON.stringify(seedNotes[0].body));
+chk('a hidden note never reaches a public page', !notes.some(p => p.id === 'n2'), notes.map(p => p.id).join());
+chk('a note written in the portal comes through', !!notes.find(p => p.id === 'n3'));
+chk('and `order` decides what leads', notes[0].id === 'n3', notes.map(p => p.id).join(' '));
+chk('the portal can still see the hidden one',
+    CFG.mergePosts(seedNotes, edits, true).some(p => p.id === 'n2'));
+chk('notes with no saved edits are the transcription, in file order',
+    CFG.apply(seed, built, seedNotes).posts.map(p => p.id).join() === 'n1,n2');
+chk('an edited note makes the config dirty', !CFG.same(withNotes, built));
 const noFetch = CFG.load();   // jsdom window has no fetch; must resolve to null, not throw
 chk('load() is thenable without fetch', typeof noFetch.then === 'function');
 
